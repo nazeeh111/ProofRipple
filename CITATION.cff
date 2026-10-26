@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use ProofRipple, cite this software and the relevant research foundations."
+title: "ProofRipple: Audited consequence discovery in finite implication systems"
+type: software
+version: 0.1.0
+date-released: 2026-10-26
+license: MIT
+authors:
+  - name: "Nazeeh"
+repository-code: "https://github.com/nazeeh111/ProofRipple"

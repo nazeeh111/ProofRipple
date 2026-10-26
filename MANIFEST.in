@@ -1,0 +1,11 @@
+recursive-include lab *.html *.js *.css *.svg
+recursive-include examples *.json *.lean
+recursive-include docs *.md
+recursive-include docs/media *.svg *.png *.mp4
+recursive-include docs *.json
+recursive-include scripts *.cjs
+recursive-include artifacts/proofs *.lean
+include artifacts/benchmark-audits.json.gz
+include CHANGELOG.md CITATION.cff CONTRIBUTING.md
+include artifacts/demo.json artifacts/model.json artifacts/benchmark.json artifacts/contexts.json artifacts/Demo.lean
+include lean-toolchain LICENSE

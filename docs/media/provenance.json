@@ -1,0 +1,29 @@
+{
+  "kind": "Actual LAB captures; recorded certified results, not a live verification-duration recording",
+  "source_run_sha256": "7ba7d6b74b1668f24abb4ffc0e1e5605d8f78d59eee04195788b408115c26b64",
+  "proof_source_sha256": "3eeefa345cff75537b8c3077fa98419e12c0f05e6f47323b64ee42c1c731c036",
+  "files": {
+    "wordmark.svg": "4780da38615a4bf01078ebf44ac710676898e809550dc73ffbcfb69f076eea09",
+    "lab-desktop.png": "5f30365904a999f1b48d8f9f02dd3542f487d539a3281bf1273ef499e18b67c5",
+    "lab-mobile.png": "4006b27759c66945324d025c601b117e4d7af856ea2963f11f43435b1daa9e57",
+    "walkthrough.mp4": "890a5c1627191f9e516bab0f9884e1e65c5526a9af8290a2283befa7605fa699"
+  },
+  "video": {
+    "duration_seconds": 19,
+    "width": 1440,
+    "height": 1000,
+    "codec": "H.264",
+    "fps": 25,
+    "audio": false,
+    "full_decode": "passed",
+    "representative_frames_seconds": [
+      4,
+      11,
+      17
+    ]
+  },
+  "capture_scripts": [
+    "scripts/check_lab.cjs",
+    "scripts/record_walkthrough.cjs"
+  ]
+}

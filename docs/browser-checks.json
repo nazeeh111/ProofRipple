@@ -1,0 +1,15 @@
+{
+  "url": "http://127.0.0.1:8765/lab/",
+  "checks": [
+    "recorded evidence",
+    "saved search/selection budgets",
+    "axiom inspector",
+    "keyboard tabs",
+    "empty filtering",
+    "JSON export",
+    "failed-run retention",
+    "desktop/mobile overflow"
+  ],
+  "pageErrors": [],
+  "source_sha256": "3eeefa345cff75537b8c3077fa98419e12c0f05e6f47323b64ee42c1c731c036"
+}

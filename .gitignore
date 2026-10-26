@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.egg-info/
+.DS_Store
+outputs/
+artifacts/certification-runs.json
+artifacts/benchmark-audits.json
+TASK_STATE.md

@@ -1,0 +1,64 @@
+name: Tests and Lean verification
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install .
+      - run: python -m unittest discover -s tests -v
+      - name: Installed CLI and data smoke check
+        working-directory: /tmp
+        run: |
+          proofripple doctor
+          proofripple demo --no-verify --out proofripple-smoke
+  formal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned free Lean toolchain
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/leanprover/elan/v4.2.3/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain leanprover/lean4:v4.33.1
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: python -m pip install . build
+      - run: lean --version
+      - run: python -m unittest discover -s tests -v
+      - run: proofripple demo --out outputs/demo
+      - run: proofripple benchmark --out outputs/benchmark --certify
+      - name: Compare deterministic experiment outcomes
+        run: |
+          python - <<'PY'
+          import json
+          recorded=json.load(open('artifacts/benchmark.json'))
+          fresh=json.load(open('outputs/benchmark/benchmark.json'))
+          assert recorded['outcomes_sha256']==fresh['outcomes_sha256']
+          assert fresh['formal_verification']['status']=='kernel_verified'
+          assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
+          PY
+      - run: python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lean-evidence-and-packages
+          path: |
+            outputs/demo/
+            outputs/benchmark/benchmark.json
+            outputs/benchmark/benchmark-audits.json
+            outputs/benchmark/proofs/
+            dist/

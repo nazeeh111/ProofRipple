@@ -1,0 +1,58 @@
+/* Optional development check: npm install --no-save playwright, or NODE_PATH.
+   Uses a fresh browser profile and only the supplied loopback workbench URL. */
+const { chromium } = require('playwright');
+const fs = require('node:fs/promises');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+
+(async () => {
+  const url = process.env.PROOFRIPPLE_URL || 'http://127.0.0.1:8765/lab/';
+  const out = path.resolve(process.env.PROOFRIPPLE_BROWSER_OUT || 'outputs/browser');
+  await fs.mkdir(out, { recursive: true });
+  const browser = await chromium.launch({ headless: true, executablePath: process.env.PROOFRIPPLE_CHROME });
+  const errors = [];
+  const context = await browser.newContext({ viewport: {width:1440,height:1080}, acceptDownloads:true });
+  const page = await context.newPage();
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(url);
+  await page.waitForFunction(() => document.querySelector('#verified-count').textContent==='19');
+  assert.equal(await page.inputValue('#budget'),'8');
+  assert.equal(await page.locator('#selected-count').textContent(),'3 selected');
+  assert.match(await page.locator('#notice').textContent(),/Recorded experiment/);
+  assert.equal(await page.locator('#baseline-total').textContent(),'1/4');
+  assert.equal(await page.locator('#augmented-total').textContent(),'4/4');
+  await page.locator('#assumptions-tab').click();
+  assert.match(await page.locator('#axiom-count').textContent(),/0 · empty axiom set/);
+  await page.locator('#assumptions-tab').press('ArrowLeft');
+  assert.equal(await page.locator('#proof-tab').getAttribute('aria-selected'),'true');
+  await page.locator('#candidate-search').fill('no-such-consequence');
+  assert.equal(await page.locator('#candidate-empty').isVisible(),true);
+  await page.locator('#candidate-search').fill('');
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#export-json').click();
+  const download = await downloadPromise;
+  await download.saveAs(path.join(out,'downloaded-run.json'));
+  const run = JSON.parse(await fs.readFile(path.join(out,'downloaded-run.json'),'utf8'));
+  assert.equal(run.verification.status,'kernel_verified');
+  assert.equal(run.budget.selected_lemmas,3);
+  const sameWidth = () => page.evaluate(() => document.documentElement.scrollWidth<=window.innerWidth);
+  assert.equal(await sameWidth(),true);
+  await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
+  await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+  await page.screenshot({path:path.join(out,'desktop-viewport.png')});
+  await page.route('**/api/run', route => route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Intentional failure-path test'})}));
+  await page.locator('#run-button').click();
+  await page.waitForFunction(() => document.querySelector('#notice').textContent.includes('Exploration failed'));
+  assert.equal(await page.locator('#verified-count').textContent(),'19');
+  await page.unroute('**/api/run');
+  await page.reload();
+  await page.waitForFunction(() => document.querySelector('#verified-count').textContent==='19');
+  await page.setViewportSize({width:390,height:844});
+  assert.equal(await sameWidth(),true);
+  await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
+  assert.deepEqual(errors,[]);
+  const report={url,checks:['recorded evidence','saved search/selection budgets','axiom inspector','keyboard tabs','empty filtering','JSON export','failed-run retention','desktop/mobile overflow'],pageErrors:errors,source_sha256:run.verification.source_sha256};
+  await fs.writeFile(path.join(out,'checks.json'),JSON.stringify(report,null,2)+'\n');
+  await browser.close();
+  console.log(JSON.stringify(report));
+})().catch(error => {console.error(error);process.exit(1);});
