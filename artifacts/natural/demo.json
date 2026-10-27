@@ -1,0 +1,1388 @@
+{
+  "schema_version": 1,
+  "context": {
+    "id": "list_capacity",
+    "domain": "list-capacity",
+    "title": "Verified list-pipeline capacity",
+    "description": "A concrete List Nat pipeline of filter, map, reverse and take operations. Each stage's length is at most its input capacity. The registered append/addition template also proves a two-buffer capacity consequence; it is not claimed as an invented theorem.",
+    "nodes": [
+      {
+        "id": "p0",
+        "label": "Input capacity",
+        "expression": {
+          "op": "input"
+        }
+      },
+      {
+        "id": "p1",
+        "label": "Stage 1: filter capacity",
+        "expression": {
+          "op": "filter",
+          "input": "p0"
+        }
+      },
+      {
+        "id": "p2",
+        "label": "Stage 2: map capacity",
+        "expression": {
+          "op": "map",
+          "input": "p1"
+        }
+      },
+      {
+        "id": "p3",
+        "label": "Stage 3: reverse capacity",
+        "expression": {
+          "op": "reverse",
+          "input": "p2"
+        }
+      },
+      {
+        "id": "p4",
+        "label": "Stage 4: take capacity",
+        "expression": {
+          "op": "take",
+          "input": "p3"
+        }
+      },
+      {
+        "id": "p5",
+        "label": "Stage 5: filter capacity",
+        "expression": {
+          "op": "filter",
+          "input": "p4"
+        }
+      },
+      {
+        "id": "p6",
+        "label": "Stage 6: map capacity",
+        "expression": {
+          "op": "map",
+          "input": "p5"
+        }
+      },
+      {
+        "id": "p7",
+        "label": "Stage 7: reverse capacity",
+        "expression": {
+          "op": "reverse",
+          "input": "p6"
+        }
+      },
+      {
+        "id": "p8",
+        "label": "Stage 8: take capacity",
+        "expression": {
+          "op": "take",
+          "input": "p7"
+        }
+      },
+      {
+        "id": "p9",
+        "label": "Stage 9: filter capacity",
+        "expression": {
+          "op": "filter",
+          "input": "p8"
+        }
+      },
+      {
+        "id": "p10",
+        "label": "Stage 10: map capacity",
+        "expression": {
+          "op": "map",
+          "input": "p9"
+        }
+      },
+      {
+        "id": "p11",
+        "label": "Stage 11: reverse capacity",
+        "expression": {
+          "op": "reverse",
+          "input": "p10"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "h0",
+        "source": "p0",
+        "target": "p1"
+      },
+      {
+        "id": "h1",
+        "source": "p1",
+        "target": "p2"
+      },
+      {
+        "id": "h2",
+        "source": "p2",
+        "target": "p3"
+      },
+      {
+        "id": "h3",
+        "source": "p3",
+        "target": "p4"
+      },
+      {
+        "id": "h4",
+        "source": "p4",
+        "target": "p5"
+      },
+      {
+        "id": "h5",
+        "source": "p5",
+        "target": "p6"
+      },
+      {
+        "id": "h6",
+        "source": "p6",
+        "target": "p7"
+      },
+      {
+        "id": "h7",
+        "source": "p7",
+        "target": "p8"
+      },
+      {
+        "id": "h8",
+        "source": "p8",
+        "target": "p9"
+      },
+      {
+        "id": "h9",
+        "source": "p9",
+        "target": "p10"
+      },
+      {
+        "id": "h10",
+        "source": "p10",
+        "target": "p11"
+      }
+    ],
+    "seed": {
+      "id": "breakthrough",
+      "source": "p4",
+      "target": "p6",
+      "path": [
+        "h4",
+        "h5"
+      ]
+    },
+    "goals": [
+      {
+        "id": "goal_input",
+        "source": "p0",
+        "target": "p11"
+      },
+      {
+        "id": "goal_mapped",
+        "source": "p2",
+        "target": "p11"
+      }
+    ]
+  },
+  "context_sha256": "92831cfccfe068320437528c11cf2995a4974bba7909c0ad0379c6753478859d",
+  "seed": {
+    "id": "breakthrough",
+    "source": "p4",
+    "target": "p6",
+    "path": [
+      "h4",
+      "h5"
+    ],
+    "status": "kernel_verified",
+    "proof": "theorem pr_breakthrough (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_h5 xs f p k cap (pr_h4 xs f p k cap hx))\n",
+    "axioms": [
+      "propext"
+    ],
+    "statement": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap",
+    "dependencies": [
+      "List",
+      "Nat",
+      "Bool",
+      "LE.le",
+      "instLENat",
+      "List.length",
+      "stage_p4",
+      "pr_h5",
+      "pr_h4"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "ripple_p3_p6",
+      "source": "p3",
+      "target": "p6",
+      "path": [
+        "h3",
+        "breakthrough"
+      ],
+      "status": "kernel_verified",
+      "score": 1.2,
+      "uncertainty": 0.0,
+      "dependencies": [
+        "List",
+        "Nat",
+        "Bool",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p3",
+        "pr_breakthrough",
+        "pr_h3"
+      ],
+      "axioms": [
+        "propext"
+      ],
+      "explanation": "Compose 2 closed capacity theorems through the seed to transport the bound from p3 to p6. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics.",
+      "features": [
+        0.25,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.3333333333333333,
+        0.5,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.6666666666666666
+      ],
+      "normal_form": "(('filter_length', ('input', 'xs')), ('filter_length', ('take', ('reverse', ('map', ('filter', ('input', 'xs')))))))",
+      "novelty": "Unindexed composition in a restricted registry; elementary known mathematics, with conservative length-equivalence filtering.",
+      "proof": "theorem pr_ripple_p3_p6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_breakthrough xs f p k cap (pr_h3 xs f p k cap hx))\n",
+      "inference_rule": "capacity-bound transitivity",
+      "statement": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+    },
+    {
+      "id": "ripple_p4_p9",
+      "source": "p4",
+      "target": "p9",
+      "path": [
+        "breakthrough",
+        "h6",
+        "h7",
+        "h8"
+      ],
+      "status": "kernel_verified",
+      "score": 3.2,
+      "uncertainty": 0.0,
+      "dependencies": [
+        "List",
+        "Nat",
+        "Bool",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p4",
+        "pr_h8",
+        "pr_h7",
+        "pr_h6",
+        "pr_breakthrough"
+      ],
+      "axioms": [
+        "propext"
+      ],
+      "explanation": "Compose 4 closed capacity theorems through the seed to transport the bound from p4 to p9. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics.",
+      "features": [
+        0.4166666666666667,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.4166666666666667,
+        0.25,
+        0.0,
+        0.0,
+        1.0,
+        3.0,
+        0.4
+      ],
+      "normal_form": "(('min_k', ('filter_length', ('input', 'xs'))), ('filter_length', ('map', ('filter', ('take', ('reverse', ('map', ('filter', ('input', 'xs')))))))))",
+      "novelty": "Unindexed composition in a restricted registry; elementary known mathematics, with conservative length-equivalence filtering.",
+      "proof": "theorem pr_ripple_p4_p9 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap :=\n  fun hx => (pr_h8 xs f p k cap (pr_h7 xs f p k cap (pr_h6 xs f p k cap (pr_breakthrough xs f p k cap hx))))\n",
+      "inference_rule": "capacity-bound transitivity",
+      "statement": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap"
+    },
+    {
+      "id": "ripple_p0_p6",
+      "source": "p0",
+      "target": "p6",
+      "path": [
+        "h0",
+        "h1",
+        "h2",
+        "h3",
+        "breakthrough"
+      ],
+      "status": "kernel_verified",
+      "score": 2.1,
+      "uncertainty": 0.0,
+      "dependencies": [
+        "List",
+        "Nat",
+        "Bool",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p0",
+        "pr_breakthrough",
+        "pr_h3",
+        "pr_h2",
+        "pr_h1",
+        "pr_h0"
+      ],
+      "axioms": [
+        "propext"
+      ],
+      "explanation": "Compose 5 closed capacity theorems through the seed to transport the bound from p0 to p6. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics.",
+      "features": [
+        0.5,
+        0.0,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        2.0,
+        0.3333333333333333
+      ],
+      "normal_form": "(('length', 'xs'), ('filter_length', ('take', ('reverse', ('map', ('filter', ('input', 'xs')))))))",
+      "novelty": "Unindexed composition in a restricted registry; elementary known mathematics, with conservative length-equivalence filtering.",
+      "proof": "theorem pr_ripple_p0_p6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_breakthrough xs f p k cap (pr_h3 xs f p k cap (pr_h2 xs f p k cap (pr_h1 xs f p k cap (pr_h0 xs f p k cap hx)))))\n",
+      "inference_rule": "capacity-bound transitivity",
+      "statement": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+    }
+  ],
+  "selected": [
+    "ripple_p4_p9"
+  ],
+  "ranking_model": null,
+  "goals": [
+    {
+      "id": "goal_input",
+      "source": "p0",
+      "target": "p11",
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      },
+      "augmented": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      }
+    },
+    {
+      "id": "goal_mapped",
+      "source": "p2",
+      "target": "p11",
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 8,
+        "path": [
+          "h2",
+          "h3",
+          "ripple_p4_p9",
+          "h9",
+          "h10"
+        ]
+      }
+    }
+  ],
+  "budget": {
+    "selected_lemmas": 1,
+    "search_expansions_per_goal": 8,
+    "candidate_limit": 256,
+    "candidate_generation_max_path_edges": 6
+  },
+  "verification": {
+    "status": "kernel_verified",
+    "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c",
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "axiom_policy": "explicit_foundational_allowlist",
+    "allowed_axioms": [
+      "propext"
+    ],
+    "audits": [
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "Bool",
+          "List",
+          "List.rec",
+          "LE.le",
+          "Nat",
+          "instLENat",
+          "List.length",
+          "List.filter",
+          "of_eq_true",
+          "OfNat.ofNat",
+          "instOfNatNat",
+          "Nat.le_refl._simp_1",
+          "Eq.mpr",
+          "List.cons",
+          "ite",
+          "Eq",
+          "Bool.true",
+          "instDecidableEqBool",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "id",
+          "congrFun'",
+          "congrArg",
+          "List.filter_cons",
+          "Decidable.casesOn",
+          "Decidable",
+          "Not",
+          "if_neg",
+          "Nat.le_trans",
+          "Nat.le_add_right",
+          "if_pos",
+          "Nat.succ_le_succ"
+        ],
+        "name": "List.length_filter_le",
+        "type": "\u2200 {\u03b1 : Type u_1} (p : \u03b1 \u2192 Bool) (l : List \u03b1), (List.filter p l).length \u2264 l.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "List.rec",
+          "Eq",
+          "Nat",
+          "List.length",
+          "List.map",
+          "of_eq_true",
+          "OfNat.ofNat",
+          "instOfNatNat",
+          "eq_self",
+          "List.cons",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "Eq.trans",
+          "True",
+          "congrFun'",
+          "congrArg"
+        ],
+        "name": "List.length_map",
+        "type": "\u2200 {\u03b1 : Type u_1} {\u03b2 : Type u_2} {as : List \u03b1} (f : \u03b1 \u2192 \u03b2), (List.map f as).length = as.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "List.rec",
+          "Eq",
+          "Nat",
+          "List.length",
+          "List.reverse",
+          "Eq.refl",
+          "List.nil",
+          "of_eq_true",
+          "List.cons",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "OfNat.ofNat",
+          "instOfNatNat",
+          "Eq.trans",
+          "True",
+          "congrFun'",
+          "congrArg",
+          "HAppend.hAppend",
+          "instHAppendOfAppend",
+          "List.instAppend",
+          "List.reverse_cons",
+          "List.length_append",
+          "congr",
+          "Nat.zero_add",
+          "eq_self"
+        ],
+        "name": "List.length_reverse",
+        "type": "\u2200 {\u03b1 : Type u_1} {as : List \u03b1}, as.reverse.length = as.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "Nat",
+          "List",
+          "of_eq_true",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "List.take",
+          "Eq.trans",
+          "Min.min",
+          "instMinNat",
+          "True",
+          "congrFun'",
+          "congrArg",
+          "List.length_take",
+          "_private.Init.Data.List.Nat.TakeDrop.0.List.length_take_le'._simp_1_1"
+        ],
+        "name": "List.length_take_le'",
+        "type": "\u2200 {\u03b1 : Type u_1} (i : Nat) (l : List \u03b1), (List.take i l).length \u2264 l.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "List.rec",
+          "Eq",
+          "Nat",
+          "List.length",
+          "HAppend.hAppend",
+          "instHAppendOfAppend",
+          "List.instAppend",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "of_eq_true",
+          "List.nil",
+          "Eq.trans",
+          "True",
+          "congrArg",
+          "Nat.zero_add",
+          "eq_self",
+          "List.cons",
+          "OfNat.ofNat",
+          "instOfNatNat",
+          "congr",
+          "congrFun'",
+          "Nat.succ_add"
+        ],
+        "name": "List.length_append",
+        "type": "\u2200 {\u03b1 : Type u} {as bs : List \u03b1}, (as ++ bs).length = as.length + bs.length"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "Nat",
+          "LE.le",
+          "instLENat",
+          "Nat.le.brecOn",
+          "Nat.le.below",
+          "_private.Init.Prelude.0.Nat.le_trans.match_1_10",
+          "Nat.le",
+          "Nat.le.step"
+        ],
+        "name": "Nat.le_trans",
+        "type": "\u2200 {n m k : Nat}, n \u2264 m \u2192 m \u2264 k \u2192 n \u2264 k"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "Nat",
+          "LE.le",
+          "instLENat",
+          "Nat.le_trans",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "Nat.add_le_add_right",
+          "Nat.add_le_add_left"
+        ],
+        "name": "Nat.add_le_add",
+        "type": "\u2200 {a b c d : Nat}, a \u2264 b \u2192 c \u2264 d \u2192 a + c \u2264 b + d"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool"
+        ],
+        "name": "stage_p0",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.filter",
+          "stage_p0"
+        ],
+        "name": "stage_p1",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.map",
+          "stage_p1"
+        ],
+        "name": "stage_p2",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.reverse",
+          "stage_p2"
+        ],
+        "name": "stage_p3",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.take",
+          "stage_p3"
+        ],
+        "name": "stage_p4",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.filter",
+          "stage_p4"
+        ],
+        "name": "stage_p5",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.map",
+          "stage_p5"
+        ],
+        "name": "stage_p6",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.reverse",
+          "stage_p6"
+        ],
+        "name": "stage_p7",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.take",
+          "stage_p7"
+        ],
+        "name": "stage_p8",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.filter",
+          "stage_p8"
+        ],
+        "name": "stage_p9",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.map",
+          "stage_p9"
+        ],
+        "name": "stage_p10",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "List.reverse",
+          "stage_p10"
+        ],
+        "name": "stage_p11",
+        "type": "List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "Nat.le_trans",
+          "List.filter",
+          "List.length_filter_le"
+        ],
+        "name": "prx_step_filter",
+        "type": "\u2200 (xs : List Nat) (p : Nat \u2192 Bool) (cap : Nat), xs.length \u2264 cap \u2192 (List.filter p xs).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Eq.mpr",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "List.map",
+          "id",
+          "Eq",
+          "congrArg",
+          "List.length_map"
+        ],
+        "name": "prx_step_map",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (cap : Nat), xs.length \u2264 cap \u2192 (List.map f xs).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Eq.mpr",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "List.reverse",
+          "id",
+          "Eq",
+          "congrArg",
+          "List.length_reverse"
+        ],
+        "name": "prx_step_reverse",
+        "type": "\u2200 (xs : List Nat) (cap : Nat), xs.length \u2264 cap \u2192 xs.reverse.length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "Nat.le_trans",
+          "List.take",
+          "List.length_take_le'"
+        ],
+        "name": "prx_step_take",
+        "type": "\u2200 (xs : List Nat) (k cap : Nat), xs.length \u2264 cap \u2192 (List.take k xs).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p0",
+          "prx_step_filter"
+        ],
+        "name": "pr_h0",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p1 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p1",
+          "prx_step_map"
+        ],
+        "name": "pr_h1",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p1 xs f p k).length \u2264 cap \u2192 (stage_p2 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p2",
+          "prx_step_reverse"
+        ],
+        "name": "pr_h2",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p3 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p3",
+          "prx_step_take"
+        ],
+        "name": "pr_h3",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p4 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p4",
+          "prx_step_filter"
+        ],
+        "name": "pr_h4",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p5 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p5",
+          "prx_step_map"
+        ],
+        "name": "pr_h5",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p5 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p6",
+          "prx_step_reverse"
+        ],
+        "name": "pr_h6",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p6 xs f p k).length \u2264 cap \u2192 (stage_p7 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p7",
+          "prx_step_take"
+        ],
+        "name": "pr_h7",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p7 xs f p k).length \u2264 cap \u2192 (stage_p8 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p8",
+          "prx_step_filter"
+        ],
+        "name": "pr_h8",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p8 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p9",
+          "prx_step_map"
+        ],
+        "name": "pr_h9",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p9 xs f p k).length \u2264 cap \u2192 (stage_p10 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p10",
+          "prx_step_reverse"
+        ],
+        "name": "pr_h10",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p10 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p4",
+          "pr_h5",
+          "pr_h4"
+        ],
+        "name": "pr_breakthrough",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p3",
+          "pr_breakthrough",
+          "pr_h3"
+        ],
+        "name": "pr_ripple_p3_p6",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p4",
+          "pr_h8",
+          "pr_h7",
+          "pr_h6",
+          "pr_breakthrough"
+        ],
+        "name": "pr_ripple_p4_p9",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p0",
+          "pr_breakthrough",
+          "pr_h3",
+          "pr_h2",
+          "pr_h1",
+          "pr_h0"
+        ],
+        "name": "pr_ripple_p0_p6",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "stage_p2",
+          "pr_h10",
+          "pr_h9",
+          "pr_ripple_p4_p9",
+          "pr_h3",
+          "pr_h2"
+        ],
+        "name": "pr_goal_1_augmented",
+        "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "Eq.mpr",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "List.reverse",
+          "List.map",
+          "List.filter",
+          "id",
+          "Eq",
+          "congrArg",
+          "List.length_reverse",
+          "List.length_map",
+          "List.length_filter_le"
+        ],
+        "name": "prx_filtered_budget",
+        "type": "\u2200 (xs : List Nat) (p : Nat \u2192 Bool) (f : Nat \u2192 Nat), (List.map f (List.filter p xs)).reverse.length \u2264 xs.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "Eq.mpr",
+          "LE.le",
+          "instLENat",
+          "List.length",
+          "HAppend.hAppend",
+          "instHAppendOfAppend",
+          "List.instAppend",
+          "List.reverse",
+          "List.map",
+          "List.filter",
+          "List.take",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "id",
+          "Eq",
+          "congrArg",
+          "List.length_append",
+          "Nat.add_le_add",
+          "prx_filtered_budget",
+          "List.length_map",
+          "Nat.le_trans",
+          "List.length_take_le'",
+          "List.length_filter_le"
+        ],
+        "name": "prx_paired_budget",
+        "type": "\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k : Nat),\n  ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264\n    xs.length + ys.length"
+      },
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "List",
+          "Nat",
+          "Bool",
+          "LE.le",
+          "instLENat",
+          "HAdd.hAdd",
+          "instHAdd",
+          "instAddNat",
+          "List.length",
+          "Nat.le_trans",
+          "HAppend.hAppend",
+          "instHAppendOfAppend",
+          "List.instAppend",
+          "List.reverse",
+          "List.map",
+          "List.filter",
+          "List.take",
+          "prx_paired_budget"
+        ],
+        "name": "prx_combined_buffer_safe",
+        "type": "\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k cap : Nat),\n  xs.length + ys.length \u2264 cap \u2192\n    ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264 cap"
+      }
+    ],
+    "log": "{\"caption\":\"\",\"data\":\"Variable name `f` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _f\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":31,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":30,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `p` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _p\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":47,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":46,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `k` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _k\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":64,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":63,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"Bool\\\",\\\"List\\\",\\\"List.rec\\\",\\\"LE.le\\\",\\\"Nat\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"List.filter\\\",\\\"of_eq_true\\\",\\\"OfNat.ofNat\\\",\\\"instOfNatNat\\\",\\\"Nat.le_refl._simp_1\\\",\\\"Eq.mpr\\\",\\\"List.cons\\\",\\\"ite\\\",\\\"Eq\\\",\\\"Bool.true\\\",\\\"instDecidableEqBool\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"id\\\",\\\"congrFun'\\\",\\\"congrArg\\\",\\\"List.filter_cons\\\",\\\"Decidable.casesOn\\\",\\\"Decidable\\\",\\\"Not\\\",\\\"if_neg\\\",\\\"Nat.le_trans\\\",\\\"Nat.le_add_right\\\",\\\"if_pos\\\",\\\"Nat.succ_le_succ\\\"],\\\"name\\\":\\\"List.length_filter_le\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u_1} (p : \u03b1 \u2192 Bool) (l : List \u03b1), (List.filter p l).length \u2264 l.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"List.rec\\\",\\\"Eq\\\",\\\"Nat\\\",\\\"List.length\\\",\\\"List.map\\\",\\\"of_eq_true\\\",\\\"OfNat.ofNat\\\",\\\"instOfNatNat\\\",\\\"eq_self\\\",\\\"List.cons\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"Eq.trans\\\",\\\"True\\\",\\\"congrFun'\\\",\\\"congrArg\\\"],\\\"name\\\":\\\"List.length_map\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u_1} {\u03b2 : Type u_2} {as : List \u03b1} (f : \u03b1 \u2192 \u03b2), (List.map f as).length = as.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"List.rec\\\",\\\"Eq\\\",\\\"Nat\\\",\\\"List.length\\\",\\\"List.reverse\\\",\\\"Eq.refl\\\",\\\"List.nil\\\",\\\"of_eq_true\\\",\\\"List.cons\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"OfNat.ofNat\\\",\\\"instOfNatNat\\\",\\\"Eq.trans\\\",\\\"True\\\",\\\"congrFun'\\\",\\\"congrArg\\\",\\\"HAppend.hAppend\\\",\\\"instHAppendOfAppend\\\",\\\"List.instAppend\\\",\\\"List.reverse_cons\\\",\\\"List.length_append\\\",\\\"congr\\\",\\\"Nat.zero_add\\\",\\\"eq_self\\\"],\\\"name\\\":\\\"List.length_reverse\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u_1} {as : List \u03b1}, as.reverse.length = as.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"Nat\\\",\\\"List\\\",\\\"of_eq_true\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"List.take\\\",\\\"Eq.trans\\\",\\\"Min.min\\\",\\\"instMinNat\\\",\\\"True\\\",\\\"congrFun'\\\",\\\"congrArg\\\",\\\"List.length_take\\\",\\\"_private.Init.Data.List.Nat.TakeDrop.0.List.length_take_le'._simp_1_1\\\"],\\\"name\\\":\\\"List.length_take_le'\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u_1} (i : Nat) (l : List \u03b1), (List.take i l).length \u2264 l.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"List.rec\\\",\\\"Eq\\\",\\\"Nat\\\",\\\"List.length\\\",\\\"HAppend.hAppend\\\",\\\"instHAppendOfAppend\\\",\\\"List.instAppend\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"of_eq_true\\\",\\\"List.nil\\\",\\\"Eq.trans\\\",\\\"True\\\",\\\"congrArg\\\",\\\"Nat.zero_add\\\",\\\"eq_self\\\",\\\"List.cons\\\",\\\"OfNat.ofNat\\\",\\\"instOfNatNat\\\",\\\"congr\\\",\\\"congrFun'\\\",\\\"Nat.succ_add\\\"],\\\"name\\\":\\\"List.length_append\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} {as bs : List \u03b1}, (as ++ bs).length = as.length + bs.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"Nat\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"Nat.le.brecOn\\\",\\\"Nat.le.below\\\",\\\"_private.Init.Prelude.0.Nat.le_trans.match_1_10\\\",\\\"Nat.le\\\",\\\"Nat.le.step\\\"],\\\"name\\\":\\\"Nat.le_trans\\\",\\\"type\\\":\\\"\u2200 {n m k : Nat}, n \u2264 m \u2192 m \u2264 k \u2192 n \u2264 k\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"Nat\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"Nat.le_trans\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"Nat.add_le_add_right\\\",\\\"Nat.add_le_add_left\\\"],\\\"name\\\":\\\"Nat.add_le_add\\\",\\\"type\\\":\\\"\u2200 {a b c d : Nat}, a \u2264 b \u2192 c \u2264 d \u2192 a + c \u2264 b + d\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\"],\\\"name\\\":\\\"stage_p0\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.filter\\\",\\\"stage_p0\\\"],\\\"name\\\":\\\"stage_p1\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.map\\\",\\\"stage_p1\\\"],\\\"name\\\":\\\"stage_p2\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.reverse\\\",\\\"stage_p2\\\"],\\\"name\\\":\\\"stage_p3\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.take\\\",\\\"stage_p3\\\"],\\\"name\\\":\\\"stage_p4\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.filter\\\",\\\"stage_p4\\\"],\\\"name\\\":\\\"stage_p5\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.map\\\",\\\"stage_p5\\\"],\\\"name\\\":\\\"stage_p6\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.reverse\\\",\\\"stage_p6\\\"],\\\"name\\\":\\\"stage_p7\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.take\\\",\\\"stage_p7\\\"],\\\"name\\\":\\\"stage_p8\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.filter\\\",\\\"stage_p8\\\"],\\\"name\\\":\\\"stage_p9\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.map\\\",\\\"stage_p9\\\"],\\\"name\\\":\\\"stage_p10\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"List.reverse\\\",\\\"stage_p10\\\"],\\\"name\\\":\\\"stage_p11\\\",\\\"type\\\":\\\"List Nat \u2192 (Nat \u2192 Nat) \u2192 (Nat \u2192 Bool) \u2192 Nat \u2192 List Nat\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"Nat.le_trans\\\",\\\"List.filter\\\",\\\"List.length_filter_le\\\"],\\\"name\\\":\\\"prx_step_filter\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (p : Nat \u2192 Bool) (cap : Nat), xs.length \u2264 cap \u2192 (List.filter p xs).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Eq.mpr\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"List.map\\\",\\\"id\\\",\\\"Eq\\\",\\\"congrArg\\\",\\\"List.length_map\\\"],\\\"name\\\":\\\"prx_step_map\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (cap : Nat), xs.length \u2264 cap \u2192 (List.map f xs).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Eq.mpr\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"List.reverse\\\",\\\"id\\\",\\\"Eq\\\",\\\"congrArg\\\",\\\"List.length_reverse\\\"],\\\"name\\\":\\\"prx_step_reverse\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (cap : Nat), xs.length \u2264 cap \u2192 xs.reverse.length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"Nat.le_trans\\\",\\\"List.take\\\",\\\"List.length_take_le'\\\"],\\\"name\\\":\\\"prx_step_take\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (k cap : Nat), xs.length \u2264 cap \u2192 (List.take k xs).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p0\\\",\\\"prx_step_filter\\\"],\\\"name\\\":\\\"pr_h0\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p1 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p1\\\",\\\"prx_step_map\\\"],\\\"name\\\":\\\"pr_h1\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p1 xs f p k).length \u2264 cap \u2192 (stage_p2 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p2\\\",\\\"prx_step_reverse\\\"],\\\"name\\\":\\\"pr_h2\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p3 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p3\\\",\\\"prx_step_take\\\"],\\\"name\\\":\\\"pr_h3\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p4 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p4\\\",\\\"prx_step_filter\\\"],\\\"name\\\":\\\"pr_h4\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p5 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p5\\\",\\\"prx_step_map\\\"],\\\"name\\\":\\\"pr_h5\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p5 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p6\\\",\\\"prx_step_reverse\\\"],\\\"name\\\":\\\"pr_h6\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p6 xs f p k).length \u2264 cap \u2192 (stage_p7 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p7\\\",\\\"prx_step_take\\\"],\\\"name\\\":\\\"pr_h7\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p7 xs f p k).length \u2264 cap \u2192 (stage_p8 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p8\\\",\\\"prx_step_filter\\\"],\\\"name\\\":\\\"pr_h8\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p8 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p9\\\",\\\"prx_step_map\\\"],\\\"name\\\":\\\"pr_h9\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p9 xs f p k).length \u2264 cap \u2192 (stage_p10 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p10\\\",\\\"prx_step_reverse\\\"],\\\"name\\\":\\\"pr_h10\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p10 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p4\\\",\\\"pr_h5\\\",\\\"pr_h4\\\"],\\\"name\\\":\\\"pr_breakthrough\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p3\\\",\\\"pr_breakthrough\\\",\\\"pr_h3\\\"],\\\"name\\\":\\\"pr_ripple_p3_p6\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p4\\\",\\\"pr_h8\\\",\\\"pr_h7\\\",\\\"pr_h6\\\",\\\"pr_breakthrough\\\"],\\\"name\\\":\\\"pr_ripple_p4_p9\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p0\\\",\\\"pr_breakthrough\\\",\\\"pr_h3\\\",\\\"pr_h2\\\",\\\"pr_h1\\\",\\\"pr_h0\\\"],\\\"name\\\":\\\"pr_ripple_p0_p6\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p2\\\",\\\"pr_h10\\\",\\\"pr_h9\\\",\\\"pr_ripple_p4_p9\\\",\\\"pr_h3\\\",\\\"pr_h2\\\"],\\\"name\\\":\\\"pr_goal_1_augmented\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"Eq.mpr\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"List.reverse\\\",\\\"List.map\\\",\\\"List.filter\\\",\\\"id\\\",\\\"Eq\\\",\\\"congrArg\\\",\\\"List.length_reverse\\\",\\\"List.length_map\\\",\\\"List.length_filter_le\\\"],\\\"name\\\":\\\"prx_filtered_budget\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (p : Nat \u2192 Bool) (f : Nat \u2192 Nat), (List.map f (List.filter p xs)).reverse.length \u2264 xs.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"Eq.mpr\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"HAppend.hAppend\\\",\\\"instHAppendOfAppend\\\",\\\"List.instAppend\\\",\\\"List.reverse\\\",\\\"List.map\\\",\\\"List.filter\\\",\\\"List.take\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"id\\\",\\\"Eq\\\",\\\"congrArg\\\",\\\"List.length_append\\\",\\\"Nat.add_le_add\\\",\\\"prx_filtered_budget\\\",\\\"List.length_map\\\",\\\"Nat.le_trans\\\",\\\"List.length_take_le'\\\",\\\"List.length_filter_le\\\"],\\\"name\\\":\\\"prx_paired_budget\\\",\\\"type\\\":\\\"\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k : Nat),\\\\n  ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264\\\\n    xs.length + ys.length\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"List.length\\\",\\\"Nat.le_trans\\\",\\\"HAppend.hAppend\\\",\\\"instHAppendOfAppend\\\",\\\"List.instAppend\\\",\\\"List.reverse\\\",\\\"List.map\\\",\\\"List.filter\\\",\\\"List.take\\\",\\\"prx_paired_budget\\\"],\\\"name\\\":\\\"prx_combined_buffer_safe\\\",\\\"type\\\":\\\"\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k cap : Nat),\\\\n  xs.length + ys.length \u2264 cap \u2192\\\\n    ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":142},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-4wkit_ac/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":142},\"severity\":\"information\"}\n",
+    "elapsed_seconds": 28.2654,
+    "returncode": 0
+  },
+  "metrics": {
+    "candidate_count": 3,
+    "goal_count": 2,
+    "baseline_solved": 0,
+    "augmented_solved": 1,
+    "marginal_solved": 1,
+    "method": "graph",
+    "newly_solved": 1,
+    "regressed": 0
+  },
+  "timeline": [
+    {
+      "stage": "IMPORT",
+      "detail": "Validated typed list AST and imported registered Lean core theorem."
+    },
+    {
+      "stage": "UNDERSTAND",
+      "detail": "Proved concrete primitive list-capacity arrows from registered library facts."
+    },
+    {
+      "stage": "EXPLORE",
+      "detail": "Enumerated 3 distinct seed-dependent candidates"
+    },
+    {
+      "stage": "PROVE",
+      "status": "kernel_verified",
+      "detail": "Fresh Lean process; 42/42 declaration audits; axiom policy: explicit_foundational_allowlist."
+    },
+    {
+      "stage": "EVALUATE",
+      "detail": "Equal-budget search comparison; successful witness certification: kernel_verified."
+    },
+    {
+      "stage": "EXPLAIN",
+      "detail": "Deterministic witness-grounded explanations; exact Lean statements remain authoritative."
+    }
+  ],
+  "lean_source": "import Lean\nopen Lean Elab Command\n\ndef stage_p0 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  xs\n\ndef stage_p1 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p0 xs f p k).filter p\n\ndef stage_p2 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p1 xs f p k).map f\n\ndef stage_p3 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p2 xs f p k).reverse\n\ndef stage_p4 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p3 xs f p k).take k\n\ndef stage_p5 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p4 xs f p k).filter p\n\ndef stage_p6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p5 xs f p k).map f\n\ndef stage_p7 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p6 xs f p k).reverse\n\ndef stage_p8 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p7 xs f p k).take k\n\ndef stage_p9 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p8 xs f p k).filter p\n\ndef stage_p10 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p9 xs f p k).map f\n\ndef stage_p11 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k : Nat) : List Nat :=\n  (stage_p10 xs f p k).reverse\n\ntheorem prx_step_filter (xs : List Nat) (p : Nat \u2192 Bool) (cap : Nat) :\n    xs.length \u2264 cap \u2192 (xs.filter p).length \u2264 cap :=\n  fun h => Nat.le_trans (List.length_filter_le p xs) h\n\ntheorem prx_step_map (xs : List Nat) (f : Nat \u2192 Nat) (cap : Nat) :\n    xs.length \u2264 cap \u2192 (xs.map f).length \u2264 cap := by\n  rw [List.length_map]\n  exact fun h => h\n\ntheorem prx_step_reverse (xs : List Nat) (cap : Nat) :\n    xs.length \u2264 cap \u2192 xs.reverse.length \u2264 cap := by\n  rw [List.length_reverse]\n  exact fun h => h\n\ntheorem prx_step_take (xs : List Nat) (k cap : Nat) :\n    xs.length \u2264 cap \u2192 (xs.take k).length \u2264 cap :=\n  fun h => Nat.le_trans (List.length_take_le' k xs) h\n\ntheorem pr_h0 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p1 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_filter (stage_p0 xs f p k) p cap hx)\n\ntheorem pr_h1 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p1 xs f p k).length \u2264 cap \u2192 (stage_p2 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_map (stage_p1 xs f p k) f cap hx)\n\ntheorem pr_h2 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p3 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_reverse (stage_p2 xs f p k) cap hx)\n\ntheorem pr_h3 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p4 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_take (stage_p3 xs f p k) k cap hx)\n\ntheorem pr_h4 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p5 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_filter (stage_p4 xs f p k) p cap hx)\n\ntheorem pr_h5 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p5 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_map (stage_p5 xs f p k) f cap hx)\n\ntheorem pr_h6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p6 xs f p k).length \u2264 cap \u2192 (stage_p7 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_reverse (stage_p6 xs f p k) cap hx)\n\ntheorem pr_h7 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p7 xs f p k).length \u2264 cap \u2192 (stage_p8 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_take (stage_p7 xs f p k) k cap hx)\n\ntheorem pr_h8 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p8 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_filter (stage_p8 xs f p k) p cap hx)\n\ntheorem pr_h9 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p9 xs f p k).length \u2264 cap \u2192 (stage_p10 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_map (stage_p9 xs f p k) f cap hx)\n\ntheorem pr_h10 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p10 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap :=\n  fun hx => (prx_step_reverse (stage_p10 xs f p k) cap hx)\n\ntheorem pr_breakthrough (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_h5 xs f p k cap (pr_h4 xs f p k cap hx))\n\ntheorem pr_ripple_p3_p6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p3 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_breakthrough xs f p k cap (pr_h3 xs f p k cap hx))\n\ntheorem pr_ripple_p4_p9 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p4 xs f p k).length \u2264 cap \u2192 (stage_p9 xs f p k).length \u2264 cap :=\n  fun hx => (pr_h8 xs f p k cap (pr_h7 xs f p k cap (pr_h6 xs f p k cap (pr_breakthrough xs f p k cap hx))))\n\ntheorem pr_ripple_p0_p6 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p6 xs f p k).length \u2264 cap :=\n  fun hx => (pr_breakthrough xs f p k cap (pr_h3 xs f p k cap (pr_h2 xs f p k cap (pr_h1 xs f p k cap (pr_h0 xs f p k cap hx)))))\n\ntheorem pr_goal_1_augmented (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat) :\n    (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap :=\n  fun hx => (pr_h10 xs f p k cap (pr_h9 xs f p k cap (pr_ripple_p4_p9 xs f p k cap (pr_h3 xs f p k cap (pr_h2 xs f p k cap hx)))))\n\n-- Registered append/addition inference templates, not graph-discovered claims.\ntheorem prx_filtered_budget (xs : List Nat) (p : Nat \u2192 Bool) (f : Nat \u2192 Nat) :\n    (((xs.filter p).map f).reverse).length \u2264 xs.length := by\n  rw [List.length_reverse, List.length_map]\n  exact List.length_filter_le p xs\n\ntheorem prx_paired_budget (xs ys : List Nat) (p q : Nat \u2192 Bool)\n    (f : Nat \u2192 Nat) (k : Nat) :\n    ((((xs.filter p).map f).reverse) ++ ((ys.filter q).take k).map f).length \u2264\n      xs.length + ys.length := by\n  rw [List.length_append]\n  apply Nat.add_le_add (prx_filtered_budget xs p f)\n  rw [List.length_map]\n  exact Nat.le_trans (List.length_take_le' k (ys.filter q)) (List.length_filter_le q ys)\n\ntheorem prx_combined_buffer_safe (xs ys : List Nat) (p q : Nat \u2192 Bool)\n    (f : Nat \u2192 Nat) (k cap : Nat) (fits : xs.length + ys.length \u2264 cap) :\n    ((((xs.filter p).map f).reverse) ++ ((ys.filter q).take k).map f).length \u2264 cap :=\n  Nat.le_trans (prx_paired_budget xs ys p q f k) fits\n\nrun_cmd do\n  for n in #[`List.length_filter_le, `List.length_map, `List.length_reverse, `List.length_take_le', `List.length_append, `Nat.le_trans, `Nat.add_le_add, `stage_p0, `stage_p1, `stage_p2, `stage_p3, `stage_p4, `stage_p5, `stage_p6, `stage_p7, `stage_p8, `stage_p9, `stage_p10, `stage_p11, `prx_step_filter, `prx_step_map, `prx_step_reverse, `prx_step_take, `pr_h0, `pr_h1, `pr_h2, `pr_h3, `pr_h4, `pr_h5, `pr_h6, `pr_h7, `pr_h8, `pr_h9, `pr_h10, `pr_breakthrough, `pr_ripple_p3_p6, `pr_ripple_p4_p9, `pr_ripple_p0_p6, `pr_goal_1_augmented, `prx_filtered_budget, `prx_paired_budget, `prx_combined_buffer_safe] do\n    let env \u2190 getEnv\n    let some ci := env.find? n | throwError \"missing declaration\"\n    let axs \u2190 collectAxioms n\n    let ty \u2190 liftTermElabM <| Meta.ppExpr ci.type\n    let some value := ci.value? (allowOpaque := true) | throwError \"declaration has no checked proof body\"\n    let deps := value.getUsedConstants.toList.map Name.toString\n    logInfo m!\"PROOFRIPPLE_AUDIT {Json.compress <| Json.mkObj [(\"name\", toJson n.toString), (\"type\", toJson ty.pretty), (\"axioms\", toJson (axs.toList.map Name.toString)), (\"constants\", toJson deps)]}\"\n",
+  "natural_domain": {
+    "domain": "list-capacity",
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "meaning": "Each graph node denotes the actual proposition (stage xs f p k).length \u2264 cap. Primitive edges are closed List Nat theorems; no arbitrary Prop or implication-edge hypotheses are assumed.",
+    "imported_seed": {
+      "name": "List.length_filter_le",
+      "audit_name": "List.length_filter_le",
+      "source": "Lean core library at the pinned toolchain",
+      "role": "registered seed length-bound theorem",
+      "evidence": "The verifier must read its exact type, transitive axioms and proof-body constants from the named Lean audit; these are not inferred from labels.",
+      "statement": "\u2200 {\u03b1 : Type u_1} (p : \u03b1 \u2192 Bool) (l : List \u03b1), (List.filter p l).length \u2264 l.length",
+      "axioms": [
+        "propext"
+      ],
+      "dependencies": [
+        "Bool",
+        "List",
+        "List.rec",
+        "LE.le",
+        "Nat",
+        "instLENat",
+        "List.length",
+        "List.filter",
+        "of_eq_true",
+        "OfNat.ofNat",
+        "instOfNatNat",
+        "Nat.le_refl._simp_1",
+        "Eq.mpr",
+        "List.cons",
+        "ite",
+        "Eq",
+        "Bool.true",
+        "instDecidableEqBool",
+        "HAdd.hAdd",
+        "instHAdd",
+        "instAddNat",
+        "id",
+        "congrFun'",
+        "congrArg",
+        "List.filter_cons",
+        "Decidable.casesOn",
+        "Decidable",
+        "Not",
+        "if_neg",
+        "Nat.le_trans",
+        "Nat.le_add_right",
+        "if_pos",
+        "Nat.succ_le_succ"
+      ]
+    },
+    "allowed_axioms": [
+      "propext"
+    ],
+    "audit_roles": {
+      "List.length_filter_le": "imported_library_theorem",
+      "List.length_map": "imported_library_theorem",
+      "List.length_reverse": "imported_library_theorem",
+      "List.length_take_le'": "imported_library_theorem",
+      "List.length_append": "imported_library_theorem",
+      "Nat.le_trans": "imported_library_theorem",
+      "Nat.add_le_add": "imported_library_theorem",
+      "stage_p0": "concrete_list_definition",
+      "stage_p1": "concrete_list_definition",
+      "stage_p2": "concrete_list_definition",
+      "stage_p3": "concrete_list_definition",
+      "stage_p4": "concrete_list_definition",
+      "stage_p5": "concrete_list_definition",
+      "stage_p6": "concrete_list_definition",
+      "stage_p7": "concrete_list_definition",
+      "stage_p8": "concrete_list_definition",
+      "stage_p9": "concrete_list_definition",
+      "stage_p10": "concrete_list_definition",
+      "stage_p11": "concrete_list_definition",
+      "prx_step_filter": "registered_length_inference",
+      "prx_step_map": "registered_length_inference",
+      "prx_step_reverse": "registered_length_inference",
+      "prx_step_take": "registered_length_inference",
+      "pr_h0": "closed_primitive_capacity_theorem",
+      "pr_h1": "closed_primitive_capacity_theorem",
+      "pr_h2": "closed_primitive_capacity_theorem",
+      "pr_h3": "closed_primitive_capacity_theorem",
+      "pr_h4": "closed_primitive_capacity_theorem",
+      "pr_h5": "closed_primitive_capacity_theorem",
+      "pr_h6": "closed_primitive_capacity_theorem",
+      "pr_h7": "closed_primitive_capacity_theorem",
+      "pr_h8": "closed_primitive_capacity_theorem",
+      "pr_h9": "closed_primitive_capacity_theorem",
+      "pr_h10": "closed_primitive_capacity_theorem",
+      "pr_breakthrough": "seed",
+      "pr_ripple_p3_p6": "composed_consequence_or_goal",
+      "pr_ripple_p4_p9": "composed_consequence_or_goal",
+      "pr_ripple_p0_p6": "composed_consequence_or_goal",
+      "pr_goal_1_augmented": "composed_consequence_or_goal",
+      "prx_filtered_budget": "registered_append_addition_template",
+      "prx_paired_budget": "registered_append_addition_template",
+      "prx_combined_buffer_safe": "registered_append_addition_template"
+    },
+    "registered_operations": [
+      "filter",
+      "map",
+      "reverse",
+      "take"
+    ],
+    "candidate_semantics": {
+      "ripple_p3_p6": {
+        "inference_rule": "capacity-bound transitivity",
+        "explanation": "Compose 2 closed capacity theorems through the seed to transport the bound from p3 to p6. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics."
+      },
+      "ripple_p4_p9": {
+        "inference_rule": "capacity-bound transitivity",
+        "explanation": "Compose 4 closed capacity theorems through the seed to transport the bound from p4 to p9. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics."
+      },
+      "ripple_p0_p6": {
+        "inference_rule": "capacity-bound transitivity",
+        "explanation": "Compose 5 closed capacity theorems through the seed to transport the bound from p0 to p6. Each stage is a concrete List Nat expression; this is a registered composition consequence, not a claim of new mathematics."
+      }
+    },
+    "registered_templates": [
+      {
+        "name": "prx_filtered_budget",
+        "kind": "registered_inference_template",
+        "discovered": false,
+        "explanation": "A fixed, disclosed append/addition rule demonstrates a concrete two-buffer capacity consequence. The graph exploration did not invent this rule."
+      },
+      {
+        "name": "prx_paired_budget",
+        "kind": "registered_inference_template",
+        "discovered": false,
+        "explanation": "A fixed, disclosed append/addition rule demonstrates a concrete two-buffer capacity consequence. The graph exploration did not invent this rule."
+      },
+      {
+        "name": "prx_combined_buffer_safe",
+        "kind": "registered_inference_template",
+        "discovered": false,
+        "explanation": "A fixed, disclosed append/addition rule demonstrates a concrete two-buffer capacity consequence. The graph exploration did not invent this rule."
+      }
+    ],
+    "limitations": [
+      "A small registered list-length calculus, not arbitrary Lean theorem discovery.",
+      "Graph search savings do not establish superiority to Lean's general automation.",
+      "The labels are explanations; the exact typed List Nat statements are authoritative.",
+      "This run uses the displayed baseline selection policy. Learned models are evaluated separately on frozen proof workloads."
+    ]
+  }
+}

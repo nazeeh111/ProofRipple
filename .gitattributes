@@ -1,0 +1,2 @@
+# Recorded proof-environment bytes are immutable; this final empty line is hashed.
+artifacts/budgeted-automation/base.lean whitespace=-blank-at-eof

@@ -54,6 +54,17 @@ class ImportBoundaryTests(unittest.TestCase):
 
 @unittest.skipUnless(shutil.which("lean"), "Pinned Lean runtime not installed")
 class KernelTests(unittest.TestCase):
+    def test_foundational_allowlist_is_explicit_and_cannot_allow_custom_axioms(self):
+        source = ("import Lean\nopen Lean Elab Command\n"
+                  "theorem extensional (P Q : Prop) (h : P ↔ Q) : P = Q := propext h\n" + _audit("extensional"))
+        strict = verify_source(source, ["extensional"])
+        self.assertEqual(strict["status"], "failed")
+        permissive = verify_source(source, ["extensional"], allowed_axioms=("propext",))
+        self.assertEqual(permissive["status"], "kernel_verified")
+        self.assertEqual(permissive["audits"][0]["axioms"], ["propext"])
+        with self.assertRaisesRegex(ValueError, "foundational"):
+            verify_source(source, ["extensional"], allowed_axioms=("customLie",))
+
     def test_admitted_and_custom_axiom_proofs_rejected(self):
         source = ("import Lean\nopen Lean Elab Command\n"
                   "axiom customLie : False\n"

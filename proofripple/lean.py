@@ -78,7 +78,12 @@ def seed_source(context):
     """Canonical supported .lean import/export format with an inert JSON manifest."""
     _validate(context)
     manifest = json.dumps(context, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
-    return HEADER + "-- proofripple-context: " + manifest + "\n\n" + _declaration(context, context["seed"], {})
+    if context.get("domain") == "list-capacity":
+        from .natural import build_natural_source
+        source, _, _ = build_natural_source({"context": context, "candidates": [], "goals": []})
+    else:
+        source = _declaration(context, context["seed"], {})
+    return HEADER + "-- proofripple-context: " + manifest + "\n\n" + source
 
 
 def import_lean(path):
@@ -133,15 +138,21 @@ def build_source(context, candidates=(), goals=()):
     return "import Lean\nopen Lean Elab Command\n\n" + body + "\n" + _audit_many(["pr_" + i for i in items])
 
 
-def verify_source(source, expected_names, timeout=60, lean_bin=None):
+def verify_source(source, expected_names, timeout=60, lean_bin=None, allowed_axioms=()):
     """Internal verifier of generated source, not a public untrusted-code sandbox.
 
-    Success requires process success, every expected audit exactly once, and no
-    axioms. Error and timeout paths fail closed. Uses a fresh process and folder.
+    Success requires process success, every expected audit exactly once, and only
+    explicitly allowed foundational axioms. The default remains axiom-free.
+    Error and timeout paths fail closed. Uses a fresh process and folder.
     """
+    allowed_axioms = tuple(sorted(set(allowed_axioms)))
+    foundational = {"propext", "Classical.choice", "Quot.sound"}
+    if not set(allowed_axioms).issubset(foundational):
+        raise ValueError("Only explicit Lean foundational axioms may be allowed; admitted/custom/native axioms are rejected")
     digest = hashlib.sha256(source.encode()).hexdigest()
     result = {"status": "unavailable", "source_sha256": digest, "toolchain": TOOLCHAIN,
-              "axiom_policy": "empty", "audits": [], "log": "", "elapsed_seconds": 0}
+              "axiom_policy": "empty" if not allowed_axioms else "explicit_foundational_allowlist",
+              "allowed_axioms": list(allowed_axioms), "audits": [], "log": "", "elapsed_seconds": 0}
     executable = lean_bin or shutil.which("lean")
     if not executable:
         result["log"] = "Lean is missing. Install the pinned toolchain; no verification was performed."
@@ -182,7 +193,8 @@ def verify_source(source, expected_names, timeout=60, lean_bin=None):
             expected = list(expected_names)
             valid = (proc.returncode == 0 and not errors and "PANIC" not in proc.stderr and len(names) == len(set(names))
                      and set(names) == set(expected) and len(names) == len(expected)
-                     and all(a.get("axioms") == [] and isinstance(a.get("type"), str) for a in audits))
+                     and all(isinstance(a.get("axioms"), list) and set(a["axioms"]).issubset(allowed_axioms)
+                             and isinstance(a.get("type"), str) for a in audits))
             result["status"] = "kernel_verified" if valid else "failed"
             result["returncode"] = proc.returncode
     result["elapsed_seconds"] = round(time.monotonic() - started, 4)
@@ -199,26 +211,62 @@ def certify_run(run, timeout=60):
     for candidate in candidates:
         candidate.update(status="proposed", axioms=None)
     goals = []
+    used_ids = {x["id"] for x in [*result["context"]["nodes"], *result["context"]["edges"], result["seed"], *candidates]}
     for index, goal in enumerate(result.get("goals", [])):
         for variant in ("baseline", "augmented"):
             search = goal.get(variant, {})
             if search.get("solved"):
-                goals.append({"id": f"goal_{index}_{variant}", "source": goal["source"], "target": goal["target"], "path": search["path"]})
-    source = build_source(result["context"], candidates, goals)
-    expected = ["pr_" + x["id"] for x in [result["context"]["seed"], *candidates, *goals]]
-    verification = verify_source(source, expected, timeout=timeout)
+                base_id, suffix = f"goal_{index}_{variant}", 0
+                identifier = base_id
+                while identifier in used_ids:
+                    suffix += 1
+                    identifier = f"{base_id}_{suffix}"
+                used_ids.add(identifier)
+                goals.append({"id": identifier, "source": goal["source"], "target": goal["target"], "path": search["path"]})
+    natural_metadata = None
+    if result["context"].get("domain") == "list-capacity":
+        from .natural import build_natural_source
+        source, expected, natural_metadata = build_natural_source(result)
+        verification = verify_source(source, expected, timeout=timeout, allowed_axioms=("propext",))
+    else:
+        source = build_source(result["context"], candidates, goals)
+        expected = ["pr_" + x["id"] for x in [result["context"]["seed"], *candidates, *goals]]
+        verification = verify_source(source, expected, timeout=timeout)
     result["verification"] = verification
     result["lean_source"] = source
     audits = {a["name"]: a for a in verification["audits"]}
     for item in [result["seed"], *candidates]:
         audit = audits.get("pr_" + item["id"])
         item["status"] = verification["status"] if verification["status"] != "unavailable" else "proposed"
-        item["proof"] = _declaration(result["context"], item, {result["seed"]["id"]: result["seed"]} if item is not result["seed"] else {})
+        if natural_metadata:
+            item["proof"] = natural_metadata["declarations"]["pr_" + item["id"]]
+            if item["id"] in natural_metadata.get("candidate_semantics", {}):
+                semantics = natural_metadata["candidate_semantics"][item["id"]]
+                item["explanation"] = semantics["explanation"]
+                item["inference_rule"] = semantics["inference_rule"]
+        else:
+            item["proof"] = _declaration(result["context"], item, {result["seed"]["id"]: result["seed"]} if item is not result["seed"] else {})
         if audit:
             item.update(axioms=audit["axioms"], statement=audit["type"], dependencies=audit["constants"])
+    if natural_metadata:
+        if (result.get("ranking_model") or {}).get("kind") == "natural-list-capacity-context-bootstrap-ridge-v1":
+            natural_metadata["limitations"][-1] = "Ranking is trained on generated list-pipeline proof workloads with held-out operator skeletons; transfer to external mathematical libraries remains unmeasured."
+        elif result.get("metrics", {}).get("method") != "learned":
+            natural_metadata["limitations"][-1] = "This run uses the displayed baseline selection policy. Learned models are evaluated separately on frozen proof workloads."
+        imported = natural_metadata["imported_seed"]
+        imported_audit = audits.get(imported["audit_name"])
+        if imported_audit:
+            imported.update(statement=imported_audit["type"], axioms=imported_audit["axioms"], dependencies=imported_audit["constants"])
+        result["natural_domain"] = {k: v for k, v in natural_metadata.items() if k != "declarations"}
     result["timeline"] = [entry for entry in result.get("timeline", []) if entry.get("stage") in {"IMPORT", "UNDERSTAND", "EXPLORE"}]
+    if natural_metadata:
+        for entry in result["timeline"]:
+            if entry.get("stage") == "IMPORT":
+                entry["detail"] = "Validated typed list AST and imported registered Lean core theorem."
+            elif entry.get("stage") == "UNDERSTAND":
+                entry["detail"] = "Proved concrete primitive list-capacity arrows from registered library facts."
     result["timeline"].extend([
-        {"stage": "PROVE", "status": verification["status"], "detail": f"Fresh Lean process; {len(audits)}/{len(expected)} declaration audits; empty-axiom policy."},
+        {"stage": "PROVE", "status": verification["status"], "detail": f"Fresh Lean process; {len(audits)}/{len(expected)} declaration audits; axiom policy: {verification['axiom_policy']}."},
         {"stage": "EVALUATE", "detail": f"Equal-budget search comparison; successful witness certification: {verification['status']}."},
         {"stage": "EXPLAIN", "detail": "Deterministic witness-grounded explanations; exact Lean statements remain authoritative."}])
     return result

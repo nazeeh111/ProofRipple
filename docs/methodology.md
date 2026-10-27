@@ -1,4 +1,14 @@
-# Experiment protocol
+# Experiment protocols
+
+The list-domain v0.2 protocol and corrected results are in
+[natural research report](natural-research-report.md). It uses closed List Nat
+primitive proofs, stronger shared-predicate/k normalization, actual imported
+core declarations, symbolic embeddings/reuse features, and a separately reported
+strong Lean automation control. Its up-to-three selection budget is a cap when
+normalized pools are small. The section below documents the separate v0.1
+propositional testbed, whose archived artifacts remain independently reproducible
+with `proofripple benchmark --domain implications --certify`.
+
 
 ## Formal domain
 

@@ -9,6 +9,13 @@ let currentCandidate = null;
 let activeNode = null;
 let pending = false;
 let selectionBudget = 3;
+let rankingMethod = 'graph';
+let activeExample = 'natural';
+let benchmarkRequest = 0;
+const EXAMPLES = {
+  natural: {run:'../artifacts/natural/demo.json', benchmark:'../artifacts/natural/benchmark.json'},
+  implications: {run:'../artifacts/demo.json', benchmark:'../artifacts/benchmark.json'},
+};
 
 function node(tag, className, text) {
   const item = document.createElement(tag);
@@ -40,6 +47,10 @@ function setPending(value) {
   $('run-button').replaceChildren(document.createTextNode(value ? 'Exploring…' : 'Explore consequences'), node('span', '', value ? '…' : '→'));
   $('import-button').disabled = value;
   $('budget').disabled = value;
+  $('example-select').disabled = value;
+  $('policy-select').disabled = value;
+  $('selection-budget').disabled = value;
+  $('import-declaration').disabled = value;
   $('workspace').setAttribute('aria-busy', String(value));
 }
 function validContext(value) {
@@ -57,6 +68,8 @@ function loadRun(value, origin = 'recorded') {
   validateRun(value);
   run = value;
   context = value.context;
+  activeExample = origin === 'imported' ? null : context.domain === 'list-capacity' ? 'natural' : 'implications';
+  $('example-select').value = activeExample || 'imported';
   activeNode = null;
   const selected = selectedIds();
   currentCandidate = candidateList().find((item) => item.id === [...selected][0]) || candidateList()[0] || null;
@@ -72,16 +85,53 @@ function loadRun(value, origin = 'recorded') {
   if (Number.isFinite(Number(budgetValue))) $('budget').value = Number(budgetValue);
   const loadedSelectionBudget = Number(run.budget?.selected_lemmas);
   if (Number.isInteger(loadedSelectionBudget) && loadedSelectionBudget >= 0 && loadedSelectionBudget <= 16) selectionBudget = loadedSelectionBudget;
+  $('selection-budget').value = selectionBudget;
+  rankingMethod = run.metrics?.method || (context.domain === 'list-capacity' ? 'graph' : 'learned');
+  $('policy-select').querySelectorAll('[data-recorded-policy]').forEach((item) => item.remove());
+  if (!['graph','learned'].includes(rankingMethod)) {
+    const option=node('option','',`Recorded: ${rankingMethod.replaceAll('_',' ')}`);option.value=rankingMethod;option.dataset.recordedPolicy='true';$('policy-select').append(option);
+  }
+  $('policy-select').value = rankingMethod;
   $('budget-caption').textContent = Number.isFinite(Number(budgetValue)) ? `${budgetValue} expansions per goal` : 'Equal search budgets';
   $('export-json').disabled = false;
   $('candidate-search').value = '';
   $('status-filter').value = 'all';
-  $('graph-context').textContent = `${context.nodes.length} propositions · ${context.edges.length} explicit implication assumptions`;
-  renderGraph(); renderCandidates(); renderInspector(); renderGoals(); renderTimeline();
+  $('graph-context').textContent = context.domain === 'list-capacity' ? `${context.nodes.length} typed list stages · ${context.edges.length} closed primitive capacity theorems` : `${context.nodes.length} propositions · ${context.edges.length} explicit implication assumptions`;
+  $('primitive-legend').textContent = context.domain === 'list-capacity' ? 'Closed capacity theorem' : 'Assumption';
+  renderFormalBasis(); renderGraph(); renderCandidates(); renderInspector(); renderGoals(); renderTimeline();
+  refreshBenchmark(activeExample);
   setPending(false);
   if (origin === 'imported') notice('Imported recorded evidence. Verification states are reported by this file and have not been rechecked in this session.');
   else if (origin === 'live') notice(`Local exploration complete. ${stateName(run.verification?.status || 'unavailable')} · Inspect the exact proof and assumptions below.`, run.verification?.status === 'failed' ? 'error' : '');
   else notice('Recorded experiment · Every result below comes from the bundled run. Explore consequences to run a fresh local experiment.');
+}
+
+function renderFormalBasis() {
+  const natural = context.domain === 'list-capacity';
+  const basis = run.natural_domain?.imported_seed;
+  const badge = $('basis-status');
+  badge.textContent = stateName(run.verification?.status || 'unavailable');
+  badge.className = `status-badge ${run.verification?.status === 'kernel_verified' ? 'verified' : run.verification?.status === 'failed' ? 'failed' : 'proposed'}`;
+  $('basis-domain').textContent = natural ? 'CONCRETE LIST NAT DOMAIN' : 'PROPOSITIONAL IMPLICATION DOMAIN';
+  $('basis-name').textContent = natural ? basis?.name || 'List.length_filter_le · audit unavailable' : 'Explicitly quantified implication context';
+  $('basis-description').textContent = natural ? 'The imported library theorem bounds a filtered list’s length. The orange graph edge is a composite seed built from closed capacity theorems; it is distinct from this imported declaration.' : 'Every primitive graph edge is an explicit implication hypothesis. The seed and consequences are compositions under those quantified hypotheses.';
+  $('basis-type-details').hidden = !natural;
+  $('basis-type').textContent = basis?.statement || 'The exact imported statement has not been audited in this recorded run.';
+  const allowed = run.natural_domain?.allowed_axioms;
+  $('basis-policy').textContent = natural ? `Allowed dependency axiom: ${Array.isArray(allowed) && allowed.length ? allowed.join(', ') : 'not reported'}. Other axiom dependencies must be rejected by the verifier.` : 'Empty-axiom policy. The verifier rejects declarations with any transitive axiom dependency.';
+  $('basis-axioms').textContent = natural ? Array.isArray(basis?.axioms) ? basis.axioms.length ? basis.axioms.join(', ') : 'None reported' : 'No audit reported' : 'No imported theorem';
+  const dependencyList = $('basis-dependencies');dependencyList.replaceChildren();
+  for (const dependency of basis?.dependencies || []) dependencyList.append(node('span','',dependency));
+  if (!basis?.dependencies?.length) dependencyList.append(node('span','','No proof constants reported'));
+  $('basis-dependency-details').hidden = !natural;
+  const templates = run.natural_domain?.registered_templates || [];
+  const templateList = $('basis-templates');templateList.replaceChildren();
+  for (const template of templates) {
+    const item=node('div','registered-template');item.append(node('strong','',template.name || 'Registered template'),node('p','',template.explanation || 'Fixed registered rule, not a discovered inference mechanism.'));templateList.append(item);
+  }
+  $('basis-template-details').hidden = !templates.length;
+  $('import-declaration').hidden = !natural;
+  $('formal-basis').hidden = false;
 }
 
 function graphPositions() {
@@ -158,7 +208,8 @@ function renderGraph() {
     group.append(svg('title',{},`${item.id}: ${item.label || item.id}`));
     group.append(svg('rect',{x:-27,y:-21,width:54,height:42,rx:21}));
     group.append(svg('text',{'text-anchor':'middle',y:5},String(item.id).length > 6 ? String(item.id).slice(0,5)+'…' : item.id));
-    group.append(svg('text',{'text-anchor':'middle',y:39,class:'node-label'},String(item.label || '').length > 19 ? String(item.label).slice(0,17)+'…' : item.label || ''));
+    const shortLabel = item.expression?.op || item.label || '';
+    group.append(svg('text',{'text-anchor':'middle',y:39,class:'node-label'},String(shortLabel).length > 19 ? String(shortLabel).slice(0,17)+'…' : shortLabel));
     const select = () => {activeNode = activeNode === item.id ? null : item.id; renderGraph(); renderCandidates();};
     group.addEventListener('click',select);
     group.addEventListener('keydown',(event) => {if (event.key === 'Enter' || event.key === ' ') {event.preventDefault();select();}});
@@ -202,20 +253,24 @@ function renderInspector() {
   $('inspect-id').textContent = item?.id || 'NO CONSEQUENCE SELECTED';
   $('inspect-statement').textContent = item ? `${item.source} → ${item.target}` : 'P → Q';
   const badge = $('inspect-status');badge.textContent = item ? stateName(item.status) : 'Awaiting selection';badge.className = `status-badge ${item?.status === 'kernel_verified' ? 'verified' : item?.status === 'failed' ? 'failed' : 'proposed'}`;
-  $('inspect-explanation').textContent = item?.explanation || (item ? `An implication from “${labelFor(item.source)}” to “${labelFor(item.target)}” under this context's explicitly quantified assumptions.` : 'Select a consequence to inspect its exact proof and assumptions.');
+  const explanation = typeof item?.explanation === 'string' ? item.explanation : item?.explanation?.explanation;
+  $('inspect-explanation').textContent = explanation || (item ? `An implication from “${labelFor(item.source)}” to “${labelFor(item.target)}” under this context's explicitly quantified assumptions.` : 'Select a consequence to inspect its exact proof and assumptions.');
   $('proof-code').textContent = proofText() || '-- No Lean proof artifact is available for this consequence.';
   $('copy-proof').disabled = !proofText();
   $('export-proof').disabled = !proofText() && !run?.lean_source && !run?.verification?.source;
   const axioms = Array.isArray(item?.axioms) ? item.axioms : null;
   $('audit-status').textContent = item ? stateName(item.status) : 'Unavailable';
-  $('axiom-count').textContent = axioms ? axioms.length === 0 ? '0 · empty axiom set' : axioms.length : 'No audit reported';
+  $('axiom-count').textContent = axioms ? axioms.length === 0 ? context.domain === 'list-capacity' ? '0 reported for this theorem' : '0 · empty axiom set' : axioms.length : 'No audit reported';
   $('axioms-list').textContent = axioms?.length ? axioms.join(', ') : '';
+  $('exact-statement').textContent = item?.statement || 'No exact statement was reported. Inspect available proof source.';
   const dependencies = $('dependencies-list');dependencies.replaceChildren();
   const list = item?.dependencies || item?.path || [];
   if (list.length) list.forEach((dependency) => dependencies.append(node('span','',typeof dependency === 'object' ? dependency.id || dependency.name || JSON.stringify(dependency) : dependency)));
   else dependencies.append(node('span','','No dependencies reported'));
   $('rank-score').textContent = formatted(item?.score);
-  $('rank-uncertainty').textContent = item?.uncertainty !== null && item?.uncertainty !== undefined && Number.isFinite(Number(item.uncertainty)) ? `± ${Number(item.uncertainty).toFixed(3)} ensemble spread` : 'No uncertainty reported';
+  const actualMethod=run.metrics?.method || rankingMethod;
+  $('rank-evidence-label').textContent = actualMethod === 'learned' ? 'LEARNED USEFULNESS ESTIMATE' : actualMethod === 'graph' ? 'GRAPH HEURISTIC SCORE' : `${actualMethod.replaceAll('_',' ').toUpperCase()} SCORE`;
+  $('rank-uncertainty').textContent = actualMethod === 'learned' ? item?.uncertainty !== null && item?.uncertainty !== undefined && Number.isFinite(Number(item.uncertainty)) ? `± ${Number(item.uncertainty).toFixed(3)} ensemble spread` : 'No uncertainty reported' : actualMethod === 'graph' ? 'Path saving + goal coverage' : 'Deterministic ranking policy';
 }
 function renderGoals() {
   const goals = Array.isArray(run.goals) ? run.goals : [];
@@ -260,10 +315,12 @@ function download(content, filename, mime) {
 async function explore(inputContext = context) {
   if (pending || !inputContext) return;
   const budget = Number($('budget').value);
+  const selected = Number($('selection-budget').value);
   if (!Number.isInteger(budget) || budget < 1 || budget > 128) {notice('Choose a whole-number search budget between 1 and 128.','error');return;}
+  if (!Number.isInteger(selected) || selected < 0 || selected > 16) {notice('Choose a whole-number lemma budget between 0 and 16.','error');return;}
   setPending(true);notice('Exploring bounded consequence paths and checking proof artifacts with the local verifier…','loading');
   try {
-    const response = await fetch('/api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:inputContext,budget,select:selectionBudget})});
+    const response = await fetch('/api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:inputContext,budget,select:selected,method:$('policy-select').value})});
     const type = response.headers.get('content-type') || '';
     if (!type.includes('application/json')) throw new Error('Live exploration needs the local ProofRipple server. Start it with “proofripple lab”; recorded runs remain inspectable here.');
     const result = await response.json();
@@ -273,10 +330,43 @@ async function explore(inputContext = context) {
   finally {setPending(false);}
 }
 
+async function loadExample(key) {
+  if (pending || !EXAMPLES[key]) return;
+  const previous = activeExample;
+  setPending(true);notice('Loading the recorded context and its domain-specific evidence…','loading');
+  try {
+    const response = await fetch(EXAMPLES[key].run);
+    if (!response.ok) throw new Error(`Recorded artifact returned ${response.status}.`);
+    loadRun(await response.json());
+  } catch (error) {
+    $('example-select').value = previous || 'imported';
+    if (!run) {$('context-title').textContent='Open a research run';$('graph-empty').hidden=false;}
+    notice(`Example loading failed: ${error.message} ${run ? 'The previous result is preserved.' : 'Import a run JSON or generate the natural demo with the CLI.'}`,'error');
+  } finally {setPending(false);}
+}
+
+async function importRegisteredDeclaration() {
+  if (pending) return;
+  const budget = Number($('budget').value);
+  const selected = Number($('selection-budget').value);
+  if (!Number.isInteger(budget) || budget < 1 || budget > 128) {notice('Choose a whole-number search budget between 1 and 128.','error');return;}
+  if (!Number.isInteger(selected) || selected < 0 || selected > 16) {notice('Choose a whole-number lemma budget between 0 and 16.','error');return;}
+  setPending(true);notice('Importing List.length_filter_le and auditing its exact declaration in the local Lean process…','loading');
+  try {
+    const response=await fetch('/api/import-declaration',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'List.length_filter_le',budget,select:selected,method:$('policy-select').value})});
+    if (!(response.headers.get('content-type') || '').includes('application/json')) throw new Error('Registered theorem import needs the local ProofRipple server.');
+    const result=await response.json();if(!response.ok)throw new Error(result.error || `The local server returned ${response.status}.`);
+    loadRun(result,'live');
+  } catch (error) {notice(`Theorem import failed: ${error.message} The previous result is preserved.`,'error');}
+  finally {setPending(false);}
+}
+
 $('candidate-search').addEventListener('input',renderCandidates);
 $('status-filter').addEventListener('change',renderCandidates);
 $('reset-graph').addEventListener('click',() => {activeNode=null;renderGraph();renderCandidates();});
 $('run-button').addEventListener('click',() => explore());
+$('example-select').addEventListener('change',(event) => loadExample(event.target.value));
+$('import-declaration').addEventListener('click',importRegisteredDeclaration);
 $('import-button').addEventListener('click',() => $('import-file').click());
 $('import-file').addEventListener('change',async (event) => {
   const file = event.target.files[0];if(!file)return;
@@ -302,35 +392,63 @@ tabs.forEach((tab,index) => {
   tab.addEventListener('keydown',(event) => {if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const target=tabs[event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];selectTab(target);target.focus();}});
 });
 
-fetch('../artifacts/demo.json').then(async (response) => {
-  if(!response.ok)throw new Error(`Bundled run returned ${response.status}.`);
-  const result=await response.json();loadRun(result);
-}).catch((error) => {
-  $('context-title').textContent='Open a research run';$('graph-empty').hidden=false;
-  notice(`No recorded run is available: ${error.message} Import a run JSON, or generate artifacts with “proofripple demo”.`,'error');
-});
-
-fetch('../artifacts/benchmark.json').then(async (response) => {
-  if (!response.ok) return;
-  const benchmark = await response.json();
+function renderBenchmark(benchmark, key) {
   if (!benchmark.summary || typeof benchmark.summary !== 'object') return;
   const entries = Object.entries(benchmark.summary).filter(([,value]) => value && Number.isFinite(Number(value.mean_augmented_solved)));
   if (!entries.length) return;
-  const methodNames = {learned:'Usefulness ensemble',graph:'Graph heuristic',semantic:'Lexical similarity',random:'Random selection',proof_cost:'Shortest proof first'};
+  const methodNames = {learned:key === 'natural' ? 'Typed-syntax usefulness ensemble' : 'Usefulness ensemble',structure_only:'Structure-only ensemble',graph:'Graph heuristic',semantic:'Lexical similarity',random:'Random selection',proof_cost:'Shortest proof first'};
   const tbody = $('benchmark-rows');tbody.replaceChildren();
   const decimal = (value) => Number(value).toFixed(2);
+  const compact = (value) => String(Number(Number(value).toFixed(2)));
+  const hasTotals = entries.every(([,metrics]) => Number.isFinite(metrics.total_solved) && Number.isFinite(metrics.total_goals));
+  $('benchmark-solved-header').textContent=hasTotals?'TOTAL SOLVED':'MEAN SOLVED';
+  $('benchmark-gain-header').textContent=hasTotals?'TOTAL GAIN':'MEAN GAIN';
   entries.sort((a,b) => b[1].mean_augmented_solved - a[1].mean_augmented_solved).forEach(([method,metrics]) => {
     const tr=node('tr',method==='learned'?'learned-method':'');
     const label=node('th','',methodNames[method] || method);label.scope='row';
-    const gain=Number(metrics.mean_marginal_solved);
+    const gain=Number(hasTotals?metrics.total_marginal_solved:metrics.mean_marginal_solved);
     const interval=metrics.marginal_95pct_context_bootstrap;
-    tr.append(label,node('td','',`${decimal(metrics.mean_augmented_solved)} / ${metrics.goals_per_context}`),node('td',gain>0?'gain':'',`${gain>0?'+':''}${decimal(gain)}`),node('td','',Array.isArray(interval)?`${decimal(interval[0])} to ${decimal(interval[1])}`:'Unavailable'),node('td','',Number.isFinite(Number(metrics.mean_ndcg_at_k))?decimal(metrics.mean_ndcg_at_k):'—'));
+    const solved=hasTotals?`${compact(metrics.total_solved)} / ${compact(metrics.total_goals)}`:`${decimal(metrics.mean_augmented_solved)} / ${compact(metrics.goals_per_context)}`;
+    const newly=hasTotals?metrics.total_newly_solved:metrics.mean_newly_solved;
+    const lost=hasTotals?metrics.total_regressed:metrics.mean_regressed;
+    tr.append(label,node('td','',solved),node('td',gain>0?'gain':'',`${gain>0?'+':''}${compact(gain)}`),node('td','',`${compact(newly)} / ${compact(lost)}`),node('td','',Array.isArray(interval)?`${decimal(interval[0])} to ${decimal(interval[1])}`:'Unavailable'),node('td','',metrics.mean_ndcg_at_k !== null && metrics.mean_ndcg_at_k !== undefined && Number.isFinite(Number(metrics.mean_ndcg_at_k))?decimal(metrics.mean_ndcg_at_k):'—'));
     tbody.append(tr);
   });
   const protocol=benchmark.protocol || {};
-  $('benchmark-protocol').textContent=`${entries[0][1].contexts} test contexts · ${protocol.selection_budget ?? '—'} lemmas · ${protocol.search_expansions_per_goal ?? '—'} expansions / goal`;
+  $('benchmark-protocol').textContent=`${entries[0][1].contexts} test contexts · ${protocol.selection_budget ?? '—'} lemma cap · ${protocol.search_expansions_per_goal ?? '—'} expansions / goal`;
   const learned=benchmark.summary.learned;
   const graph=benchmark.summary.graph;
-  $('benchmark-summary').textContent=learned && graph ? `The learned ranker solves ${decimal(learned.mean_augmented_solved)} goals per context; the graph heuristic solves ${decimal(graph.mean_augmented_solved)}. ${Number(graph.mean_augmented_solved)>=Number(learned.mean_augmented_solved)?'The learned model does not outperform this strong graph baseline in this experiment.':'The observed difference is specific to this benchmark; inspect the full per-context evidence.'}` : 'Recorded held-out comparisons from the bundled benchmark. These values are separate from the active context above.';
+  const comparison=learned&&graph?(hasTotals?`The learned ranker solves ${compact(learned.total_solved)}/${compact(learned.total_goals)} retained queries; the graph heuristic solves ${compact(graph.total_solved)}/${compact(graph.total_goals)}. Starting library: ${compact(learned.total_baseline_solved)}/${compact(learned.total_goals)}.`:`The learned ranker solves ${decimal(learned.mean_augmented_solved)} goals per context; the graph heuristic solves ${decimal(graph.mean_augmented_solved)}.`):'Recorded held-out comparisons from the bundled benchmark.';
+  $('benchmark-summary').textContent=`${comparison} ${learned&&graph&&Number(graph.mean_augmented_solved)>=Number(learned.mean_augmented_solved)?'The learned model does not outperform this strong graph baseline.':'The observed differences are specific to this benchmark; inspect the full per-context evidence.'}`;
+  const coverage=benchmark.candidate_coverage?.test;
+  $('benchmark-coverage').hidden=!coverage;
+  if(coverage)$('benchmark-coverage').textContent=`Sparse coverage: ${compact(learned?.total_goals??0)} retained queries across ${coverage.active_goal_contexts}/${coverage.contexts} active contexts; only ${coverage.contexts_with_ranking_choice} contexts offer a choice beyond the lemma cap. ${coverage.empty_contexts} contexts have no eligible candidates. This study does not establish an ML advantage.`;
+  $('benchmark-section').querySelector('.experiment-caveat a').href=EXAMPLES[key].benchmark;
+  const caveat=$('benchmark-section').querySelector('.experiment-caveat');
+  const evidenceLink=caveat.querySelector('a');
+  caveat.replaceChildren(document.createTextNode(`${key==='natural' ? 'Registered typed List Nat capacity pipelines.' : 'Procedurally generated implication graphs.'} ${hasTotals?'Random-policy totals average five repetitions; query occurrences need not be globally distinct statements. ':''}Intervals concern mean marginal gain per context. NDCG measures relative ranking quality (0–1). Ensemble disagreement is not calibrated uncertainty. `),evidenceLink);
   $('benchmark-section').hidden=false;
-}).catch(() => {}); // A missing benchmark never changes the active run's evidence.
+  const control=benchmark.automation_control;
+  if (key === 'natural' && control?.status === 'kernel_verified' && Number.isInteger(control.solved) && Number.isInteger(control.total) && control.total > 0 && control.solved >= 0 && control.solved <= control.total) {
+    $('automation-score').textContent=`${control.solved}/${control.total}`;
+    $('automation-description').textContent=`${control.method || 'Lean automation'} solves the audited showcase goals without the discovered lemmas. ${control.coverage || ''} ${control.interpretation || 'Its resources differ from restricted graph search; this is not evidence of an advantage over Lean automation.'} Allowed axioms for this separate control: ${(control.allowed_axioms || []).join(', ') || 'none reported'}.`;
+    $('automation-control').hidden=false;
+  }
+}
+
+async function refreshBenchmark(key) {
+  const request=++benchmarkRequest;
+  // Clear stale domain evidence immediately, including a prior automation result.
+  $('benchmark-section').hidden=true;
+  $('automation-control').hidden=true;
+  $('benchmark-rows').replaceChildren();
+  if (!key || !EXAMPLES[key]) return;
+  try {
+    const response=await fetch(EXAMPLES[key].benchmark);
+    if(!response.ok)return;
+    const benchmark=await response.json();
+    if(request===benchmarkRequest)renderBenchmark(benchmark,key);
+  } catch {} // Missing recorded benchmark never changes the active run's evidence.
+}
+
+loadExample('natural');

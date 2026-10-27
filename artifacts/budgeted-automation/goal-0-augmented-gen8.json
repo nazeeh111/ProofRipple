@@ -1,0 +1,67 @@
+{
+  "audits": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "constants": [
+        "List",
+        "Nat",
+        "Bool",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p4",
+        "stage_p9",
+        "pr_ripple_p4_p9",
+        "id",
+        "stage_p0",
+        "stage_p11",
+        "budget_goal_0._proof_1_1"
+      ],
+      "name": "budget_goal_0",
+      "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap",
+      "zeta_constants": [
+        "List",
+        "Nat",
+        "Bool",
+        "id",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p0",
+        "stage_p11",
+        "budget_goal_0._proof_1_1",
+        "pr_ripple_p4_p9"
+      ]
+    }
+  ],
+  "candidate_used_after_zeta": true,
+  "command": [
+    "/Users/nazeeh/.elan/bin/lean",
+    "--json",
+    "-j",
+    "1",
+    "-M",
+    "2048",
+    "-DmaxHeartbeats=400000",
+    "/Users/nazeeh/Documents/ChatGPT/Github/ProofRipple/outputs/budgeted-automation-v02/goal-0-augmented-gen8.lean"
+  ],
+  "diagnostic_audits_are_proofs": true,
+  "elapsed_seconds": 8.2771,
+  "errors": [],
+  "expected_failure": false,
+  "file": "goal-0-augmented-gen8.lean",
+  "generation": 8,
+  "goal_index": 0,
+  "kernel_verified": true,
+  "log_sha256": "0bbd05ea9c9c041d5c7ad6e3264ee49bd266145d7f75a9e8e8615e7c75122948",
+  "returncode": 0,
+  "source_sha256": "60c94058d0b611e9efde52567876d5de45f4bdeb2352c08b9321230828f58a86",
+  "status": "kernel_verified",
+  "timed_out": false,
+  "toolchain": "Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "variant": "augmented"
+}

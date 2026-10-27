@@ -222,6 +222,9 @@ def generate_candidates(context, goals=None, max_candidates=256):
                          "explanation": f"Compose {len(witness)} implication steps through {seed['id']}. This is a consequence relative to the manifest, not a claim of new mathematics."}
             candidate["features"] = candidate_features(context, candidate, goals, feature_paths)
             candidates.append(candidate)
+    if context.get("domain") == "list-capacity":
+        from .natural import filter_redundant_candidates
+        candidates = filter_redundant_candidates(context, candidates, goals)
     candidates.sort(key=lambda c: (len(c["path"]), c["id"]))
     return candidates[:max_candidates]
 
@@ -235,6 +238,9 @@ def select_candidates(context, candidates, goals, k=3, method="learned", model=N
         raise ValueError(f"Unknown ranking method: {method}")
     if not isinstance(k, int) or isinstance(k, bool) or k < 0:
         raise ValueError("Selection budget must be a nonnegative integer")
+    if method == "learned" and model is not None and model.get("kind") == "natural-list-capacity-context-bootstrap-ridge-v1":
+        from .natural_model import select_natural
+        return select_natural(context, candidates, goals, k=k, model=model)
     validate_goals(context, goals)
     ranked = copy.deepcopy(candidates)
     rng = random.Random(seed)
@@ -296,6 +302,8 @@ def discover(context, model=None, k=3, search_budget=8, goals=None, method="lear
     augmented = sum(g["augmented"]["solved"] for g in outcomes)
     return {"schema_version": 1, "context": copy.deepcopy(context), "context_sha256": context_hash(context),
             "seed": copy.deepcopy(context["seed"]), "candidates": candidates, "selected": [c["id"] for c in selected],
+            "ranking_model": {"kind": model.get("kind"), "training": copy.deepcopy(model.get("training")),
+                              "model_sha256": hashlib.sha256(json.dumps(model, sort_keys=True).encode()).hexdigest()} if model else None,
             "goals": outcomes, "budget": {"selected_lemmas": k, "search_expansions_per_goal": search_budget,
             "candidate_limit": 256, "candidate_generation_max_path_edges": 6},
             "verification": {"status": "unavailable", "toolchain": None, "source_sha256": None, "log": "Lean has not been run.", "axioms": None},

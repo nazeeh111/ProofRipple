@@ -1,0 +1,79 @@
+{
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "audits": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "constants": [
+        "List",
+        "Nat",
+        "Bool",
+        "id",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p0",
+        "stage_p11",
+        "automation_goal_0._proof_1_1"
+      ],
+      "name": "automation_goal_0",
+      "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "constants": [
+        "List",
+        "Nat",
+        "Bool",
+        "id",
+        "LE.le",
+        "instLENat",
+        "List.length",
+        "stage_p2",
+        "stage_p11",
+        "automation_goal_1._proof_1_1"
+      ],
+      "name": "automation_goal_1",
+      "type": "\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "constants": [
+        "List",
+        "Nat",
+        "Bool",
+        "LE.le",
+        "instLENat",
+        "HAdd.hAdd",
+        "instHAdd",
+        "instAddNat",
+        "List.length",
+        "automation_combined_buffer_safe._proof_1_1"
+      ],
+      "name": "automation_combined_buffer_safe",
+      "type": "\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k cap : Nat),\n  xs.length + ys.length \u2264 cap \u2192\n    ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264 cap"
+    }
+  ],
+  "axiom_policy": "explicit_foundational_allowlist",
+  "elapsed_seconds": 3.7747,
+  "log": "{\"caption\":\"\",\"data\":\"Variable name `f` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _f\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":31,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":30,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `p` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _p\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":47,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":46,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `k` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _k\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":64,\"line\":4},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":63,\"line\":4},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"id\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p0\\\",\\\"stage_p11\\\",\\\"automation_goal_0._proof_1_1\\\"],\\\"name\\\":\\\"automation_goal_0\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p0 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":55},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":55},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"id\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"List.length\\\",\\\"stage_p2\\\",\\\"stage_p11\\\",\\\"automation_goal_1._proof_1_1\\\"],\\\"name\\\":\\\"automation_goal_1\\\",\\\"type\\\":\\\"\u2200 (xs : List Nat) (f : Nat \u2192 Nat) (p : Nat \u2192 Bool) (k cap : Nat),\\\\n  (stage_p2 xs f p k).length \u2264 cap \u2192 (stage_p11 xs f p k).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":55},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":55},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"List\\\",\\\"Nat\\\",\\\"Bool\\\",\\\"LE.le\\\",\\\"instLENat\\\",\\\"HAdd.hAdd\\\",\\\"instHAdd\\\",\\\"instAddNat\\\",\\\"List.length\\\",\\\"automation_combined_buffer_safe._proof_1_1\\\"],\\\"name\\\":\\\"automation_combined_buffer_safe\\\",\\\"type\\\":\\\"\u2200 (xs ys : List Nat) (p q : Nat \u2192 Bool) (f : Nat \u2192 Nat) (k cap : Nat),\\\\n  xs.length + ys.length \u2264 cap \u2192\\\\n    ((List.map f (List.filter p xs)).reverse ++ List.map f (List.take k (List.filter q ys))).length \u2264 cap\\\"}\",\"endPos\":{\"column\":7,\"line\":55},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-ljwnei05/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":55},\"severity\":\"information\"}\n",
+  "returncode": 0,
+  "source_sha256": "e0bbacf718ae5c0508495b6bdea6f7be379ac4b26817063bca90737f685bd4b7",
+  "status": "kernel_verified",
+  "toolchain": "leanprover/lean4:v4.33.1"
+}

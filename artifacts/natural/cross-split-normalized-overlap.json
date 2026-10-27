@@ -1,0 +1,26 @@
+{
+  "scope": "Independent readback of cleaned saved contexts under strong-normalized equality keys, ignoring all context/node IDs. No model outcomes are used. Equality recognition is conservative, not complete.",
+  "normalization_source_sha256": "62ab7fdf6fce576142c2d92a98f3cf220c043450228f436fa0d8f2811a327e04",
+  "checks": {
+    "test": {
+      "retained_queries": 61,
+      "globally_unique_normalized_pairs": 57,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    },
+    "train": {
+      "retained_queries": 122,
+      "globally_unique_normalized_pairs": 121,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    },
+    "validation": {
+      "retained_queries": 28,
+      "globally_unique_normalized_pairs": 28,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    }
+  },
+  "all_raw_training_goal_statements_still_in_training_index": true,
+  "all_raw_validation_goal_statements_still_in_prior_index": true
+}

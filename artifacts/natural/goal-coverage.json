@@ -1,0 +1,229 @@
+{
+  "scope": "Retained query coverage after label-free cleaning; original raw endpoint queries are in raw-contexts.json and goal_cleaning report.",
+  "contexts": [
+    {
+      "context_id": "test_3000",
+      "split": "test",
+      "retained_registry_queries": 4,
+      "recognized_unique_length_goal_pairs": 4
+    },
+    {
+      "context_id": "test_3001",
+      "split": "test",
+      "retained_registry_queries": 4,
+      "recognized_unique_length_goal_pairs": 4
+    },
+    {
+      "context_id": "test_3002",
+      "split": "test",
+      "retained_registry_queries": 4,
+      "recognized_unique_length_goal_pairs": 4
+    },
+    {
+      "context_id": "test_3003",
+      "split": "test",
+      "retained_registry_queries": 3,
+      "recognized_unique_length_goal_pairs": 3
+    },
+    {
+      "context_id": "test_3004",
+      "split": "test",
+      "retained_registry_queries": 6,
+      "recognized_unique_length_goal_pairs": 6
+    },
+    {
+      "context_id": "test_3005",
+      "split": "test",
+      "retained_registry_queries": 2,
+      "recognized_unique_length_goal_pairs": 2
+    },
+    {
+      "context_id": "test_3006",
+      "split": "test",
+      "retained_registry_queries": 0,
+      "recognized_unique_length_goal_pairs": 0
+    },
+    {
+      "context_id": "test_3007",
+      "split": "test",
+      "retained_registry_queries": 8,
+      "recognized_unique_length_goal_pairs": 8
+    },
+    {
+      "context_id": "test_3008",
+      "split": "test",
+      "retained_registry_queries": 8,
+      "recognized_unique_length_goal_pairs": 8
+    },
+    {
+      "context_id": "test_3009",
+      "split": "test",
+      "retained_registry_queries": 13,
+      "recognized_unique_length_goal_pairs": 13
+    },
+    {
+      "context_id": "test_3010",
+      "split": "test",
+      "retained_registry_queries": 4,
+      "recognized_unique_length_goal_pairs": 4
+    },
+    {
+      "context_id": "test_3011",
+      "split": "test",
+      "retained_registry_queries": 5,
+      "recognized_unique_length_goal_pairs": 5
+    },
+    {
+      "context_id": "train_1000",
+      "split": "train",
+      "retained_registry_queries": 8,
+      "recognized_unique_length_goal_pairs": 8
+    },
+    {
+      "context_id": "train_1001",
+      "split": "train",
+      "retained_registry_queries": 3,
+      "recognized_unique_length_goal_pairs": 3
+    },
+    {
+      "context_id": "train_1002",
+      "split": "train",
+      "retained_registry_queries": 6,
+      "recognized_unique_length_goal_pairs": 6
+    },
+    {
+      "context_id": "train_1003",
+      "split": "train",
+      "retained_registry_queries": 11,
+      "recognized_unique_length_goal_pairs": 11
+    },
+    {
+      "context_id": "train_1004",
+      "split": "train",
+      "retained_registry_queries": 7,
+      "recognized_unique_length_goal_pairs": 7
+    },
+    {
+      "context_id": "train_1005",
+      "split": "train",
+      "retained_registry_queries": 7,
+      "recognized_unique_length_goal_pairs": 7
+    },
+    {
+      "context_id": "train_1006",
+      "split": "train",
+      "retained_registry_queries": 6,
+      "recognized_unique_length_goal_pairs": 6
+    },
+    {
+      "context_id": "train_1007",
+      "split": "train",
+      "retained_registry_queries": 5,
+      "recognized_unique_length_goal_pairs": 5
+    },
+    {
+      "context_id": "train_1008",
+      "split": "train",
+      "retained_registry_queries": 8,
+      "recognized_unique_length_goal_pairs": 8
+    },
+    {
+      "context_id": "train_1009",
+      "split": "train",
+      "retained_registry_queries": 5,
+      "recognized_unique_length_goal_pairs": 5
+    },
+    {
+      "context_id": "train_1010",
+      "split": "train",
+      "retained_registry_queries": 9,
+      "recognized_unique_length_goal_pairs": 9
+    },
+    {
+      "context_id": "train_1011",
+      "split": "train",
+      "retained_registry_queries": 10,
+      "recognized_unique_length_goal_pairs": 10
+    },
+    {
+      "context_id": "train_1012",
+      "split": "train",
+      "retained_registry_queries": 10,
+      "recognized_unique_length_goal_pairs": 10
+    },
+    {
+      "context_id": "train_1013",
+      "split": "train",
+      "retained_registry_queries": 10,
+      "recognized_unique_length_goal_pairs": 10
+    },
+    {
+      "context_id": "train_1014",
+      "split": "train",
+      "retained_registry_queries": 9,
+      "recognized_unique_length_goal_pairs": 9
+    },
+    {
+      "context_id": "train_1015",
+      "split": "train",
+      "retained_registry_queries": 8,
+      "recognized_unique_length_goal_pairs": 8
+    },
+    {
+      "context_id": "validation_2000",
+      "split": "validation",
+      "retained_registry_queries": 3,
+      "recognized_unique_length_goal_pairs": 3
+    },
+    {
+      "context_id": "validation_2001",
+      "split": "validation",
+      "retained_registry_queries": 6,
+      "recognized_unique_length_goal_pairs": 6
+    },
+    {
+      "context_id": "validation_2002",
+      "split": "validation",
+      "retained_registry_queries": 2,
+      "recognized_unique_length_goal_pairs": 2
+    },
+    {
+      "context_id": "validation_2003",
+      "split": "validation",
+      "retained_registry_queries": 7,
+      "recognized_unique_length_goal_pairs": 7
+    },
+    {
+      "context_id": "validation_2004",
+      "split": "validation",
+      "retained_registry_queries": 7,
+      "recognized_unique_length_goal_pairs": 7
+    },
+    {
+      "context_id": "validation_2005",
+      "split": "validation",
+      "retained_registry_queries": 3,
+      "recognized_unique_length_goal_pairs": 3
+    }
+  ],
+  "split_totals": {
+    "test": {
+      "retained_queries": 61,
+      "globally_unique_normalized_pairs": 57,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    },
+    "train": {
+      "retained_queries": 122,
+      "globally_unique_normalized_pairs": 121,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    },
+    "validation": {
+      "retained_queries": 28,
+      "globally_unique_normalized_pairs": 28,
+      "overlap_with_own_baseline_facts": 0,
+      "overlap_with_prior_index": 0
+    }
+  }
+}

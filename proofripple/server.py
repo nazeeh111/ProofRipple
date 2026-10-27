@@ -40,15 +40,22 @@ def serve(root, port=8765):
             origin = self.headers.get("Origin")
             if not self.allowed() or (origin and origin not in {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}):
                 return self.send(403, {"error": "Cross-origin requests are disabled"})
-            if self.path != "/api/run":
+            if self.path not in {"/api/run", "/api/import-declaration"}:
                 return self.send(404, {"error": "Unknown endpoint"})
             try:
                 size = int(self.headers.get("Content-Length", "0"))
                 if not 0 < size <= 1_000_000:
                     return self.send(413, {"error": "Request must be 1..1000000 bytes"})
                 payload = json.loads(self.rfile.read(size))
+                if not isinstance(payload, dict):
+                    raise ValueError("Request must be a JSON object")
                 from .cli import run_context
-                run = run_context(payload["context"], payload.get("budget", 8), payload.get("select", 3))
+                if self.path == "/api/import-declaration":
+                    if payload.get("name") != "List.length_filter_le":
+                        raise ValueError("Supported declaration: List.length_filter_le")
+                    from .natural import make_example
+                    payload["context"] = make_example()
+                run = run_context(payload["context"], payload.get("budget", 8), payload.get("select"), method=payload.get("method"))
                 self.send(200, run)
             except (ValueError, KeyError, TypeError) as exc:
                 self.send(400, {"error": str(exc)})

@@ -1,0 +1,17 @@
+{
+  "driver_sha256": "05ff89e499e40e8065151faeecee4ab3afa4e4fed3106b8c91e115d183aed06a",
+  "overwrite_refusal_exitcode": 2,
+  "reproduced_expected_outcomes": true,
+  "script_syntax": "parsed",
+  "source_byte_matches": {
+    "base.lean": "6f31cf3f8b668f345639026f58d6c00ba27c00196d6fd30b3cb0dd162a1fd927",
+    "control-gen32.lean": "e0bbacf718ae5c0508495b6bdea6f7be379ac4b26817063bca90737f685bd4b7",
+    "goal-0-augmented-expanded-gen8.lean": "0bf61c440850f60a264e5a006c29ede439ad346b81e776249d715509dbd017d2",
+    "goal-0-augmented-gen8.lean": "60c94058d0b611e9efde52567876d5de45f4bdeb2352c08b9321230828f58a86",
+    "goal-0-baseline-gen8.lean": "bd0fd28dd963fee49eeebab8b8fe0c3979b26bcd58a76ea079d2c92c9e8382b9",
+    "goal-1-augmented-expanded-gen8.lean": "b68731428bd8d29095ab18d5626f81680f3b3aec1b437f36d1d92753145dbcdb",
+    "goal-1-augmented-gen8.lean": "122e193c11bb19e6bb5f65bb843c794b4e48d2261af424b583b2874ed44939c7",
+    "goal-1-baseline-gen8.lean": "2bb5ef129b131bee982b2650b8e91f21a68b44db2a74fa3018290ee6a1acab8f"
+  },
+  "source_scope": "No core, dataset, model or UI edits; only driver, evidence archive and experiment report."
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "Actual current-source LAB captures and browser interaction recording of recorded certified data",
+  "proof_source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c",
+  "files": {
+    "lab-desktop.png": "2ab0fff3ebac4598381a7c80be6d9042dcbd5aabe0ffa40c6211519887213fb1",
+    "lab-mobile.png": "f2b7b5b86506a72988e6ebdcb29a8709138d8411025cd1fa8d78842032a56b2b",
+    "walkthrough.mp4": "61482df2126c5fcf273613a2d7d3359cd516898341751f51f868730a5e7045cc"
+  },
+  "video": {
+    "duration_seconds": 21.4,
+    "width": 1440,
+    "height": 1000,
+    "fps": 25,
+    "codec": "H.264",
+    "audio": false,
+    "full_decode": "passed",
+    "sampled_frames_seconds": [
+      4,
+      11,
+      17
+    ]
+  },
+  "sources": [
+    "scripts/check_lab.cjs",
+    "scripts/record_walkthrough.cjs"
+  ],
+  "browser_checks": "docs/browser-checks-v0.2.json",
+  "note": "Normal-speed recorded UI exploration, not a live proof-verification-duration recording."
+}

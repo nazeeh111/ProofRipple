@@ -9,3 +9,8 @@ outputs/
 artifacts/certification-runs.json
 artifacts/benchmark-audits.json
 TASK_STATE.md
+artifacts/natural/certification-runs.json
+artifacts/natural/audits.json
+artifacts/natural/proofs/*.log
+artifacts/natural/experiment-source/
+artifacts/natural/attempt*/

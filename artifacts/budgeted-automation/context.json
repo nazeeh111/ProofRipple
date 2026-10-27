@@ -1,0 +1,181 @@
+{
+  "id": "list_capacity",
+  "domain": "list-capacity",
+  "title": "Verified list-pipeline capacity",
+  "description": "A concrete List Nat pipeline of filter, map, reverse and take operations. Each stage's length is at most its input capacity. The registered append/addition template also proves a two-buffer capacity consequence; it is not claimed as an invented theorem.",
+  "nodes": [
+    {
+      "id": "p0",
+      "label": "Input capacity",
+      "expression": {
+        "op": "input"
+      }
+    },
+    {
+      "id": "p1",
+      "label": "Stage 1: filter capacity",
+      "expression": {
+        "op": "filter",
+        "input": "p0"
+      }
+    },
+    {
+      "id": "p2",
+      "label": "Stage 2: map capacity",
+      "expression": {
+        "op": "map",
+        "input": "p1"
+      }
+    },
+    {
+      "id": "p3",
+      "label": "Stage 3: reverse capacity",
+      "expression": {
+        "op": "reverse",
+        "input": "p2"
+      }
+    },
+    {
+      "id": "p4",
+      "label": "Stage 4: take capacity",
+      "expression": {
+        "op": "take",
+        "input": "p3"
+      }
+    },
+    {
+      "id": "p5",
+      "label": "Stage 5: filter capacity",
+      "expression": {
+        "op": "filter",
+        "input": "p4"
+      }
+    },
+    {
+      "id": "p6",
+      "label": "Stage 6: map capacity",
+      "expression": {
+        "op": "map",
+        "input": "p5"
+      }
+    },
+    {
+      "id": "p7",
+      "label": "Stage 7: reverse capacity",
+      "expression": {
+        "op": "reverse",
+        "input": "p6"
+      }
+    },
+    {
+      "id": "p8",
+      "label": "Stage 8: take capacity",
+      "expression": {
+        "op": "take",
+        "input": "p7"
+      }
+    },
+    {
+      "id": "p9",
+      "label": "Stage 9: filter capacity",
+      "expression": {
+        "op": "filter",
+        "input": "p8"
+      }
+    },
+    {
+      "id": "p10",
+      "label": "Stage 10: map capacity",
+      "expression": {
+        "op": "map",
+        "input": "p9"
+      }
+    },
+    {
+      "id": "p11",
+      "label": "Stage 11: reverse capacity",
+      "expression": {
+        "op": "reverse",
+        "input": "p10"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "h0",
+      "source": "p0",
+      "target": "p1"
+    },
+    {
+      "id": "h1",
+      "source": "p1",
+      "target": "p2"
+    },
+    {
+      "id": "h2",
+      "source": "p2",
+      "target": "p3"
+    },
+    {
+      "id": "h3",
+      "source": "p3",
+      "target": "p4"
+    },
+    {
+      "id": "h4",
+      "source": "p4",
+      "target": "p5"
+    },
+    {
+      "id": "h5",
+      "source": "p5",
+      "target": "p6"
+    },
+    {
+      "id": "h6",
+      "source": "p6",
+      "target": "p7"
+    },
+    {
+      "id": "h7",
+      "source": "p7",
+      "target": "p8"
+    },
+    {
+      "id": "h8",
+      "source": "p8",
+      "target": "p9"
+    },
+    {
+      "id": "h9",
+      "source": "p9",
+      "target": "p10"
+    },
+    {
+      "id": "h10",
+      "source": "p10",
+      "target": "p11"
+    }
+  ],
+  "seed": {
+    "id": "breakthrough",
+    "source": "p4",
+    "target": "p6",
+    "path": [
+      "h4",
+      "h5"
+    ]
+  },
+  "goals": [
+    {
+      "id": "goal_input",
+      "source": "p0",
+      "target": "p11"
+    },
+    {
+      "id": "goal_mapped",
+      "source": "p2",
+      "target": "p11"
+    }
+  ]
+}

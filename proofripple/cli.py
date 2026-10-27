@@ -8,7 +8,7 @@ import sys
 import sysconfig
 
 from . import __version__
-from .engine import discover
+from .engine import METHODS, discover
 from .lean import TOOLCHAIN, certify_run, import_lean, seed_source
 
 
@@ -29,17 +29,43 @@ def load_context(path):
     return import_lean(file) if file.suffix == ".lean" else json.loads(file.read_text())
 
 
-def load_model():
-    file = data_root() / "artifacts" / "model.json"
-    return json.loads(file.read_text()) if file.is_file() else None
+def load_model(domain=None):
+    folder = data_root() / "artifacts"
+    file = folder / "natural" / "model.json" if domain == "list-capacity" else folder / "model.json"
+    if file.is_file():
+        return json.loads(file.read_text())
+    if domain == "list-capacity":
+        from .natural_model import train_natural_model
+        contexts_file = folder / "natural" / "contexts.json"
+        if contexts_file.is_file():
+            train = json.loads(contexts_file.read_text())["train"]
+        else:
+            from .natural_benchmark import make_natural_context, _prepare_splits
+            raw = {"train": [make_natural_context(seed, "train") for seed in range(1000, 1016)],
+                   "validation": [make_natural_context(seed, "validation") for seed in range(2000, 2006)],
+                   "test": [make_natural_context(seed, "test") for seed in range(3000, 3012)]}
+            train = _prepare_splits(raw)[0]["train"]
+        return train_natural_model(train)
+    return None
 
 
-def run_context(context, budget=8, select=3, verify=True):
+def run_context(context, budget=8, select=None, verify=True, method=None):
+    if not isinstance(context, dict):
+        raise ValueError("Context must be a JSON object")
+    natural = context.get("domain") == "list-capacity"
+    if select is None:
+        select = 1 if natural else 3
+    if method is None:
+        method = "graph" if natural else "learned"
     if not isinstance(budget, int) or isinstance(budget, bool) or not 1 <= budget <= 128:
         raise ValueError("Search expansion budget must be 1..128")
     if not isinstance(select, int) or isinstance(select, bool) or not 0 <= select <= 16:
         raise ValueError("Selected consequence budget must be 0..16")
-    run = discover(context, model=load_model(), k=select, search_budget=budget)
+    if context.get("domain") == "list-capacity":
+        from .natural import validate_natural_context
+        validate_natural_context(context)
+    model = load_model(context.get("domain")) if method == "learned" else None
+    run = discover(context, model=model, k=select, search_budget=budget, method=method)
     return certify_run(run) if verify else run
 
 
@@ -58,12 +84,14 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="Inspect free local runtime requirements")
     demo = commands.add_parser("demo", help="Discover and Lean-check the bundled example")
+    demo.add_argument("--domain", choices=("lists", "implications"), default="lists")
     imp = commands.add_parser("discover", help="Import a supported JSON context or canonical Lean seed")
     imp.add_argument("input")
     for command in (demo, imp):
         command.add_argument("--out", default="outputs/run")
         command.add_argument("--budget", type=int, default=8)
-        command.add_argument("--select", type=int, default=3)
+        command.add_argument("--select", type=int, default=None)
+        command.add_argument("--method", choices=METHODS, default=None)
         command.add_argument("--no-verify", action="store_true", help="Exploration only; all results stay proposed")
     export = commands.add_parser("export-seed", help="Create the supported canonical Lean theorem format")
     export.add_argument("input")
@@ -72,15 +100,26 @@ def main(argv=None):
     bench.add_argument("--out", default="outputs/benchmark")
     bench.add_argument("--quick", action="store_true")
     bench.add_argument("--certify", action="store_true", help="Additionally Lean-check all test witnesses")
+    bench.add_argument("--domain", choices=("lists", "implications"), default="lists")
+    registered = commands.add_parser("import-declaration", help="Import an explicitly supported Lean core theorem")
+    registered.add_argument("name", choices=("List.length_filter_le",))
+    registered.add_argument("--out", default="outputs/imported")
     lab = commands.add_parser("lab", help="Serve the local research workbench")
     lab.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
             print(json.dumps({"version": __version__, "python": sys.version.split()[0], "lean": shutil.which("lean"), "required_toolchain": TOOLCHAIN, "assets": str(data_root()), "paid_services": False}, indent=2))
-        elif args.command in ("demo", "discover"):
-            path = data_root() / "examples" / "invariants.json" if args.command == "demo" else args.input
-            run = run_context(load_context(path), args.budget, args.select, not args.no_verify)
+        elif args.command in ("demo", "discover", "import-declaration"):
+            if args.command == "import-declaration":
+                from .natural import make_example
+                run = run_context(make_example())
+                out = save_run(run, args.out)
+                print(json.dumps({"imported_declaration": args.name, "verification": run["verification"]["status"], "output": str(out.resolve())}, indent=2))
+                return 0 if run["verification"]["status"] == "kernel_verified" else 2
+            filename = "list_capacity.json" if getattr(args, "domain", None) == "lists" else "invariants.json"
+            path = data_root() / "examples" / filename if args.command == "demo" else args.input
+            run = run_context(load_context(path), args.budget, args.select, not args.no_verify, args.method)
             out = save_run(run, args.out)
             status = run["verification"]["status"]
             print(json.dumps({"verification": status, "candidates": len(run["candidates"]), "metrics": run["metrics"], "output": str(out.resolve())}, indent=2))
@@ -91,13 +130,19 @@ def main(argv=None):
             Path(args.out).write_text(seed_source(load_context(args.input)))
             print(args.out)
         elif args.command == "benchmark":
-            from .benchmark import run_benchmark
-            report = run_benchmark(args.out, args.quick)
-            if args.certify:
+            if args.domain == "lists":
+                from .natural_benchmark import run_natural_benchmark
+                report = run_natural_benchmark(args.out, args.quick, args.certify)
+            else:
+                from .benchmark import run_benchmark
+                report = run_benchmark(args.out, args.quick)
+            if args.certify and args.domain == "implications":
                 from .certification import certify_benchmark
                 report = certify_benchmark(args.out)
                 if report["formal_verification"]["status"] != "kernel_verified":
                     return 2
+            if args.certify and report.get("formal_verification", {}).get("status") != "kernel_verified":
+                return 2
             print(json.dumps(report["summary"], indent=2))
         elif args.command == "lab":
             from .server import serve

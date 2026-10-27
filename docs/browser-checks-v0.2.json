@@ -1,0 +1,122 @@
+{
+  "url": "http://127.0.0.1:8767/lab/",
+  "checks": [
+    "default typed natural evidence",
+    "imported theorem exact audit",
+    "explicit propext trust policy",
+    "normalized candidate evidence",
+    "saved search/lemma/policy budgets",
+    "typed proof inspector",
+    "keyboard tabs",
+    "empty filtering",
+    "domain switching and matching benchmarks",
+    "failed example retention",
+    "real graph k3 budget comparison",
+    "real learned k1 rerun",
+    "real graph k1 rerun",
+    "real registered theorem import",
+    "complete JSON export/source hash",
+    "failed-run retention",
+    "automation verified-state guard",
+    "desktop/mobile overflow"
+  ],
+  "observations": [
+    {
+      "case": "recorded_natural",
+      "candidates": 3,
+      "budget": {
+        "selected_lemmas": 1,
+        "search_expansions_per_goal": 8,
+        "candidate_limit": 256,
+        "candidate_generation_max_path_edges": 6
+      },
+      "metrics": {
+        "candidate_count": 3,
+        "goal_count": 2,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "method": "graph",
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+    },
+    {
+      "case": "fresh_graph_k3",
+      "metrics": {
+        "candidate_count": 3,
+        "goal_count": 2,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "method": "graph",
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "budget": {
+        "selected_lemmas": 3,
+        "search_expansions_per_goal": 8,
+        "candidate_limit": 256,
+        "candidate_generation_max_path_edges": 6
+      },
+      "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+    },
+    {
+      "case": "fresh_learned_k1",
+      "metrics": {
+        "candidate_count": 3,
+        "goal_count": 2,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "method": "learned",
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "budget": {
+        "selected_lemmas": 1,
+        "search_expansions_per_goal": 8,
+        "candidate_limit": 256,
+        "candidate_generation_max_path_edges": 6
+      },
+      "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+    },
+    {
+      "case": "fresh_graph_k1",
+      "metrics": {
+        "candidate_count": 3,
+        "goal_count": 2,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "method": "graph",
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "budget": {
+        "selected_lemmas": 1,
+        "search_expansions_per_goal": 8,
+        "candidate_limit": 256,
+        "candidate_generation_max_path_edges": 6
+      },
+      "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+    },
+    {
+      "case": "fresh_registered_import",
+      "metrics": {
+        "candidate_count": 3,
+        "goal_count": 2,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "method": "graph",
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+    }
+  ],
+  "pageErrors": [],
+  "source_sha256": "92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c"
+}

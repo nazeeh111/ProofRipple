@@ -1,0 +1,20 @@
+{
+  "protocol": "Prospective fixed gen=8 comparison only; no search for a positive threshold. Gen=32 imported automation control.",
+  "context_sha256": "92831cfccfe068320437528c11cf2995a4974bba7909c0ad0379c6753478859d",
+  "base_sha256": "6f31cf3f8b668f345639026f58d6c00ba27c00196d6fd30b3cb0dd162a1fd927",
+  "selected_candidate": "pr_ripple_p4_p9",
+  "candidate_pool": 3,
+  "goal_count": 2,
+  "common_limits": {
+    "maxHeartbeats": 400000,
+    "threads": 1,
+    "memory_MB": 2048,
+    "timeout_seconds": 60
+  },
+  "axiom_policy": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "note": "Baseline and augmented source have identical declared environment before the goal; only augmentation is the have ripple hypothesis. Generation count is a tactic control, not equal CPU work."
+}

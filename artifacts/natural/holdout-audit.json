@@ -1,0 +1,24 @@
+{
+  "retained_goal_overlap_own_baseline_facts": 0,
+  "retained_identity_goals": 0,
+  "scope": "Recognized statement equality under the registered sound partial normalizer; no claim of deciding all mathematical equivalences.",
+  "test_context_ids": [
+    "test_3000",
+    "test_3001",
+    "test_3002",
+    "test_3003",
+    "test_3004",
+    "test_3005",
+    "test_3006",
+    "test_3007",
+    "test_3008",
+    "test_3009",
+    "test_3010",
+    "test_3011"
+  ],
+  "test_goal_overlap_all_prior_index": 0,
+  "training_index_declaration_signatures": 360,
+  "training_plus_validation_index_signatures": 458,
+  "validation_goal_overlap_training_index": 0,
+  "within_context_duplicate_goals": 0
+}

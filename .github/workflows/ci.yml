@@ -2,7 +2,6 @@ name: Tests and Lean verification
 on:
   push:
     branches: [main]
-    tags: ['v*']
   pull_request:
 permissions:
   contents: read
@@ -40,8 +39,11 @@ jobs:
       - run: python -m pip install . build
       - run: lean --version
       - run: python -m unittest discover -s tests -v
+      - run: proofripple demo --domain implications --out outputs/implications-demo
       - run: proofripple demo --out outputs/demo
-      - run: proofripple benchmark --out outputs/benchmark --certify
+      - run: proofripple benchmark --domain implications --out outputs/benchmark --certify
+      - run: proofripple benchmark --domain lists --out outputs/natural --certify
+      - run: python scripts/budgeted_automation.py --out outputs/budgeted-automation
       - name: Compare deterministic experiment outcomes
         run: |
           python - <<'PY'
@@ -51,6 +53,11 @@ jobs:
           assert recorded['outcomes_sha256']==fresh['outcomes_sha256']
           assert fresh['formal_verification']['status']=='kernel_verified'
           assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
+          natural_recorded=json.load(open('artifacts/natural/benchmark.json'))
+          natural_fresh=json.load(open('outputs/natural/benchmark.json'))
+          assert natural_recorded['outcomes_sha256']==natural_fresh['outcomes_sha256']
+          assert natural_fresh['formal_verification']['status']=='kernel_verified'
+          assert natural_fresh['automation_control']['status']=='kernel_verified'
           PY
       - run: python -m build
       - uses: actions/upload-artifact@v4
@@ -61,4 +68,9 @@ jobs:
             outputs/benchmark/benchmark.json
             outputs/benchmark/benchmark-audits.json
             outputs/benchmark/proofs/
+            outputs/natural/benchmark.json
+            outputs/natural/benchmark-audits.json.gz
+            outputs/natural/proofs/
+            outputs/natural/automation-audit.json
+            outputs/budgeted-automation/
             dist/

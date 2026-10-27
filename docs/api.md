@@ -42,6 +42,8 @@ print(checked["metrics"])
 `discover` is exploration only. `certify_run` rebuilds source/status from
 witnesses, restores the canonical context seed and context hash, and starts a
 fresh pinned Lean process. It does not trust imported proof strings or verdicts.
+It checks mathematical witnesses, not empirical budget or metric bookkeeping;
+rerun `discover` or the CLI from the context to reproduce those observations.
 `verify_source` is an internal developer helper that executes generated Lean;
 it is **not** a sandbox for arbitrary untrusted Lean files.
 
@@ -61,9 +63,53 @@ It is for a local research session, not an internet-facing deployment.
 
 - `proposed`: candidate witness, without a successful complete Lean audit.
 - `kernel_verified`: exact generated source accepted and every expected
-  declaration audited with no transitive axioms.
+  declaration audited under its explicit domain axiom policy.
 - `failed`: compilation, audit or bounded process failure.
 - `verification.status = unavailable`: Lean could not be started.
 
 JSON is not a signed certificate. A recorded/imported `kernel_verified` field
 reports its producer's evidence. Re-run certification locally when trust matters.
+
+## Concrete list domain (v0.2)
+
+Set `domain` to `list-capacity`. Every node adds `expression`: the first is
+`{"op":"input"}`; later nodes use `{"op":"filter","input":"p0"}`
+(or `map`, `reverse`, `take`) referring to an earlier node. All stages operate
+on actual `List Nat` values with one shared arbitrary `f : Nat → Nat`,
+`p : Nat → Bool`, and `k : Nat`. A node represents its stage's length being
+at most an arbitrary `cap`. Primitive edges must point from an expression
+ancestor to its descendant; their proof terms use registered Lean core facts.
+No arbitrary implication-edge hypotheses are introduced in this domain.
+
+```sh
+proofripple import-declaration List.length_filter_le --out outputs/imported
+proofripple demo --domain lists --method graph --select 1 --out outputs/lists
+proofripple demo --domain lists --method learned --select 3 --out outputs/learned
+proofripple demo --domain implications --out outputs/logic
+proofripple benchmark --domain lists --out outputs/benchmark --certify
+```
+
+The default demo/discovery policy is graph ranking with one selected lemma for
+list contexts, and learned ranking with three selected lemmas for implications.
+`--method` and `--select` override those choices. The natural benchmark uses a
+common cap of three for all policies; a smaller eligible pool yields fewer
+selected lemmas, including none. The default benchmark domain is `lists`;
+use `--domain implications` to reproduce the separate v0.1 experiment.
+
+`POST /api/import-declaration` accepts
+`{"name":"List.length_filter_le","budget":8,"select":1,"method":"graph"}`.
+It imports the actual allowlisted declaration and runs its supported typed
+pipeline context. This registry has one supported seed declaration; it does
+not import arbitrary named Lean constants or user-selected modules.
+`POST /api/run` also accepts `method`; its context determines the formal domain.
+
+Canonical `.lean` export/import preserves the typed AST and the concrete proof
+source. Extra commands are rejected in both domains. Natural certification
+records `natural_domain.imported_seed` with the exact environment-read type,
+axioms and named proof dependencies. `natural_domain.registered_templates`
+labels supplied append/addition templates explicitly as undiscovered rules.
+
+List proofs allow only standard `propext`. The separate direct `grind` control
+allows and records the three standard foundational axioms. The propositional
+backend remains axiom-free by default. There is no policy setting that permits
+`sorryAx`, custom axioms or native-computation axioms.
