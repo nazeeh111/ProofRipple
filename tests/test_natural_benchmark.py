@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -9,11 +10,25 @@ from proofripple.engine import discover, generate_candidates
 from proofripple.natural import length_normal_forms, make_example, validate_natural_context
 from proofripple.natural_benchmark import (
     FAMILIES, NATURAL_METHODS, _automation, _combined_run, _freeze_digest,
-    _prepare_splits, make_natural_context, run_natural_benchmark,
+    _prepare_splits, _snapshot_sources, make_natural_context, run_natural_benchmark,
 )
 
 
 class NaturalGeneratorTests(unittest.TestCase):
+    def test_installed_benchmark_snapshots_bundled_normalization_rules(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            installed = root / "share/proofripple/examples"
+            installed.mkdir(parents=True)
+            rules = b"-- installed normalization provenance\n"
+            (installed / "NormalizationRules.lean").write_bytes(rules)
+            out = root / "output"
+            out.mkdir()
+            with patch("proofripple.natural_benchmark.__file__", str(root / "site-packages/proofripple/natural_benchmark.py")), patch("proofripple.natural_benchmark.sysconfig.get_path", return_value=str(root)):
+                result = _snapshot_sources(out, {})
+            self.assertEqual(result["source_sha256"], hashlib.sha256(rules).hexdigest())
+            self.assertEqual((out / "experiment-source/NormalizationRules.lean").read_bytes(), rules)
+
     def test_operator_skeleton_families_are_actually_disjoint(self):
         contexts = {split: make_natural_context(1700, split) for split in FAMILIES}
         for split, context in contexts.items():

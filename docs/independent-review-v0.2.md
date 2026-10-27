@@ -55,9 +55,17 @@ The helper uses sound shared-f/p/k laws: all-p membership survives reverse/take 
 
 Thirteen generic rule/fact lemmas were kernel-checked under propext only, including a constructive induction proof of filter identity. Their retained `NormalizationRules.lean` source hash is `f1fe7337eebf929f2bd56a3f62d52caa6cc7931ee075226b781cabb9b2571ff3`. This establishes the rewrite basis, not a formal proof of the complete Python normalizer or completeness of its equality keys.
 
+## Installed benchmark provenance correction
+
+A later Linux CI run completed all formal work but failed the strict outcome-digest comparison. The reviewer independently compared its downloaded report (`outputs/ci-40433100206-artifact/outputs/natural/benchmark.json`) with the archived accepted report. After removing only the benchmark's documented timing/compression fields, the **only differences** were the normalization-rule source hash and its missing-file explanatory scope. The installed benchmark had searched beside its Python module, while the wheel places that Lean asset under the Python installation's data directory.
+
+The bounded fix adds that existing data-directory fallback to `_snapshot_sources`. Its installed-layout regression test passed independently. The fallback-model test permits an absolute 1e-10 tolerance for numeric model values while retaining exact selected theorem ids and exact metrics across all 34 saved contexts; both focused CLI tests passed. This does not weaken proof, outcome or audit gates.
+
+After fresh full certification and promotion, the reviewer independently confirmed that the replacement report differs from the archived accepted report **only in the recorded natural_benchmark.py source hash** after the same stable-field normalization. All 34 Lean source files and all decompressed raw audit bytes are byte-identical across the promoted corpus, archived corpus and downloaded Linux CI corpus. All 3940 audits, raw/compressed hashes, source manifest, normalization-rule source bytes and eight frozen core-module hashes agree. Scientific records, summaries, models, split cleaning and holdout evidence are unchanged. The new outcome digest reflects the source-provenance fix; this review does not claim that a subsequent remote CI run has passed.
+
 ## Final artifact fingerprints
 
-- Outcome digest: `7b84c6cbe6ffccf075ccf61ef1eadcb9bec40b6981dcebcc76b1f569ea721082`.
+- Outcome digest: `1387d0e4a57e0081f5a3bb0b25ed8ea29ef52fc7bfe1b6efed7c48dc1e72b80f`.
 - `audits_sha256`: `04ed26d7322b5758e829a25ab7446b6ea4d499dee85e4c0ce9d728e6067c9c78`.
 - `audits_uncompressed_sha256`: `1b39014165c81c7bc66d68b49a5c18b121096dd316390e2ae72b5d283ad009df`.
 - `source_manifest_sha256`: `5770b6f649cb77ff0e6b0fe75dec9e5adb0eb1b294c65946469831ca5da2c33f`.
@@ -69,17 +77,17 @@ Thirteen generic rule/fact lemmas were kernel-checked under propext only, includ
 | `proofripple/lean.py` | `1be15209702cf449cc9bc32d18076736de82323f4fa4be77dc6599e73929277d` |
 | `proofripple/model.py` | `f2014fb0a95e28c14e808b257347ba857f3b625b5af9f939d0be15a8810a7e0c` |
 | `proofripple/natural.py` | `8df13c811222b88c24ad7c74627407a94d46f84edc429d093c98d65956b25bdd` |
-| `proofripple/natural_benchmark.py` | `3c9e825f01c5ce2d81190f0b6327a83764a84840c999e5c19d091f9b528ceea2` |
+| `proofripple/natural_benchmark.py` | `b840cdcbf4b58866b545189048852c0ae5f905f9a5846c36c9b2419fe3fd925a` |
 | `proofripple/natural_model.py` | `ac5eb439546caa582f4a581efd6d953e9970677e345771e131a64360aa1cef31` |
 | `proofripple/normalization.py` | `62ab7fdf6fce576142c2d92a98f3cf220c043450228f436fa0d8f2811a327e04` |
-| `proofripple/cli.py` | `7be34f4651c8e611f23857bbc625b380bb2972abcb223a2637c5209590cec0ad` |
+| `proofripple/cli.py` | `49f85d2c7480f6eb5e0c434ec94c0cb01c9d2e837462905360e6822d082c3d88` |
 | `proofripple/server.py` | `ac32a06b84e827b2f13863ef194ed9f460a3ea4af22789aa584dfeb0da7f7902` |
 | `lab/app.js` | `74b99fd7331bfda5b8de3ca3c0f443c2b35cef2a84fd5e6c6c52233ec8583521` |
 | `lab/index.html` | `d0827cdb64f4e0dcae379de08f5038693548761a0ac3b4108c9d07dfa0b72659` |
 | `setup.py` | `508b3dd61676bd3dc79a9ef6499ce8c51af01fb032aca95bcd13c621c96d66c4` |
-| `MANIFEST.in` | `22b8f95e8c060e76d90ff4ae2920afbe0d02fea5e0f11dc24292dc3dda4b4eb4` |
+| `MANIFEST.in` | `1f81dc797f0e1acf2b425cb90b8e742a3a506429a210ad455d5d57b39f0d7c1d` |
 | `tests/test_normalization.py` | `fd1d539075f3234043e294d64e3efe43b8389320a4ea3194bbe0b42b207549f0` |
-| `artifacts/natural/benchmark.json` | `87ce0f2b05708435ddc6ad0ba63e07ae27992ce87a17545d6201d217ca38909e` |
+| `artifacts/natural/benchmark.json` | `83f029522a314c16a2c583af55a7efd8c6bc4fd66fcc55e9d8bb7996e9282291` |
 | `artifacts/natural/model.json` | `251dc6ae4b301396c4242f2bd6ae4afb552c8385d92076bf958fc63e1b988bbe` |
 | `artifacts/natural/structure-model.json` | `b4c324c04289e2493f8d2475abda57347fa02d94c2c7aa18b5cb5a31f3377a21` |
 | `artifacts/natural/raw-contexts.json` | `cb2ad46736e97350a45d954eed1656b2f468d3626da83cc2bb47c4585fc428b2` |
@@ -89,5 +97,7 @@ Thirteen generic rule/fact lemmas were kernel-checked under propext only, includ
 | `artifacts/natural/demo.json` | `f0a16a32ef9734c4769b00de1d0cf9b7c68b38ae57407257fd1c5517c40a8c1d` |
 | `artifacts/natural/Demo.lean` | `92f15565abf1edb80839f5e4a6f92e3874f492534a75221350489c956f24e76c` |
 | `artifacts/natural/automation-control.lean` | `e0bbacf718ae5c0508495b6bdea6f7be379ac4b26817063bca90737f685bd4b7` |
-| `artifacts/natural/automation-audit.json` | `cdd8292e5b5ee3c7491ca1fb3020deb1476a0c39fae1de1f381096cecde85826` |
+| `artifacts/natural/automation-audit.json` | `dc60443962a61680fdad322390767ac343a42949761752cf467542b6be630455` |
 | `artifacts/natural/experiment-source/NormalizationRules.lean` | `f1fe7337eebf929f2bd56a3f62d52caa6cc7931ee075226b781cabb9b2571ff3` |
+| `tests/test_cli.py` | `ae908b034b1fab54927cb51acb46768bd0e83d35b799313f34589cb4f2020f5f` |
+| `tests/test_natural_benchmark.py` | `d8a859d05c14547ed59be0ededcf874341a850381ffa21ade18e89d438b91a45` |

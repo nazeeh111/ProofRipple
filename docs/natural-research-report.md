@@ -140,7 +140,7 @@ witnesses across all policies and random repetitions. It does not separately
 compile every training single-candidate label-search witness. Search labels are
 empirical evidence; they are not promoted to mathematical proof by the model.
 
-- Outcomes SHA256: `7b84c6cbe6ffccf075ccf61ef1eadcb9bec40b6981dcebcc76b1f569ea721082`.
+- Outcomes SHA256: `1387d0e4a57e0081f5a3bb0b25ed8ea29ef52fc7bfe1b6efed7c48dc1e72b80f`.
 - Compressed audit SHA256: `04ed26d7322b5758e829a25ab7446b6ea4d499dee85e4c0ce9d728e6067c9c78`.
 - Raw audit SHA256: `1b39014165c81c7bc66d68b49a5c18b121096dd316390e2ae72b5d283ad009df`.
 - Exact context/model/source hashes, thirty-four proof sources and individual

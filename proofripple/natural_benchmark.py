@@ -14,6 +14,7 @@ from pathlib import Path
 import random
 import statistics
 import time
+import sysconfig
 
 from .benchmark import _candidate_labels, _interval, _ranking_quality, make_context
 from .engine import METHODS, context_hash, discover, generate_candidates
@@ -223,6 +224,8 @@ def _snapshot_sources(out, hashes):
             raise ValueError("Benchmark source changed during source snapshot")
         (target / name).write_bytes(data)
     rule_file = directory.parent / "examples" / "NormalizationRules.lean"
+    if not rule_file.is_file():
+        rule_file = Path(sysconfig.get_path("data")) / "share" / "proofripple" / "examples" / "NormalizationRules.lean"
     if rule_file.exists():
         data = rule_file.read_bytes()
         (target / rule_file.name).write_bytes(data)
