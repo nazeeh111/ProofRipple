@@ -55,12 +55,24 @@ jobs:
           assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
           natural_recorded=json.load(open('artifacts/natural/benchmark.json'))
           natural_fresh=json.load(open('outputs/natural/benchmark.json'))
-          assert natural_recorded['outcomes_sha256']==natural_fresh['outcomes_sha256']
+          if natural_recorded['outcomes_sha256'] != natural_fresh['outcomes_sha256']:
+              def differences(left, right, path=''):
+                  if isinstance(left, dict) and isinstance(right, dict):
+                      for key in sorted(left.keys() | right.keys()):
+                          differences(left.get(key), right.get(key), path + '/' + key)
+                  elif isinstance(left, list) and isinstance(right, list) and len(left) == len(right):
+                      for index, (a, b) in enumerate(zip(left, right)):
+                          differences(a, b, path + '/' + str(index))
+                  elif left != right:
+                      print(path, repr(left)[:180], '!=', repr(right)[:180])
+              differences(natural_recorded, natural_fresh)
+              raise AssertionError('Natural benchmark digest differs; see field diagnostics and uploaded evidence')
           assert natural_fresh['formal_verification']['status']=='kernel_verified'
           assert natural_fresh['automation_control']['status']=='kernel_verified'
           PY
       - run: python -m build
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: lean-evidence-and-packages
           path: |
