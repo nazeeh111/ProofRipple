@@ -109,7 +109,7 @@ The supported declaration registry begins with `List.length_filter_le`. JSON inp
 
 The contribution is an integrated, auditable **theorem → consequence → downstream-utility loop**, with inexpensive learned ranking and explicit counterchecks. Ridge regression, bootstrap ensembles, feature hashing and graph search are established techniques, not new algorithms claimed by this project.
 
-The design draws on [Self-Supervised Theorem Discovery](https://arxiv.org/abs/2606.28747), [Learning to Discover Interesting Mathematics](https://arxiv.org/abs/2609.28603), [AI and the Structure of Mathematics](https://arxiv.org/abs/2604.06107), and [Lean Graph Search](https://arxiv.org/abs/2610.22339). [Research foundations](docs/research-foundations.md) also examines MathVet, Prove2Me, Verso Blueprint, PaperVizAgent and an optional, carefully scoped OpenAI/math case study.
+The design draws on [Self-Supervised Theorem Discovery](https://arxiv.org/abs/2606.28747), [Learning to Discover Interesting Mathematics](https://arxiv.org/abs/2609.28603), [AI and the Structure of Mathematics](https://arxiv.org/abs/2604.06107), and [Lean Graph Search](https://arxiv.org/abs/2610.22339). [Research foundations](docs/research-foundations.md) documents the methods, related work and scope of the implementation.
 
 [Current research report](docs/natural-research-report.md) · [Experiment protocol](docs/methodology.md) · [Architecture](docs/architecture.md) · [Implementation review](docs/independent-review-v0.2.md) · [Contributing](CONTRIBUTING.md)
 

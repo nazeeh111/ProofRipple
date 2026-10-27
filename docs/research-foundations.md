@@ -108,26 +108,3 @@ large proof developments is a mandatory download for the CPU demonstration.
 6. Report denominators, all seeds, uncertainty and failures. A small synthetic
    domain is a controlled benchmark, not evidence of broad Mathlib performance.
    Corpus-relative novelty is not a claim of new human mathematics.
-
-## Diagrams and launch media
-
-[PaperVizAgent, formerly PaperBanana](https://github.com/google-research/papervizagent)
-uses reference retrieval, planning, styling, visualization and iterative critique.
-Its documented execution requires model-provider configuration; it is not a
-free local diagram renderer by itself. Its
-[code license](https://github.com/google-research/papervizagent/blob/main/LICENSE)
-is Apache-2.0. The useful transferable method is to derive a diagram from the
-actual system, inspect it and revise it. Proof dependency diagrams must be
-generated from proof data; an image model's edges are not evidence.
-
-[/brag](https://github.com/latent-spaces/brag) provides a launch-video skill using
-HyperFrames, and a separate slim route. Its
-[license](https://github.com/latent-spaces/brag/blob/main/LICENSE) is MIT. A local
-launch clip can combine recorded application behavior and verified results.
-The cited service and installation commands were investigated, not executed by
-this source review. Screenshots or clips must retain the distinction between
-recorded evidence and a live proof run.
-
-No third-party source code, paper figure, theorem dataset or proof corpus was
-copied while producing this review. Citations acknowledge conceptual sources;
-any later incorporation requires artifact-specific attribution and licensing.

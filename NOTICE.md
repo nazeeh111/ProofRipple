@@ -7,14 +7,10 @@ Lean 4 is a separately installed Apache-2.0 project by Microsoft and contributor
 https://github.com/leanprover/lean4. Its actual compiler and standard libraries
 perform proof checks. No Lean source or binary is redistributed here.
 
-The research works and neighboring tools in `docs/research-foundations.md` inform
-the design. Their results are not ProofRipple results. No third-party theorem
-dataset, paper figure, research code or application source is vendored. Mathlib,
-OpenAI/math, MathVet, Prove2Me and Verso Blueprint are references and potential
-future integrations, not installed runtime dependencies.
+Research sources are documented in `docs/research-foundations.md`. Their results
+are not ProofRipple results. No third-party theorem dataset, paper figure,
+research code or application source is vendored.
 
-PaperVizAgent's inspect-and-refine method informed diagram review; its model
-pipeline was not run. The installed [brag skill](https://github.com/latent-spaces/brag)
-informed the authentic launch clip. The clip uses actual local LAB interactions,
-retains the recorded-experiment notice, and has no generated proof results,
-music, cloned voice or third-party media.
+The launch clip records actual local LAB interactions with a visible
+recorded-experiment notice. Media sources and output hashes are documented in
+`docs/media/README.md` and the accompanying provenance records.
