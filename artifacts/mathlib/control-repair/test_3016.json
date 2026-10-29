@@ -1,0 +1,47 @@
+{
+  "audit_type_sha256": {
+    "control_goal_00": "cf9d152acca0613106bfb051e5f8893488ef5495370d869e8d304d5b6d656061",
+    "control_goal_01": "d112e1f292cb8b1041abe8bc0c7a669cddc9bcfee9de0149bd435e8b36e3b228",
+    "control_goal_04": "7e384d37f674157dbab3323208d35006f056091027f8c85d46b981cfd4c443eb",
+    "control_goal_06": "868f0c2082c62f978dd6071e79d157b407691200729982c93e098e73c524e43a",
+    "control_goal_07": "5bff0a5651f4b234f797940dcd23d3d4af4e96c003a15ed9f26a8481f637c15b",
+    "control_goal_08": "5c53065853a71af3347f25726eab9fcd465a580dca9404f8b22857ec26791124",
+    "control_goal_09": "381e0477c7ab456662bb78194344785610bff637fa156029d8d7c6b7cf9a41d3",
+    "control_goal_11": "28babeae2c34edad8cfb98dfe2d7bd0987547cc83fd5efcfc2e44d63a9459732"
+  },
+  "audits_received": 8,
+  "check_sha256": "8079869aac25641acb4317507b79a76991a3a811f12f31ef5f2d3e7d58991afd",
+  "context_id": "test_3016",
+  "context_sha256": "e4ecf84d7ee3f94626895696c750e90e5784ea15e771d3d03257e6cf4a89aee3",
+  "elapsed_seconds": 4.1305,
+  "expected_names": [
+    "control_goal_00",
+    "control_goal_01",
+    "control_goal_04",
+    "control_goal_06",
+    "control_goal_07",
+    "control_goal_08",
+    "control_goal_09",
+    "control_goal_11"
+  ],
+  "goal_ids": [
+    "goal_00",
+    "goal_01",
+    "goal_04",
+    "goal_06",
+    "goal_07",
+    "goal_08",
+    "goal_09",
+    "goal_11"
+  ],
+  "goal_statements_sha256": "c4625137d6952dbd6f1780d66533332935177e6376dd9bc1f373fcdabf9339bb",
+  "goals": 8,
+  "log_sha256": "6fd4ac43917c20dcf2ba4c1021eb40c5172f2b8d37d98aa951d49b972a5e449e",
+  "original_audit_types_compared": true,
+  "original_check_sha256": "d95b3417d45cd2c6b84d2956504250b82f908c6b6244043a51e3c5cbd7ee1947",
+  "original_source_sha256": "743bfa544bcb944343bdf30b23c5029b435c01d55b9942bb615795ece9b2b5e6",
+  "repaired_source_sha256": "4732aa79655db614e7ccca6040dbeaf195a1090589aaea7ab382c0dfb1b2417a",
+  "solved": 8,
+  "status": "kernel_verified",
+  "verifier_status": "kernel_verified"
+}

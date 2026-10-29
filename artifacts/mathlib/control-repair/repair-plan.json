@@ -1,0 +1,43 @@
+{
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "driver_sha256": "6d2e806dadbd5d731908cc114d330cbfd4830b586c2e11d837932993c0eb89e0",
+  "interpretation": "Post-study mechanical preprocessing repair. Original failed control bundles remain failed and preserved; ranking/model/data outcomes are unchanged. Resource regimes differ from bounded proof search.",
+  "limits": {
+    "lean_threads_per_process": 1,
+    "max_heartbeats": 400000,
+    "memory_mib_per_process": 2048,
+    "parallel_processes": 2,
+    "timeout_seconds": 120
+  },
+  "mathlib_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "method": "Pointwise Set Nat membership; try simp only [Set.mem_union,Set.mem_inter] at *; unchanged aesop, no seed/candidates",
+  "original_controls_path": "/Users/nazeeh/Documents/ChatGPT/Github/ProofRipple/outputs/ci-40823797426-mathlib/mathlib/automation",
+  "phase": "post_study_control_plumbing_repair",
+  "provenance": {
+    "all_test_contexts": 24,
+    "all_test_goal_statements_sha256": "4f5c39aa5716656ba752c729c6972e58f5eaff765575593cf99141d09d3bfdda",
+    "all_test_goals": 254,
+    "contexts_gzip_sha256": "f60620e17205b061f29262dbff4ece16a4b16bab0e9e528bd92a624175c1da8a",
+    "contexts_path": "/Users/nazeeh/Documents/ChatGPT/Github/ProofRipple/artifacts/mathlib/contexts.json.gz",
+    "data_sha256": "e25fec0e9d9fa6dcbd6d43b923f2f8f86807b49a5c0b1ee551b38d7c6a4f6071",
+    "scientific_source_sha256": {
+      "engine.py": "aa812638796e9296dfff0426eb60e74db1ed5ffcea42268002e6d9290320078e",
+      "lean.py": "359575fab13e346e5ff22967864309d0295bef5260ab763a346d7a5a0e44dc19",
+      "mathlib.py": "25389c8022f4919072ce85662ec6f6a314a2ab92607866980f23dd3c5fbbd24b",
+      "mathlib_benchmark.py": "baa88df53034cd2b519e07993114d0f3555b2eba27ff18054fbbf464bc313e24",
+      "mathlib_model.py": "4a7a520851a7cd592ab72b9af34601d11c5c35b502d92f7ceb7712007587cce6",
+      "mathlib_runtime.py": "8e340d0a03e52c5c9c3157881e650030263001192222c16d519db2bbeae31dc9",
+      "mathlib_search.py": "7a459cdf04ea929c99e4ee1720bbcf72a1778cea19aa98ebfbff14e69cb7a63b",
+      "model.py": "f2014fb0a95e28c14e808b257347ba857f3b625b5af9f939d0be15a8810a7e0c"
+    },
+    "source_freeze_sha256": "dcc33a26ccd65926b582bd48abefefea000bd7a8f3b77f9fc97e36d1514bb541"
+  },
+  "schema_version": 1,
+  "scope": "entire_frozen_test_workload",
+  "source_delta": "Only insert try before each existing simp only preprocessing command",
+  "toolchain": "leanprover/lean4:v4.33.1"
+}

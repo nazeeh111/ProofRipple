@@ -1,0 +1,50 @@
+{
+  "audit_type_sha256": {
+    "control_goal_00": "cce263d143cb29e001825e165af9eb33762ad4aa5bd5c8089c301c617bab5ae8",
+    "control_goal_01": "5cc680967ed91185cf32ac45e173c45f99631096d2fe6bbcaa7d2bbf94f882da",
+    "control_goal_02": "15483fea6a9fd0df6af917ccf378abe6c420c0820f55da9a7cb3acb71442f5f7",
+    "control_goal_03": "e39f088efed52e1372ce31cf0cdf4645a28fd211be939c2f2517bd7dde03b726",
+    "control_goal_04": "a039eb4dab0457ad12be77abeb596e6a763e0924c6126c5f4d2a26647b62c46f",
+    "control_goal_05": "48d2010272e2b2b8f64a1c163054ca0d46ddd9e70a8753c6505109b901407d2b",
+    "control_goal_06": "1604076431245610a1483fbd31d4df1a3cd58dcc72e6418ec346c112c0c2b4ce",
+    "control_goal_08": "3b7b02beb723e98d5cbf7fcecd99f7aa8bf3fcc3dace823b9c99acce4c24790c",
+    "control_goal_10": "3b398f30c8e303ef8ef6d08a893b58e86c7e588e2dcee4f0dbad3bcc172ff2c8"
+  },
+  "audits_received": 9,
+  "check_sha256": "a272e318e3378574a4872756d57b0f36545a75e3ea2ddab47d0403a7b60b926d",
+  "context_id": "test_3008",
+  "context_sha256": "33c9e7ab95fb58bd96b6f2be325a233129d4f552ccedda220b740756ffafd0aa",
+  "elapsed_seconds": 2.8301,
+  "expected_names": [
+    "control_goal_00",
+    "control_goal_01",
+    "control_goal_02",
+    "control_goal_03",
+    "control_goal_04",
+    "control_goal_05",
+    "control_goal_06",
+    "control_goal_08",
+    "control_goal_10"
+  ],
+  "goal_ids": [
+    "goal_00",
+    "goal_01",
+    "goal_02",
+    "goal_03",
+    "goal_04",
+    "goal_05",
+    "goal_06",
+    "goal_08",
+    "goal_10"
+  ],
+  "goal_statements_sha256": "f88dc4b8e41bc9dff3b07e71f28043e21c8bdc200c5188bfdf96cb852d47215a",
+  "goals": 9,
+  "log_sha256": "31530e9c8e8d6bc5e4b4cfc40b9b4971e54c0db567b6585027ec23fb7f31e99d",
+  "original_audit_types_compared": true,
+  "original_check_sha256": "eb2405d4b917a3a464ad28fdc3057e4306aa654ecf44085df28f1b9094910a8c",
+  "original_source_sha256": "ff72d2e7b868f6b65032d0f5b38c6880b78f8f2249439c90d4e5c2a7a5024997",
+  "repaired_source_sha256": "9b6b5aaf63a59f03c145c36ad9158c6d6e85c827533a15e41ba532d2bb56cc39",
+  "solved": 9,
+  "status": "kernel_verified",
+  "verifier_status": "kernel_verified"
+}

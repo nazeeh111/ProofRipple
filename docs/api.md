@@ -1,6 +1,11 @@
 # Inputs and Python integration
 
-## JSON context
+For the Mathlib set-algebra workflow, use the [Mathlib CLI and Python guide](mathlib-api.md).
+`proofripple.cli.run_context` dispatches across all supported domains. The
+lower-level `proofripple.engine.discover` below is the original graph adapter;
+Mathlib uses `proofripple.mathlib_search.discover` and explicit proof trees.
+
+## Implication JSON context
 
 ```json
 {
