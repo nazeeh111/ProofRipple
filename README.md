@@ -119,4 +119,4 @@ The list calculus covers nonexpansive pipelines over one shared function, predic
 
 There is no unrestricted Lean/Mathlib index, language model, neural theorem embedding, graph neural network, calibrated uncertainty estimate, global novelty detector, human statement-fidelity review, or open-problem claim. Explanations are deterministic witness-grounded templates. The optional large mathematical releases are references, not runtime dependencies. The [v0.1 experiment](docs/research-report.md) remains available as a separate, explicitly abstract implication testbed.
 
-MIT licensed. Lean is a separately installed Apache-2.0 dependency. No external theorem corpus, paper figure or third-party application source is vendored; [attribution and media provenance](NOTICE.md) identify the research and tooling.
+MIT licensed. Lean is a separately installed Apache-2.0 dependency. No external theorem corpus, paper figure or third-party application source is vendored. [Media provenance](docs/media/README.md) records the launch capture.
