@@ -1,0 +1,1013 @@
+{
+  "id": "mathlib_demo",
+  "domain": "mathlib-set-lattice",
+  "variables": 6,
+  "title": "Two-premise set-inclusion consequence",
+  "seed": {
+    "id": "distributivity",
+    "declaration": "inf_sup_left"
+  },
+  "candidates": [
+    {
+      "id": "cand_00",
+      "source": {
+        "op": "meet",
+        "left": {
+          "op": "var",
+          "index": 0
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 1
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "var",
+            "index": 1
+          }
+        },
+        "right": {
+          "op": "var",
+          "index": 2
+        }
+      },
+      "proof": {
+        "rule": "trans",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "children": [
+          {
+            "rule": "seed",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "children": []
+          },
+          {
+            "rule": "sup_mono",
+            "source": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "children": [
+              {
+                "rule": "refl",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "target": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "inf_right",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                },
+                "target": {
+                  "op": "var",
+                  "index": 2
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cand_01",
+      "source": {
+        "op": "meet",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 1
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 1
+          }
+        },
+        "right": {
+          "op": "var",
+          "index": 5
+        }
+      },
+      "proof": {
+        "rule": "trans",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        },
+        "children": [
+          {
+            "rule": "seed",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "children": []
+          },
+          {
+            "rule": "sup_mono",
+            "source": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 5
+              }
+            },
+            "children": [
+              {
+                "rule": "refl",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "target": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "inf_right",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                },
+                "target": {
+                  "op": "var",
+                  "index": 5
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cand_02",
+      "source": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        }
+      },
+      "proof": {
+        "rule": "sup_mono",
+        "source": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "children": [
+          {
+            "rule": "trans",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "children": [
+              {
+                "rule": "seed",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 1
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "target": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "sup_mono",
+                "source": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "target": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                },
+                "children": [
+                  {
+                    "rule": "refl",
+                    "source": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "target": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "rule": "inf_right",
+                    "source": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 2
+                      }
+                    },
+                    "target": {
+                      "op": "var",
+                      "index": 2
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "rule": "refl",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "target": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "children": []
+          }
+        ]
+      }
+    }
+  ],
+  "goals": [
+    {
+      "id": "goal_00",
+      "source": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        }
+      }
+    }
+  ],
+  "intermediates": [
+    {
+      "op": "var",
+      "index": 0
+    },
+    {
+      "op": "var",
+      "index": 1
+    },
+    {
+      "op": "var",
+      "index": 2
+    },
+    {
+      "op": "var",
+      "index": 3
+    },
+    {
+      "op": "var",
+      "index": 4
+    },
+    {
+      "op": "var",
+      "index": 5
+    }
+  ],
+  "metadata": {
+    "split": "illustrative",
+    "generator_family": "hand-declared; not selected from held-out data"
+  }
+}

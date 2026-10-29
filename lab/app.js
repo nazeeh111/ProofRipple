@@ -14,8 +14,9 @@ let activeExample = 'natural';
 let benchmarkRequest = 0;
 let loadedBenchmark = null;
 let loadedBenchmarkKey = null;
+let loadedSupplementalControl = null;
 const EXAMPLES = {
-  mathlib: {run:'../artifacts/mathlib/demo.json', benchmark:'../artifacts/mathlib/benchmark.json'},
+  mathlib: {run:'../artifacts/mathlib/demo.json', benchmark:'../artifacts/mathlib/benchmark.json', control:'../artifacts/mathlib/control-repair/summary.json'},
   natural: {run:'../artifacts/natural/demo.json', benchmark:'../artifacts/natural/benchmark.json'},
   implications: {run:'../artifacts/demo.json', benchmark:'../artifacts/benchmark.json'},
 };
@@ -317,7 +318,8 @@ function renderMathlibProofGraph() {
     const split=relation.indexOf(' ⊆ ');const left=relation.slice(0,split);const right=relation.slice(split+3);
     const concise=(text)=>text.length>25?text.slice(0,23)+'…':text;
     group.append(svg('text',{x:0,y:7,'text-anchor':'middle',class:'proof-relation'},concise(left)));
-    group.append(svg('text',{x:0,y:22,'text-anchor':'middle',class:'proof-relation'},'⊆ '+concise(right)));
+    const targetLine=svg('text',{x:0,y:22,'text-anchor':'middle',class:'proof-relation'});
+    targetLine.append(svg('tspan',{class:'proof-inclusion'},'⊆ '),document.createTextNode(concise(right)));group.append(targetLine);
     const select=()=>{
       graph.querySelectorAll('.proof-step').forEach(element=>{element.classList.remove('proof-selected');element.setAttribute('aria-pressed','false');});group.classList.add('proof-selected');group.setAttribute('aria-pressed','true');
       $('proof-step-detail').textContent=`${rule}: ${relation}. ${step.children.length?`All ${step.children.length} displayed premises are required.`:'Leaf rule.'} This is a step in the displayed candidate proof, not a separately audited declaration.`;$('proof-step-detail').hidden=false;
@@ -389,7 +391,7 @@ function renderInspector() {
   const actualMethod=run.metrics?.method || rankingMethod;
   const learnedPolicy=['learned','learned_no_bonus','learned_singleton','structure_only'].includes(actualMethod);
   $('rank-evidence-label').textContent = learnedPolicy ? actualMethod==='structure_only'?'STRUCTURE-ONLY ESTIMATE':actualMethod==='learned_singleton'?'SINGLETON ABLATION ESTIMATE':'LEARNED USEFULNESS ESTIMATE' : actualMethod === 'graph' ? isMathlib()?'STATIC COVERAGE SCORE':'GRAPH HEURISTIC SCORE' : `${actualMethod.replaceAll('_',' ').toUpperCase()} SCORE`;
-  const policyDescription=isMathlib()?({graph:'Goal-demand coverage',greedy_coverage:'Uncovered goal demand',branching_aware:'AND demand / proof cost',proof_cost:'Proof AST cost',semantic:'Symbolic AST cosine',random:'Fixed-seed random policy'})[actualMethod] || 'Policy-local heuristic':actualMethod==='graph'?'Path saving + goal coverage':'Ranking policy';
+  const policyDescription=isMathlib()?({graph:'Estimated search benefit',greedy_coverage:'Estimated search benefit',branching_aware:'Estimated benefit + AND completion',proof_cost:'Proof AST cost',semantic:'Symbolic AST cosine',random:'Fixed-seed random policy'})[actualMethod] || 'Policy-local heuristic':actualMethod==='graph'?'Path saving + goal coverage':'Ranking policy';
   $('rank-uncertainty').textContent = learnedPolicy ? item?.uncertainty !== null && item?.uncertainty !== undefined && Number.isFinite(Number(item.uncertainty)) ? `± ${Number(item.uncertainty).toFixed(3)} ensemble spread` : 'No uncertainty reported' : policyDescription;
   const prefix=item?.score_portfolio;
   $('rank-context').hidden=!isMathlib();
@@ -579,14 +581,32 @@ function renderBenchmark(benchmark, key, chosenProfile=null) {
   $('benchmark-section').querySelector('.experiment-caveat a').href=EXAMPLES[key].benchmark;
   const caveat=$('benchmark-section').querySelector('.experiment-caveat');
   const evidenceLink=caveat.querySelector('a');
-  caveat.replaceChildren(document.createTextNode(`${key==='mathlib'?'Registered Mathlib set-lattice inclusions.':key==='natural' ? 'Registered typed List Nat capacity pipelines.' : 'Procedurally generated implication graphs.'} ${hasTotals?'Random-policy totals average repeated runs; query occurrences need not be globally distinct statements. ':''}Intervals concern mean marginal gain per context. NDCG measures relative ranking quality (0–1). Ensemble disagreement is not calibrated uncertainty. `),evidenceLink);
+  const scope=key==='mathlib'?'Registered Mathlib set-lattice inclusions. Profiles reuse the retained queries; random-policy totals average repeated runs within context. The primary interval resamples paired whole contexts across all profiles. Ensemble disagreement is not calibrated uncertainty. ':`${key==='natural'?'Registered typed List Nat capacity pipelines.':'Procedurally generated implication graphs.'} ${hasTotals?'Random-policy totals average repeated runs; query occurrences need not be globally distinct statements. ':''}Intervals concern mean marginal gain per context. NDCG measures relative ranking quality (0–1). Ensemble disagreement is not calibrated uncertainty. `;
+  caveat.replaceChildren(document.createTextNode(scope),evidenceLink);
   $('benchmark-section').hidden=false;
-  const control=benchmark.automation_control;
-  if (['natural','mathlib'].includes(key) && control?.status === 'kernel_verified' && Number.isInteger(control.solved) && Number.isInteger(control.total) && control.total > 0 && control.solved >= 0 && control.solved <= control.total) {
-    $('automation-score').textContent=`${control.solved}/${control.total}`;
-    $('automation-description').textContent=`${control.method || 'Lean automation'}. ${control.coverage || ''} ${control.interpretation || 'Its resources differ from restricted search; this is not evidence of an advantage over Lean automation.'} Allowed axioms for this separate control: ${(control.allowed_axioms || []).join(', ') || 'none reported'}.`;
-    $('automation-control').hidden=false;
+  renderAutomation(original,key,loadedSupplementalControl);
+}
+
+function renderAutomation(benchmark,key,supplemental){
+  $('automation-control').hidden=true;$('automation-provenance').hidden=true;
+  if(!['natural','mathlib'].includes(key))return;
+  const original=benchmark.automation_control;
+  const countsValid=control=>Number.isInteger(control?.solved)&&Number.isInteger(control?.total)&&control.total>0&&control.solved>=0&&control.solved<=control.total;
+  const repaired=key==='mathlib'&&supplemental?.status==='kernel_verified'&&countsValid(supplemental)&&supplemental.phase==='post_study_control_plumbing_repair'&&supplemental.provenance?.data_sha256===benchmark.data_freeze?.data_sha256&&supplemental.total===original?.total&&Object.keys(benchmark.source_sha256||{}).length>0&&Object.entries(benchmark.source_sha256||{}).every(([name,hash])=>supplemental.provenance?.scientific_source_sha256?.[name]===hash);
+  const control=repaired?supplemental:original;
+  if(!countsValid(control)||(!repaired&&control.status!=='kernel_verified'&&!(key==='mathlib'&&control.status==='failed')))return;
+  $('automation-kind').textContent=repaired?'SUPPLEMENTAL CONTROL · POST-STUDY':control.status==='failed'?'CONTROL BUNDLE · FAILED':'AUTOMATION CONTROL';
+  $('automation-score').textContent=`${control.solved}/${control.total}`;
+  $('automation-status').textContent=stateName(control.status);
+  $('automation-status').className=`status-badge ${control.status==='kernel_verified'?'verified':'failed'}`;
+  $('automation-description').textContent=repaired?`Post-study preprocessing fix: a no-op simplification can continue into the unchanged aesop tactic. All ${control.total} retained test goals were checked without seed or candidate lemmas. Search and tactic budgets measure different work. Allowed axioms: ${(control.allowed_axioms||[]).join(', ')}.`:`${control.status==='failed'?'Original certification bundle failed during preprocessing; its count is not an aesop solve-rate measurement. ':''}${control.method || 'Lean automation'}. ${control.coverage || ''} ${control.interpretation || 'Its resources differ from restricted search; this is not evidence of an advantage over Lean automation.'}`;
+  if(repaired){
+    const originalLink=node('a','',`Original control bundle: ${stateName(original.status).toLowerCase()} (${original.solved}/${original.total} certified) ↗`);originalLink.href=EXAMPLES.mathlib.benchmark;
+    const repairLink=node('a','','Supplemental repair audit ↗');repairLink.href=EXAMPLES.mathlib.control;
+    $('automation-provenance').replaceChildren(originalLink,document.createTextNode(' · '),repairLink,document.createTextNode('. The original preprocessing failure is not an aesop solve-rate measurement. Ranking results and frozen data are unchanged.'));
+    $('automation-provenance').hidden=false;
   }
+  $('automation-control').hidden=false;
 }
 
 async function refreshBenchmark(key) {
@@ -595,14 +615,16 @@ async function refreshBenchmark(key) {
   $('benchmark-section').hidden=true;
   $('automation-control').hidden=true;
   $('benchmark-rows').replaceChildren();
-  $('benchmark-profile-control').hidden=true;loadedBenchmark=null;loadedBenchmarkKey=null;
+  $('benchmark-profile-control').hidden=true;loadedBenchmark=null;loadedBenchmarkKey=null;loadedSupplementalControl=null;
   $('benchmark-primary').hidden=true;
   if (!key || !EXAMPLES[key]) return;
   try {
     const response=await fetch(EXAMPLES[key].benchmark);
     if(!response.ok)return;
     const benchmark=await response.json();
-    if(request===benchmarkRequest)renderBenchmark(benchmark,key);
+    let supplemental=null;
+    if(EXAMPLES[key].control){try{const response=await fetch(EXAMPLES[key].control);if(response.ok)supplemental=await response.json();}catch{}}
+    if(request===benchmarkRequest){loadedSupplementalControl=supplemental;renderBenchmark(benchmark,key);}
   } catch {} // Missing recorded benchmark never changes the active run's evidence.
 }
 $('benchmark-profile').addEventListener('change',event=>{if(loadedBenchmark&&loadedBenchmarkKey)renderBenchmark(loadedBenchmark,loadedBenchmarkKey,event.target.value);});

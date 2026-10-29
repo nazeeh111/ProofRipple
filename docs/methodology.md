@@ -1,5 +1,15 @@
 # Experiment protocols
 
+The Mathlib v0.3 study uses the prospectively frozen
+[set-algebra protocol](../artifacts/mathlib/frozen-protocol.json),
+[source/data receipt](../artifacts/mathlib/source-freeze.json), and
+[independent pre-outcome review](mathlib-protocol-review.md). It compares
+portfolio-conditioned learned ranking with strong dynamic structural heuristics
+over all nine fixed lemma/search-budget profiles. Contexts are the uncertainty
+unit. Every retained test goal receives a separate strong pointwise Mathlib
+automation control. The frozen data, code version and raw results identify the
+scope of each claim; the study does not establish unrestricted prover superiority.
+
 The list-domain v0.2 protocol and corrected results are in
 [natural research report](natural-research-report.md). It uses closed List Nat
 primitive proofs, stronger shared-predicate/k normalization, actual imported

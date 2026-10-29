@@ -37,7 +37,11 @@ for k in (1, 3, 5):
                             f"{values['branching_aware']['total_solved']:g}/{total} |")
 coverage = freeze["coverage_at_largest_k"]["test"]
 training = report["model_training"]
-control = report["automation_control"]
+original_control = report["automation_control"]
+control = json.loads((folder / "control-repair/summary.json").read_text())
+assert control["status"] == "kernel_verified" and control["solved"] == control["total"] == 254
+assert control["scope"] == "entire_frozen_test_workload"
+assert all(row["original_audit_types_compared"] for row in control["contexts"])
 best = max((method for method in policies if method in {"greedy_coverage", "branching_aware", "graph", "proof_cost", "semantic", "random"}), key=gains.get)
 if high < 0:
     verdict = "The learned policy underperforms the predeclared greedy comparator on the primary endpoint."
@@ -146,11 +150,22 @@ repetitions and budgets is covered. Training label probes are not individually
 kernel certified. Exact proof sources, audit bytes, types, dependencies,
 source hashes and the explicit foundational axiom profile are retained.
 
-The separate strong Mathlib control reports **{control['solved']}/{control['total']}**
+The separately repaired strong Mathlib control reports **{control['solved']}/{control['total']}**
 goals, status `{control['status']}`. It introduces an arbitrary element, unfolds
 union/intersection membership, then runs ordinary `aesop` without the selected
 consequences or the generated seed. This covers the entire retained test
-workload. It uses a different resource unit from bounded goal-state visits;
+workload. This is explicitly a **post-study mechanical control repair**. The
+original registered control failed all 24 source bundles: preprocessing stopped
+on 117 goals where `simp only` made no progress. Its bundle-level 0/254 is not a
+measurement that `aesop` solves zero goals. Lean emitted 117 rejected `sorryAx`
+recovery placeholders and 137 other individual audit messages; none of the failed
+bundles were accepted. The repaired source inserts only `try` before each
+preprocessing command, retains `aesop`, compares all 254 exact original goal
+types, and passes fresh kernel checks. The original failed sources, logs and
+benchmark remain unchanged. Both controls retain a 120-second per-process wall cap, one Lean thread,
+2048 MiB and 400000 heartbeats. The repaired control does not change any ranking outcomes.
+
+It uses a different resource unit from bounded goal-state visits;
 the study makes no matched computational-work or unrestricted tactic-superiority
 claim. A raw `grind` failure before exposing set membership was rejected as an
 inadequate comparator during feasibility work.
@@ -169,6 +184,15 @@ python3 -m proofripple benchmark --domain mathlib --certify \\
   --frozen-protocol artifacts/mathlib --out outputs/mathlib-reproduction
 ```
 
+Run the supplemental control separately, preserving the original control:
+
+```sh
+python3 scripts/mathlib_automation_control.py \\
+  --contexts artifacts/mathlib/contexts.json.gz \\
+  --original-controls artifacts/mathlib/automation \\
+  --out outputs/mathlib-control-repair-reproduction
+```
+
 Mathlib revision: `{formal['mathlib_revision']}`.
 Scientific-outcome digest: `{report['outcomes_sha256']}`.
 Code, model-byte and audit provenance hashes are separate from this digest.
@@ -178,7 +202,9 @@ source revisions; the v0.3 bridge does not rewrite their recorded fingerprints.
 [Raw result](../artifacts/mathlib/benchmark.json) ·
 [Protocol](../artifacts/mathlib/protocol.json) ·
 [Setup](mathlib-setup.md) · [CLI and Python](mathlib-api.md) ·
-[Prospective review](mathlib-protocol-review.md)
+[Prospective review](mathlib-protocol-review.md) ·
+[Independent result review](independent-review-v0.3.md) ·
+[Supplemental control](../artifacts/mathlib/control-repair/summary.json)
 '''
 (ROOT / "docs/mathlib-research-report.md").write_text(text)
 print("Generated docs/mathlib-research-report.md from completed audited evidence")

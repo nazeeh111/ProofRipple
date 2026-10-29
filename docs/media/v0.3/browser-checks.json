@@ -1,0 +1,59 @@
+{
+  "url": "http://127.0.0.1:8771/lab/",
+  "checks": [
+    "canonical kernel evidence",
+    "actual AST/AND graph",
+    "step scope and keyboard",
+    "exact statement/axioms",
+    "stage-dependent scores",
+    "all benchmark profile totals",
+    "primary paired interval",
+    "supplemental post-study control with original bundle failure provenance",
+    "three domains",
+    "failed example retention",
+    "real budget/policy reruns",
+    "JSON/source-hash and Lean downloads",
+    "failed rerun retention",
+    "file-reported import and malformed JSON retention",
+    "desktop/mobile overflow"
+  ],
+  "observations": [
+    {
+      "case": "live_greedy_coverage_k1_b4",
+      "metrics": {
+        "method": "greedy_coverage",
+        "goal_count": 1,
+        "candidate_count": 3,
+        "baseline_solved": 0,
+        "augmented_solved": 0,
+        "marginal_solved": 0,
+        "newly_solved": 0,
+        "regressed": 0
+      },
+      "source_sha256": "b47fc755c2f53d7ef7d39ed89be4fc298ac3d37aee08e348b4f340b36956d2a4"
+    },
+    {
+      "case": "live_learned_k3_b8",
+      "metrics": {
+        "method": "learned",
+        "goal_count": 1,
+        "candidate_count": 3,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf"
+    }
+  ],
+  "pageErrors": [],
+  "artifact_source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf",
+  "benchmark_outcomes_sha256": "181c9295653d4ee547ef46f1fe2d95cfc5f5fa1e55147a3c9eb38ece5f13542f",
+  "control_repair_sha256": "0c7bc7c3e0e2d5a43625589ff0f721233dce30d3f911063fd56aaef11df284d0",
+  "sources": {
+    "lab/index.html": "46b2566a7e8b44041878518dcd65d48e643676c17185cd78bda36a8ebf1dc2f7",
+    "lab/style.css": "e5db23c968378020ceaae4d935976bd3a6a5c7a36340092b2b0c244d52cba273",
+    "lab/app.js": "f0dabcd8ad17becca635009c38e7b0d1679ea532d5e43cd184e4157a8a174c37"
+  }
+}

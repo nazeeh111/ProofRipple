@@ -1,0 +1,53 @@
+{
+  "audit_type_sha256": {
+    "control_goal_00": "351d852b2ea2c8a3b24b488117d6af7305656817e7db68c04d7d2fff67556f99",
+    "control_goal_01": "4c17912f90c3accf6e317c291913858b2ece1437cf9c43ab4992baeceee86d89",
+    "control_goal_03": "17aa960a29eabd361f465f91fd63ffea910124da0ccc9a83c00c50d2a9a69f79",
+    "control_goal_04": "f73a64e54b30164984abb1b76e6e9c5403c9c1fc91b8c3b9fabf818721d46be2",
+    "control_goal_05": "a4489cc2e19bb45483b2fe08038f7ced6920f03afb89f4a95b99b1572d044ee8",
+    "control_goal_06": "fbd5725efd04328b7185a05e104c2e2e5770b01923c2edf91ad6e8775670cc34",
+    "control_goal_07": "5ca53d6d9459590e9d83a8ae2d563d840ad57445476d269a65a78b3fcbc8a3f2",
+    "control_goal_08": "12dbcbec72821897beece984678949cf5578b328233925225eadbb4c69c8fcb7",
+    "control_goal_10": "723b8958f98448799a11bf32cee4f8a6fd04355260b5d409e8f48cd7f62c5b50",
+    "control_goal_11": "539a6ecd63d774b9d1c83ecf9873c94f87e11f13093522a7e7c1333fd6aa69ba"
+  },
+  "audits_received": 10,
+  "check_sha256": "72fdccd79e20a25d9b33a3f4d173f62380ef5cf47d8f0533e86d49587327cc26",
+  "context_id": "test_3013",
+  "context_sha256": "09a3c7e862380e5033cf7f6b71c51c9d8a12217953abf2b5ca8d19f9dd398d00",
+  "elapsed_seconds": 2.8164,
+  "expected_names": [
+    "control_goal_00",
+    "control_goal_01",
+    "control_goal_03",
+    "control_goal_04",
+    "control_goal_05",
+    "control_goal_06",
+    "control_goal_07",
+    "control_goal_08",
+    "control_goal_10",
+    "control_goal_11"
+  ],
+  "goal_ids": [
+    "goal_00",
+    "goal_01",
+    "goal_03",
+    "goal_04",
+    "goal_05",
+    "goal_06",
+    "goal_07",
+    "goal_08",
+    "goal_10",
+    "goal_11"
+  ],
+  "goal_statements_sha256": "a0ccbd47df2d42fb350e2cffa1c8dc39e201dfc69feb82b1158a573cced57a0f",
+  "goals": 10,
+  "log_sha256": "bc900e19ae20d962387dc9f0a5ad9ce186281b4926828850b9a658a4ee8b364f",
+  "original_audit_types_compared": true,
+  "original_check_sha256": "5e597247953ac3de4c226c4852eed17abb538a667892a40e36454f11a949fa5c",
+  "original_source_sha256": "7a8d9cb046f374cea81b7d45fd1804e064a3d286ea57f551f5e9a6765508b474",
+  "repaired_source_sha256": "0f16ede892b9987a2b966ed9977f43b73270ba70f423d1624885ac6521aa1836",
+  "solved": 10,
+  "status": "kernel_verified",
+  "verifier_status": "kernel_verified"
+}

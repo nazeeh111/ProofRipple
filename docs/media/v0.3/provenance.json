@@ -1,0 +1,233 @@
+{
+  "created_utc": "2026-10-29T06:34:43.974820+00:00",
+  "kind": "Actual local browser screenshots and silent browser recording from the current LAB source; saved verified artifacts, not a live verification recording",
+  "capture": {
+    "raw": "/Users/nazeeh/Documents/ChatGPT/Github/ProofRipple/outputs/walkthrough-v03-release-final/page@4faa8f5cdedff452ecfa2471e300ec5f.webm",
+    "url": "http://127.0.0.1:8771/lab/",
+    "viewport": "1440x1000",
+    "audio": false,
+    "kind": "Actual browser interactions with saved Mathlib set-lattice artifact; not a live verification recording",
+    "target_capture_ms": 21500,
+    "interaction_elapsed_ms": 21501,
+    "events": [
+      {
+        "action": "Loaded actual saved Mathlib run and recorded Lean audit",
+        "elapsed_ms": 309
+      },
+      {
+        "action": "Selected actual proof AST step; scope explicitly shown",
+        "elapsed_ms": 2223
+      },
+      {
+        "action": "Inspected exact consequence statement, dependencies and axiom audit",
+        "elapsed_ms": 5257
+      },
+      {
+        "action": "Compared real bounded-search witnesses",
+        "elapsed_ms": 8265
+      },
+      {
+        "action": "Inspected imported Mathlib theorem, pinned revision and allowed axioms",
+        "elapsed_ms": 11041
+      },
+      {
+        "action": "Inspected complete recorded policy comparison and primary paired result",
+        "elapsed_ms": 14341
+      },
+      {
+        "action": "Changed budget profile; repeated-query denominator remains explicit",
+        "elapsed_ms": 16513
+      },
+      {
+        "action": "Inspected supplemental post-study automation repair and preserved original failed-bundle provenance",
+        "elapsed_ms": 18340
+      }
+    ],
+    "pageErrors": [],
+    "sources": {
+      "lab/index.html": "46b2566a7e8b44041878518dcd65d48e643676c17185cd78bda36a8ebf1dc2f7",
+      "lab/style.css": "e5db23c968378020ceaae4d935976bd3a6a5c7a36340092b2b0c244d52cba273",
+      "lab/app.js": "f0dabcd8ad17becca635009c38e7b0d1679ea532d5e43cd184e4157a8a174c37"
+    },
+    "artifact": {
+      "id": "mathlib_demo",
+      "candidates": 3,
+      "metrics": {
+        "method": "greedy_coverage",
+        "goal_count": 1,
+        "candidate_count": 3,
+        "baseline_solved": 0,
+        "augmented_solved": 1,
+        "marginal_solved": 1,
+        "newly_solved": 1,
+        "regressed": 0
+      },
+      "budget": {
+        "selected_lemmas": 3,
+        "search_expansions": 8,
+        "unit": "visited raw-syntax goal state, including failed branches/cache/cycle visits",
+        "max_transitivity_pivots": 8
+      },
+      "source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf"
+    },
+    "benchmark_outcomes_sha256": "181c9295653d4ee547ef46f1fe2d95cfc5f5fa1e55147a3c9eb38ece5f13542f",
+    "supplemental_control": {
+      "phase": "post_study_control_plumbing_repair",
+      "status": "kernel_verified",
+      "solved": 254,
+      "total": 254
+    },
+    "preservation": "Raw Playwright video retained. Separate encoding/playback verification required."
+  },
+  "browser_checks": {
+    "url": "http://127.0.0.1:8771/lab/",
+    "checks": [
+      "canonical kernel evidence",
+      "actual AST/AND graph",
+      "step scope and keyboard",
+      "exact statement/axioms",
+      "stage-dependent scores",
+      "all benchmark profile totals",
+      "primary paired interval",
+      "supplemental post-study control with original bundle failure provenance",
+      "three domains",
+      "failed example retention",
+      "real budget/policy reruns",
+      "JSON/source-hash and Lean downloads",
+      "failed rerun retention",
+      "file-reported import and malformed JSON retention",
+      "desktop/mobile overflow"
+    ],
+    "observations": [
+      {
+        "case": "live_greedy_coverage_k1_b4",
+        "metrics": {
+          "method": "greedy_coverage",
+          "goal_count": 1,
+          "candidate_count": 3,
+          "baseline_solved": 0,
+          "augmented_solved": 0,
+          "marginal_solved": 0,
+          "newly_solved": 0,
+          "regressed": 0
+        },
+        "source_sha256": "b47fc755c2f53d7ef7d39ed89be4fc298ac3d37aee08e348b4f340b36956d2a4"
+      },
+      {
+        "case": "live_learned_k3_b8",
+        "metrics": {
+          "method": "learned",
+          "goal_count": 1,
+          "candidate_count": 3,
+          "baseline_solved": 0,
+          "augmented_solved": 1,
+          "marginal_solved": 1,
+          "newly_solved": 1,
+          "regressed": 0
+        },
+        "source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf"
+      }
+    ],
+    "pageErrors": [],
+    "artifact_source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf",
+    "benchmark_outcomes_sha256": "181c9295653d4ee547ef46f1fe2d95cfc5f5fa1e55147a3c9eb38ece5f13542f",
+    "control_repair_sha256": "0c7bc7c3e0e2d5a43625589ff0f721233dce30d3f911063fd56aaef11df284d0",
+    "sources": {
+      "lab/index.html": "46b2566a7e8b44041878518dcd65d48e643676c17185cd78bda36a8ebf1dc2f7",
+      "lab/style.css": "e5db23c968378020ceaae4d935976bd3a6a5c7a36340092b2b0c244d52cba273",
+      "lab/app.js": "f0dabcd8ad17becca635009c38e7b0d1679ea532d5e43cd184e4157a8a174c37"
+    }
+  },
+  "source_files": {
+    "lab/index.html": "46b2566a7e8b44041878518dcd65d48e643676c17185cd78bda36a8ebf1dc2f7",
+    "lab/style.css": "e5db23c968378020ceaae4d935976bd3a6a5c7a36340092b2b0c244d52cba273",
+    "lab/app.js": "f0dabcd8ad17becca635009c38e7b0d1679ea532d5e43cd184e4157a8a174c37",
+    "scripts/check_mathlib_lab.cjs": "6ef1178745f7b7ee45f6e59b79a4f94f9902741d5f0f2bb377156fb54d010e8e",
+    "scripts/record_mathlib_walkthrough.cjs": "1806f186a9c04be16214e66a91d1de8c627d56c5a7d5fc2f1f91fa7e30f51f46"
+  },
+  "artifact_files": {
+    "artifacts/mathlib/demo.json": "7a8d179d2014900b4664186d24888f11929d3ec31619522e074de5d432207eb7",
+    "artifacts/mathlib/Demo.lean": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf",
+    "artifacts/mathlib/benchmark.json": "e67c6112c0cfaa7d67133a2d98becbe6666ee2df1b726fb0856df3c6401737e6",
+    "artifacts/mathlib/model.json": "859a02cb9f17ddad418ae3d50ee4f0d1b52d130ba86a68984adff0324fb4cc1f",
+    "artifacts/mathlib/control-repair/summary.json": "0c7bc7c3e0e2d5a43625589ff0f721233dce30d3f911063fd56aaef11df284d0"
+  },
+  "encoding": {
+    "tool": "ffmpeg version 7.1 Copyright (c) 2000-2024 the FFmpeg developers",
+    "arguments": [
+      "-c:v",
+      "libx264",
+      "-preset",
+      "medium",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-movflags",
+      "+faststart",
+      "-an"
+    ],
+    "frame_insertion": false,
+    "speed_changes": false,
+    "trimming": false,
+    "raw_capture": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "codec_type": "video",
+          "width": 1440,
+          "height": 1000,
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "duration": "23.160000",
+        "size": "1701525"
+      }
+    },
+    "encoded_output": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1440,
+          "height": 1000,
+          "r_frame_rate": "25/1",
+          "nb_frames": "579"
+        }
+      ],
+      "format": {
+        "duration": "23.160000",
+        "size": "1620869"
+      }
+    },
+    "complete_decode_check": "passed",
+    "frame_inspection": [
+      "frames/02-proof.png",
+      "frames/07-audit.png",
+      "frames/16-study.png",
+      "frames/21-control.png"
+    ],
+    "runtime_note": "Playwright expected FFmpeg 1011; a temporary cache adapter used the existing free FFmpeg 7.1 binary. No runtime download or paid API."
+  },
+  "files_sha256": {
+    "automation-control.png": "559299eadbd88854cc19c0c441412a44b6e45db6a31ca46ede59ac3af5cb3359",
+    "browser-checks.json": "ca7570ae09ce9aa3d015d5db0a7a50e19b06281ee14566e2d23e8bfa30d3754b",
+    "frames/02-proof.png": "5f0f0b54589fbee1cdf14b4cc0347cd087cb384b9fc47a8c8d1a7b97101a9ce4",
+    "frames/07-audit.png": "20661c98a3eeeb29ac66ca704c9b521b902dd88615b1514c9e6ed8c151c71345",
+    "frames/16-study.png": "f6b2c0928f802e11d3aeefb3d8ad2129c5be6726fdf8045650780251ae2954c0",
+    "frames/21-control.png": "887b40f3ff7d6caab8ccd65323834ad1cf28b2c70087578433ec03a7733559df",
+    "lab-desktop-viewport.png": "4c3015cd9c03697200c7cffd4f4ed257b4d361d4cfa3d9b834e3ff64885b0c8b",
+    "lab-desktop.png": "80765c7d3605ea303d110f1ed5e172e9fc827a520eac0753cb89b9b121bc0aeb",
+    "lab-mobile-viewport.png": "5d63e48c0c8dfb9e42549fc22de6feab0e79d15c4e1f6e2bd2e67e9c5e9d5ea9",
+    "lab-mobile.png": "759760279db41ea054af2dce9ffc9183e42a638fd6e9df3db19976f1c6ba73e3",
+    "ranking-study.png": "37ffd0ea68e7435fd3fe132135fdccac9771e5953de8b0866cb685db9c1014d0",
+    "walkthrough-source.webm": "4df4a50baf02206eda22c1aa3f60b9da6c008d24c24f913bfd8f9e9a4cd00c4d",
+    "walkthrough.mp4": "9fbefa672d79d463a8c5a1cd79ab32dc17fc3db704076e1d3556c4bfc945100d"
+  },
+  "original_evidence": "The original benchmark automation control remains a failed preprocessing bundle. The separate post-study repair is explicitly labeled and linked in LAB. v0.2 media was preserved."
+}

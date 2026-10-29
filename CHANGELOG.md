@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 · 2026-10-29
+
+Adds pinned Mathlib set algebra with multi-premise lattice proofs, strict typed
+imports, a compact dark LAB, actual proof trees and evidence disclosures.
+
+Expands to 24 held-out contexts and 254 goals with nine fixed budget profiles,
+ten policies, portfolio-conditioned learned ranking and stronger dynamic
+heuristics. The primary learned-minus-greedy result is −0.64 percentage points
+(95% paired context interval −1.55 to +0.20): no clear learned advantage.
+All 1,997 expected declaration audits pass. A separately documented
+post-study preprocessing repair lets ordinary automation prove 254/254 goals;
+original failed controls and frozen ranking outcomes remain unchanged.
+
+Includes frozen sources/data, independent artifact and proof replay, targeted
+Mathlib setup, reproducible CI and fresh interface media. Earlier domains and
+release evidence remain preserved.
+
 ## 0.2.0 — 2026-10-26
 
 Adds actual Lean list-capacity proofs, a registered declaration importer, typed

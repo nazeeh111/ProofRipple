@@ -1,0 +1,2850 @@
+{
+  "schema_version": 1,
+  "context": {
+    "id": "mathlib_demo",
+    "domain": "mathlib-set-lattice",
+    "variables": 6,
+    "title": "Two-premise set-inclusion consequence",
+    "seed": {
+      "id": "distributivity",
+      "declaration": "inf_sup_left"
+    },
+    "candidates": [
+      {
+        "id": "cand_00",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "proof": {
+          "rule": "trans",
+          "source": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            }
+          },
+          "target": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          },
+          "children": [
+            {
+              "rule": "seed",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 1
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                }
+              },
+              "children": []
+            },
+            {
+              "rule": "sup_mono",
+              "source": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              },
+              "children": [
+                {
+                  "rule": "refl",
+                  "source": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "target": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "rule": "inf_right",
+                  "source": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  },
+                  "target": {
+                    "op": "var",
+                    "index": 2
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "cand_01",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        },
+        "proof": {
+          "rule": "trans",
+          "source": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 5
+              }
+            }
+          },
+          "target": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          },
+          "children": [
+            {
+              "rule": "seed",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 1
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                }
+              },
+              "children": []
+            },
+            {
+              "rule": "sup_mono",
+              "source": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              },
+              "children": [
+                {
+                  "rule": "refl",
+                  "source": {
+                    "op": "meet",
+                    "left": {
+                      "op": "join",
+                      "left": {
+                        "op": "var",
+                        "index": 3
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 4
+                      }
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "target": {
+                    "op": "meet",
+                    "left": {
+                      "op": "join",
+                      "left": {
+                        "op": "var",
+                        "index": 3
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 4
+                      }
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "rule": "inf_right",
+                  "source": {
+                    "op": "meet",
+                    "left": {
+                      "op": "join",
+                      "left": {
+                        "op": "var",
+                        "index": 3
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 4
+                      }
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 5
+                    }
+                  },
+                  "target": {
+                    "op": "var",
+                    "index": 5
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "cand_02",
+        "source": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "proof": {
+          "rule": "sup_mono",
+          "source": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "right": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            }
+          },
+          "target": {
+            "op": "join",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "right": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            }
+          },
+          "children": [
+            {
+              "rule": "trans",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 1
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              },
+              "children": [
+                {
+                  "rule": "seed",
+                  "source": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "join",
+                      "left": {
+                        "op": "var",
+                        "index": 1
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 2
+                      }
+                    }
+                  },
+                  "target": {
+                    "op": "join",
+                    "left": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "right": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 2
+                      }
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "rule": "sup_mono",
+                  "source": {
+                    "op": "join",
+                    "left": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "right": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 2
+                      }
+                    }
+                  },
+                  "target": {
+                    "op": "join",
+                    "left": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  },
+                  "children": [
+                    {
+                      "rule": "refl",
+                      "source": {
+                        "op": "meet",
+                        "left": {
+                          "op": "var",
+                          "index": 0
+                        },
+                        "right": {
+                          "op": "var",
+                          "index": 1
+                        }
+                      },
+                      "target": {
+                        "op": "meet",
+                        "left": {
+                          "op": "var",
+                          "index": 0
+                        },
+                        "right": {
+                          "op": "var",
+                          "index": 1
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "rule": "inf_right",
+                      "source": {
+                        "op": "meet",
+                        "left": {
+                          "op": "var",
+                          "index": 0
+                        },
+                        "right": {
+                          "op": "var",
+                          "index": 2
+                        }
+                      },
+                      "target": {
+                        "op": "var",
+                        "index": 2
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rule": "refl",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "target": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "children": []
+            }
+          ]
+        }
+      }
+    ],
+    "goals": [
+      {
+        "id": "goal_00",
+        "source": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 5
+              }
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        }
+      }
+    ],
+    "intermediates": [
+      {
+        "op": "var",
+        "index": 0
+      },
+      {
+        "op": "var",
+        "index": 1
+      },
+      {
+        "op": "var",
+        "index": 2
+      },
+      {
+        "op": "var",
+        "index": 3
+      },
+      {
+        "op": "var",
+        "index": 4
+      },
+      {
+        "op": "var",
+        "index": 5
+      }
+    ],
+    "metadata": {
+      "split": "illustrative",
+      "generator_family": "hand-declared; not selected from held-out data"
+    }
+  },
+  "domain": "mathlib-set-lattice",
+  "context_sha256": "4963d287b54b603deb663cdd9252435d4637f20a503c288fcfd133a3fbdcd16b",
+  "candidates": [
+    {
+      "id": "cand_00",
+      "source": {
+        "op": "meet",
+        "left": {
+          "op": "var",
+          "index": 0
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 1
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "var",
+            "index": 1
+          }
+        },
+        "right": {
+          "op": "var",
+          "index": 2
+        }
+      },
+      "proof": "theorem pr_cand_00 (A0 A1 A2 A3 A4 A5 : Set Nat) : (A0 \u2229 (A1 \u222a A2)) \u2286 ((A0 \u2229 A1) \u222a A2) :=\n  (le_trans (pr_distributivity A0 A1 A2) (sup_le_sup le_rfl inf_le_right))\n",
+      "proof_ast": {
+        "rule": "trans",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "children": [
+          {
+            "rule": "seed",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "children": []
+          },
+          {
+            "rule": "sup_mono",
+            "source": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "children": [
+              {
+                "rule": "refl",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "target": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "inf_right",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                },
+                "target": {
+                  "op": "var",
+                  "index": 2
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "status": "kernel_verified",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "uncertainty": 0.0,
+      "score": 0.5,
+      "score_stage": 1,
+      "score_portfolio": [
+        "cand_01"
+      ],
+      "statement": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u2286 A0 \u2229 A1 \u222a A2",
+      "dependencies": [
+        "Set",
+        "Nat",
+        "le_trans",
+        "PartialOrder.toPreorder",
+        "CompleteSemilatticeInf.toPartialOrder",
+        "CompleteLattice.toCompleteSemilatticeInf",
+        "CompleteBooleanAlgebra.toCompleteLattice",
+        "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+        "Set.instCompleteAtomicBooleanAlgebra",
+        "Inter.inter",
+        "Set.instInter",
+        "Union.union",
+        "Set.instUnion",
+        "pr_distributivity",
+        "sup_le_sup",
+        "Lattice.toSemilatticeSup",
+        "CompleteLattice.toLattice",
+        "le_rfl",
+        "inf_le_right",
+        "Lattice.toSemilatticeInf"
+      ],
+      "explanation": {
+        "summary": "(A0 \u2229 (A1 \u222a A2)) \u2286 ((A0 \u2229 A1) \u222a A2)",
+        "why_useful": "A reusable seed-dependent inclusion; measured downstream search results are shown separately."
+      }
+    },
+    {
+      "id": "cand_01",
+      "source": {
+        "op": "meet",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "var",
+            "index": 1
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 1
+          }
+        },
+        "right": {
+          "op": "var",
+          "index": 5
+        }
+      },
+      "proof": "theorem pr_cand_01 (A0 A1 A2 A3 A4 A5 : Set Nat) : ((A3 \u222a A4) \u2229 (A1 \u222a A5)) \u2286 (((A3 \u222a A4) \u2229 A1) \u222a A5) :=\n  (le_trans (pr_distributivity (A3 \u222a A4) A1 A5) (sup_le_sup le_rfl inf_le_right))\n",
+      "proof_ast": {
+        "rule": "trans",
+        "source": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        },
+        "children": [
+          {
+            "rule": "seed",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "children": []
+          },
+          {
+            "rule": "sup_mono",
+            "source": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 5
+              }
+            },
+            "children": [
+              {
+                "rule": "refl",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "target": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "inf_right",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                },
+                "target": {
+                  "op": "var",
+                  "index": 5
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "status": "kernel_verified",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "uncertainty": 0.0,
+      "score": 1.5,
+      "score_stage": 0,
+      "score_portfolio": [],
+      "statement": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), (A3 \u222a A4) \u2229 (A1 \u222a A5) \u2286 (A3 \u222a A4) \u2229 A1 \u222a A5",
+      "dependencies": [
+        "Set",
+        "Nat",
+        "le_trans",
+        "PartialOrder.toPreorder",
+        "CompleteSemilatticeInf.toPartialOrder",
+        "CompleteLattice.toCompleteSemilatticeInf",
+        "CompleteBooleanAlgebra.toCompleteLattice",
+        "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+        "Set.instCompleteAtomicBooleanAlgebra",
+        "Inter.inter",
+        "Set.instInter",
+        "Union.union",
+        "Set.instUnion",
+        "pr_distributivity",
+        "sup_le_sup",
+        "Lattice.toSemilatticeSup",
+        "CompleteLattice.toLattice",
+        "le_rfl",
+        "inf_le_right",
+        "Lattice.toSemilatticeInf"
+      ],
+      "explanation": {
+        "summary": "((A3 \u222a A4) \u2229 (A1 \u222a A5)) \u2286 (((A3 \u222a A4) \u2229 A1) \u222a A5)",
+        "why_useful": "A reusable seed-dependent inclusion; measured downstream search results are shown separately."
+      }
+    },
+    {
+      "id": "cand_02",
+      "source": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 3
+          },
+          "right": {
+            "op": "var",
+            "index": 4
+          }
+        }
+      },
+      "proof": "theorem pr_cand_02 (A0 A1 A2 A3 A4 A5 : Set Nat) : ((A0 \u2229 (A1 \u222a A2)) \u222a (A3 \u2229 A4)) \u2286 (((A0 \u2229 A1) \u222a A2) \u222a (A3 \u2229 A4)) :=\n  (sup_le_sup (le_trans (pr_distributivity A0 A1 A2) (sup_le_sup le_rfl inf_le_right)) le_rfl)\n",
+      "proof_ast": {
+        "rule": "sup_mono",
+        "source": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 1
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "target": {
+          "op": "join",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "var",
+                "index": 1
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          },
+          "right": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          }
+        },
+        "children": [
+          {
+            "rule": "trans",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "target": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "children": [
+              {
+                "rule": "seed",
+                "source": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 1
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "target": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "children": []
+              },
+              {
+                "rule": "sup_mono",
+                "source": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 2
+                    }
+                  }
+                },
+                "target": {
+                  "op": "join",
+                  "left": {
+                    "op": "meet",
+                    "left": {
+                      "op": "var",
+                      "index": 0
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 1
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                },
+                "children": [
+                  {
+                    "rule": "refl",
+                    "source": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "target": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 1
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "rule": "inf_right",
+                    "source": {
+                      "op": "meet",
+                      "left": {
+                        "op": "var",
+                        "index": 0
+                      },
+                      "right": {
+                        "op": "var",
+                        "index": 2
+                      }
+                    },
+                    "target": {
+                      "op": "var",
+                      "index": 2
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "rule": "refl",
+            "source": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "target": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "children": []
+          }
+        ]
+      },
+      "status": "kernel_verified",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "uncertainty": 0.0,
+      "score": 0.0,
+      "score_stage": 2,
+      "score_portfolio": [
+        "cand_01",
+        "cand_00"
+      ],
+      "statement": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u222a A3 \u2229 A4 \u2286 A0 \u2229 A1 \u222a A2 \u222a A3 \u2229 A4",
+      "dependencies": [
+        "Set",
+        "Nat",
+        "sup_le_sup",
+        "Lattice.toSemilatticeSup",
+        "CompleteLattice.toLattice",
+        "CompleteBooleanAlgebra.toCompleteLattice",
+        "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+        "Set.instCompleteAtomicBooleanAlgebra",
+        "Inter.inter",
+        "Set.instInter",
+        "Union.union",
+        "Set.instUnion",
+        "le_trans",
+        "PartialOrder.toPreorder",
+        "CompleteSemilatticeInf.toPartialOrder",
+        "CompleteLattice.toCompleteSemilatticeInf",
+        "pr_distributivity",
+        "le_rfl",
+        "inf_le_right",
+        "Lattice.toSemilatticeInf"
+      ],
+      "explanation": {
+        "summary": "((A0 \u2229 (A1 \u222a A2)) \u222a (A3 \u2229 A4)) \u2286 (((A0 \u2229 A1) \u222a A2) \u222a (A3 \u2229 A4))",
+        "why_useful": "A reusable seed-dependent inclusion; measured downstream search results are shown separately."
+      }
+    }
+  ],
+  "selected": [
+    "cand_01",
+    "cand_00",
+    "cand_02"
+  ],
+  "goals": [
+    {
+      "id": "goal_00",
+      "source": {
+        "op": "join",
+        "left": {
+          "op": "meet",
+          "left": {
+            "op": "var",
+            "index": 0
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 2
+            }
+          }
+        },
+        "right": {
+          "op": "meet",
+          "left": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 3
+            },
+            "right": {
+              "op": "var",
+              "index": 4
+            }
+          },
+          "right": {
+            "op": "join",
+            "left": {
+              "op": "var",
+              "index": 1
+            },
+            "right": {
+              "op": "var",
+              "index": 5
+            }
+          }
+        }
+      },
+      "target": {
+        "op": "join",
+        "left": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "var",
+              "index": 0
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 2
+          }
+        },
+        "right": {
+          "op": "join",
+          "left": {
+            "op": "meet",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "var",
+                "index": 3
+              },
+              "right": {
+                "op": "var",
+                "index": 4
+              }
+            },
+            "right": {
+              "op": "var",
+              "index": 1
+            }
+          },
+          "right": {
+            "op": "var",
+            "index": 5
+          }
+        }
+      },
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "applicable_rule_attempts": 4,
+        "cache_hits": 0,
+        "cycle_cuts": 0,
+        "proof": null,
+        "proof_nodes": null,
+        "nontrivial_and_nodes": 0
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 3,
+        "applicable_rule_attempts": 1,
+        "cache_hits": 0,
+        "cycle_cuts": 0,
+        "proof": {
+          "rule": "sup_mono",
+          "source": {
+            "op": "join",
+            "left": {
+              "op": "meet",
+              "left": {
+                "op": "var",
+                "index": 0
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              }
+            },
+            "right": {
+              "op": "meet",
+              "left": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 3
+                },
+                "right": {
+                  "op": "var",
+                  "index": 4
+                }
+              },
+              "right": {
+                "op": "join",
+                "left": {
+                  "op": "var",
+                  "index": 1
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              }
+            }
+          },
+          "target": {
+            "op": "join",
+            "left": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 2
+              }
+            },
+            "right": {
+              "op": "join",
+              "left": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 1
+                }
+              },
+              "right": {
+                "op": "var",
+                "index": 5
+              }
+            }
+          },
+          "children": [
+            {
+              "rule": "lemma",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "var",
+                  "index": 0
+                },
+                "right": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 1
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 2
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "var",
+                    "index": 0
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 2
+                }
+              },
+              "children": [],
+              "lemma_id": "cand_00"
+            },
+            {
+              "rule": "lemma",
+              "source": {
+                "op": "meet",
+                "left": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 3
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 4
+                  }
+                },
+                "right": {
+                  "op": "join",
+                  "left": {
+                    "op": "var",
+                    "index": 1
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 5
+                  }
+                }
+              },
+              "target": {
+                "op": "join",
+                "left": {
+                  "op": "meet",
+                  "left": {
+                    "op": "join",
+                    "left": {
+                      "op": "var",
+                      "index": 3
+                    },
+                    "right": {
+                      "op": "var",
+                      "index": 4
+                    }
+                  },
+                  "right": {
+                    "op": "var",
+                    "index": 1
+                  }
+                },
+                "right": {
+                  "op": "var",
+                  "index": 5
+                }
+              },
+              "children": [],
+              "lemma_id": "cand_01"
+            }
+          ]
+        },
+        "proof_nodes": 3,
+        "nontrivial_and_nodes": 0
+      }
+    }
+  ],
+  "budget": {
+    "selected_lemmas": 3,
+    "search_expansions": 8,
+    "unit": "visited raw-syntax goal state, including failed branches/cache/cycle visits",
+    "max_transitivity_pivots": 8
+  },
+  "selection_cost": {
+    "obligation_visits": 333,
+    "heuristic_estimate_calls": 13,
+    "heuristic_node_evaluations": 15103,
+    "candidate_feature_calls": 0,
+    "conditional_feature_calls": 0,
+    "model_prediction_calls": 0,
+    "obligation_cap_per_goal": 128,
+    "obligation_build_visits": 333,
+    "graph_primitive_preprocess_pairs": 270,
+    "graph_cache_hits": 0,
+    "graph_cache_misses": 1,
+    "graph_cache_capacity": 32,
+    "obligation_depth": 4,
+    "selection_trace": [
+      {
+        "round": 0,
+        "portfolio_before": [],
+        "chosen_id": "cand_01",
+        "selected_at_score": 1.5,
+        "score_tie_key": 1.5
+      },
+      {
+        "round": 1,
+        "portfolio_before": [
+          "cand_01"
+        ],
+        "chosen_id": "cand_00",
+        "selected_at_score": 0.5,
+        "score_tie_key": 0.5
+      },
+      {
+        "round": 2,
+        "portfolio_before": [
+          "cand_01",
+          "cand_00"
+        ],
+        "chosen_id": "cand_02",
+        "selected_at_score": 0.0,
+        "score_tie_key": 0.0
+      }
+    ],
+    "selection_elapsed_seconds": 0.5038309999799822
+  },
+  "ranking_model": {
+    "kind": null,
+    "method": "greedy_coverage"
+  },
+  "verification": {
+    "status": "kernel_verified",
+    "source_sha256": "bbde88286a20badb41260febe89b79ced257b090df013003049b85e1d6d3afcf",
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "axiom_policy": "explicit_foundational_allowlist",
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "audits": [
+      {
+        "axioms": [
+          "propext"
+        ],
+        "constants": [
+          "DistribLattice",
+          "Trans.trans",
+          "Eq",
+          "instTransEq",
+          "Min.min",
+          "SemilatticeInf.toMin",
+          "Lattice.toSemilatticeInf",
+          "DistribLattice.toLattice",
+          "Max.max",
+          "SemilatticeSup.toMax",
+          "Lattice.toSemilatticeSup",
+          "Eq.mpr",
+          "id",
+          "congrArg",
+          "inf_sup_self",
+          "Eq.refl",
+          "of_eq_true",
+          "Eq.trans",
+          "True",
+          "congr",
+          "inf_assoc",
+          "sup_inf_right",
+          "eq_self",
+          "sup_inf_self",
+          "sup_comm",
+          "sup_inf_left"
+        ],
+        "name": "inf_sup_left",
+        "type": "\u2200 {\u03b1 : Type u} [inst : DistribLattice \u03b1] (a b c : \u03b1), a \u2293 (b \u2294 c) = a \u2293 b \u2294 a \u2293 c"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeSup",
+          "SemilatticeSup.sup_le"
+        ],
+        "name": "sup_le",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b c : \u03b1}, a \u2264 c \u2192 b \u2264 c \u2192 a \u2294 b \u2264 c"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeInf",
+          "SemilatticeInf.le_inf"
+        ],
+        "name": "le_inf",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {c a b : \u03b1}, c \u2264 a \u2192 c \u2264 b \u2192 c \u2264 a \u2293 b"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeSup",
+          "LE.le",
+          "Preorder.toLE",
+          "PartialOrder.toPreorder",
+          "SemilatticeSup.toPartialOrder",
+          "sup_le",
+          "Max.max",
+          "SemilatticeSup.toMax",
+          "le_sup_of_le_left",
+          "le_sup_of_le_right"
+        ],
+        "name": "sup_le_sup",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b c d : \u03b1}, a \u2264 b \u2192 c \u2264 d \u2192 a \u2294 c \u2264 b \u2294 d"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeInf",
+          "LE.le",
+          "Preorder.toLE",
+          "PartialOrder.toPreorder",
+          "SemilatticeInf.toPartialOrder",
+          "le_inf",
+          "Min.min",
+          "SemilatticeInf.toMin",
+          "inf_le_of_left_le",
+          "inf_le_of_right_le"
+        ],
+        "name": "inf_le_inf",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b c d : \u03b1}, b \u2264 a \u2192 d \u2264 c \u2192 b \u2293 d \u2264 a \u2293 c"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "Preorder",
+          "Preorder.le_trans"
+        ],
+        "name": "le_trans",
+        "type": "\u2200 {\u03b1 : Type u_1} [inst : Preorder \u03b1] {a b c : \u03b1}, a \u2264 b \u2192 b \u2264 c \u2192 a \u2264 c"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeInf",
+          "SemilatticeInf.inf_le_left"
+        ],
+        "name": "inf_le_left",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b : \u03b1}, a \u2293 b \u2264 a"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeInf",
+          "SemilatticeInf.inf_le_right"
+        ],
+        "name": "inf_le_right",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b : \u03b1}, a \u2293 b \u2264 b"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeSup",
+          "SemilatticeSup.le_sup_left"
+        ],
+        "name": "le_sup_left",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b : \u03b1}, a \u2264 a \u2294 b"
+      },
+      {
+        "axioms": [],
+        "constants": [
+          "SemilatticeSup",
+          "SemilatticeSup.le_sup_right"
+        ],
+        "name": "le_sup_right",
+        "type": "\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b : \u03b1}, b \u2264 a \u2294 b"
+      },
+      {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "constants": [
+          "Set",
+          "Nat",
+          "Eq.le",
+          "PartialOrder.toPreorder",
+          "CompleteSemilatticeInf.toPartialOrder",
+          "CompleteLattice.toCompleteSemilatticeInf",
+          "CompleteBooleanAlgebra.toCompleteLattice",
+          "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+          "Set.instCompleteAtomicBooleanAlgebra",
+          "Min.min",
+          "SemilatticeInf.toMin",
+          "Lattice.toSemilatticeInf",
+          "DistribLattice.toLattice",
+          "Set.instDistribLattice",
+          "Max.max",
+          "SemilatticeSup.toMax",
+          "Lattice.toSemilatticeSup",
+          "inf_sup_left"
+        ],
+        "name": "pr_distributivity",
+        "type": "\u2200 (A B C : Set \u2115), A \u2229 (B \u222a C) \u2286 A \u2229 B \u222a A \u2229 C"
+      },
+      {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "constants": [
+          "Set",
+          "Nat",
+          "le_trans",
+          "PartialOrder.toPreorder",
+          "CompleteSemilatticeInf.toPartialOrder",
+          "CompleteLattice.toCompleteSemilatticeInf",
+          "CompleteBooleanAlgebra.toCompleteLattice",
+          "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+          "Set.instCompleteAtomicBooleanAlgebra",
+          "Inter.inter",
+          "Set.instInter",
+          "Union.union",
+          "Set.instUnion",
+          "pr_distributivity",
+          "sup_le_sup",
+          "Lattice.toSemilatticeSup",
+          "CompleteLattice.toLattice",
+          "le_rfl",
+          "inf_le_right",
+          "Lattice.toSemilatticeInf"
+        ],
+        "name": "pr_cand_00",
+        "type": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u2286 A0 \u2229 A1 \u222a A2"
+      },
+      {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "constants": [
+          "Set",
+          "Nat",
+          "le_trans",
+          "PartialOrder.toPreorder",
+          "CompleteSemilatticeInf.toPartialOrder",
+          "CompleteLattice.toCompleteSemilatticeInf",
+          "CompleteBooleanAlgebra.toCompleteLattice",
+          "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+          "Set.instCompleteAtomicBooleanAlgebra",
+          "Inter.inter",
+          "Set.instInter",
+          "Union.union",
+          "Set.instUnion",
+          "pr_distributivity",
+          "sup_le_sup",
+          "Lattice.toSemilatticeSup",
+          "CompleteLattice.toLattice",
+          "le_rfl",
+          "inf_le_right",
+          "Lattice.toSemilatticeInf"
+        ],
+        "name": "pr_cand_01",
+        "type": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), (A3 \u222a A4) \u2229 (A1 \u222a A5) \u2286 (A3 \u222a A4) \u2229 A1 \u222a A5"
+      },
+      {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "constants": [
+          "Set",
+          "Nat",
+          "sup_le_sup",
+          "Lattice.toSemilatticeSup",
+          "CompleteLattice.toLattice",
+          "CompleteBooleanAlgebra.toCompleteLattice",
+          "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+          "Set.instCompleteAtomicBooleanAlgebra",
+          "Inter.inter",
+          "Set.instInter",
+          "Union.union",
+          "Set.instUnion",
+          "le_trans",
+          "PartialOrder.toPreorder",
+          "CompleteSemilatticeInf.toPartialOrder",
+          "CompleteLattice.toCompleteSemilatticeInf",
+          "pr_distributivity",
+          "le_rfl",
+          "inf_le_right",
+          "Lattice.toSemilatticeInf"
+        ],
+        "name": "pr_cand_02",
+        "type": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u222a A3 \u2229 A4 \u2286 A0 \u2229 A1 \u222a A2 \u222a A3 \u2229 A4"
+      },
+      {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "constants": [
+          "Set",
+          "Nat",
+          "sup_le_sup",
+          "Lattice.toSemilatticeSup",
+          "CompleteLattice.toLattice",
+          "CompleteBooleanAlgebra.toCompleteLattice",
+          "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+          "Set.instCompleteAtomicBooleanAlgebra",
+          "Inter.inter",
+          "Set.instInter",
+          "Union.union",
+          "Set.instUnion",
+          "pr_cand_00",
+          "pr_cand_01"
+        ],
+        "name": "pr_goal_0_augmented",
+        "type": "\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u222a (A3 \u222a A4) \u2229 (A1 \u222a A5) \u2286 A0 \u2229 A1 \u222a A2 \u222a ((A3 \u222a A4) \u2229 A1 \u222a A5)"
+      }
+    ],
+    "log": "{\"caption\":\"\",\"data\":\"Variable name `A3` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A3\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":31,\"line\":9},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":29,\"line\":9},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `A4` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A4\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":34,\"line\":9},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":32,\"line\":9},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `A5` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A5\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":37,\"line\":9},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":35,\"line\":9},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `A0` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A0\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":22,\"line\":12},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":20,\"line\":12},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `A2` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A2\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":28,\"line\":12},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":26,\"line\":12},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Variable name `A5` is not explicitly referenced.\\n\\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\\n  [apply] _A5\\n\\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\",\"endPos\":{\"column\":37,\"line\":15},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.unusedVariables\",\"pos\":{\"column\":35,\"line\":15},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\"],\\\"constants\\\":[\\\"DistribLattice\\\",\\\"Trans.trans\\\",\\\"Eq\\\",\\\"instTransEq\\\",\\\"Min.min\\\",\\\"SemilatticeInf.toMin\\\",\\\"Lattice.toSemilatticeInf\\\",\\\"DistribLattice.toLattice\\\",\\\"Max.max\\\",\\\"SemilatticeSup.toMax\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"Eq.mpr\\\",\\\"id\\\",\\\"congrArg\\\",\\\"inf_sup_self\\\",\\\"Eq.refl\\\",\\\"of_eq_true\\\",\\\"Eq.trans\\\",\\\"True\\\",\\\"congr\\\",\\\"inf_assoc\\\",\\\"sup_inf_right\\\",\\\"eq_self\\\",\\\"sup_inf_self\\\",\\\"sup_comm\\\",\\\"sup_inf_left\\\"],\\\"name\\\":\\\"inf_sup_left\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : DistribLattice \u03b1] (a b c : \u03b1), a \u2293 (b \u2294 c) = a \u2293 b \u2294 a \u2293 c\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeSup\\\",\\\"SemilatticeSup.sup_le\\\"],\\\"name\\\":\\\"sup_le\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b c : \u03b1}, a \u2264 c \u2192 b \u2264 c \u2192 a \u2294 b \u2264 c\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeInf\\\",\\\"SemilatticeInf.le_inf\\\"],\\\"name\\\":\\\"le_inf\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {c a b : \u03b1}, c \u2264 a \u2192 c \u2264 b \u2192 c \u2264 a \u2293 b\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeSup\\\",\\\"LE.le\\\",\\\"Preorder.toLE\\\",\\\"PartialOrder.toPreorder\\\",\\\"SemilatticeSup.toPartialOrder\\\",\\\"sup_le\\\",\\\"Max.max\\\",\\\"SemilatticeSup.toMax\\\",\\\"le_sup_of_le_left\\\",\\\"le_sup_of_le_right\\\"],\\\"name\\\":\\\"sup_le_sup\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b c d : \u03b1}, a \u2264 b \u2192 c \u2264 d \u2192 a \u2294 c \u2264 b \u2294 d\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeInf\\\",\\\"LE.le\\\",\\\"Preorder.toLE\\\",\\\"PartialOrder.toPreorder\\\",\\\"SemilatticeInf.toPartialOrder\\\",\\\"le_inf\\\",\\\"Min.min\\\",\\\"SemilatticeInf.toMin\\\",\\\"inf_le_of_left_le\\\",\\\"inf_le_of_right_le\\\"],\\\"name\\\":\\\"inf_le_inf\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b c d : \u03b1}, b \u2264 a \u2192 d \u2264 c \u2192 b \u2293 d \u2264 a \u2293 c\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"Preorder\\\",\\\"Preorder.le_trans\\\"],\\\"name\\\":\\\"le_trans\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u_1} [inst : Preorder \u03b1] {a b c : \u03b1}, a \u2264 b \u2192 b \u2264 c \u2192 a \u2264 c\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeInf\\\",\\\"SemilatticeInf.inf_le_left\\\"],\\\"name\\\":\\\"inf_le_left\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b : \u03b1}, a \u2293 b \u2264 a\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeInf\\\",\\\"SemilatticeInf.inf_le_right\\\"],\\\"name\\\":\\\"inf_le_right\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeInf \u03b1] {a b : \u03b1}, a \u2293 b \u2264 b\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeSup\\\",\\\"SemilatticeSup.le_sup_left\\\"],\\\"name\\\":\\\"le_sup_left\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b : \u03b1}, a \u2264 a \u2294 b\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[],\\\"constants\\\":[\\\"SemilatticeSup\\\",\\\"SemilatticeSup.le_sup_right\\\"],\\\"name\\\":\\\"le_sup_right\\\",\\\"type\\\":\\\"\u2200 {\u03b1 : Type u} [inst : SemilatticeSup \u03b1] {a b : \u03b1}, b \u2264 a \u2294 b\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"Set\\\",\\\"Nat\\\",\\\"Eq.le\\\",\\\"PartialOrder.toPreorder\\\",\\\"CompleteSemilatticeInf.toPartialOrder\\\",\\\"CompleteLattice.toCompleteSemilatticeInf\\\",\\\"CompleteBooleanAlgebra.toCompleteLattice\\\",\\\"CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra\\\",\\\"Set.instCompleteAtomicBooleanAlgebra\\\",\\\"Min.min\\\",\\\"SemilatticeInf.toMin\\\",\\\"Lattice.toSemilatticeInf\\\",\\\"DistribLattice.toLattice\\\",\\\"Set.instDistribLattice\\\",\\\"Max.max\\\",\\\"SemilatticeSup.toMax\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"inf_sup_left\\\"],\\\"name\\\":\\\"pr_distributivity\\\",\\\"type\\\":\\\"\u2200 (A B C : Set \u2115), A \u2229 (B \u222a C) \u2286 A \u2229 B \u222a A \u2229 C\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"Set\\\",\\\"Nat\\\",\\\"le_trans\\\",\\\"PartialOrder.toPreorder\\\",\\\"CompleteSemilatticeInf.toPartialOrder\\\",\\\"CompleteLattice.toCompleteSemilatticeInf\\\",\\\"CompleteBooleanAlgebra.toCompleteLattice\\\",\\\"CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra\\\",\\\"Set.instCompleteAtomicBooleanAlgebra\\\",\\\"Inter.inter\\\",\\\"Set.instInter\\\",\\\"Union.union\\\",\\\"Set.instUnion\\\",\\\"pr_distributivity\\\",\\\"sup_le_sup\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"CompleteLattice.toLattice\\\",\\\"le_rfl\\\",\\\"inf_le_right\\\",\\\"Lattice.toSemilatticeInf\\\"],\\\"name\\\":\\\"pr_cand_00\\\",\\\"type\\\":\\\"\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u2286 A0 \u2229 A1 \u222a A2\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"Set\\\",\\\"Nat\\\",\\\"le_trans\\\",\\\"PartialOrder.toPreorder\\\",\\\"CompleteSemilatticeInf.toPartialOrder\\\",\\\"CompleteLattice.toCompleteSemilatticeInf\\\",\\\"CompleteBooleanAlgebra.toCompleteLattice\\\",\\\"CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra\\\",\\\"Set.instCompleteAtomicBooleanAlgebra\\\",\\\"Inter.inter\\\",\\\"Set.instInter\\\",\\\"Union.union\\\",\\\"Set.instUnion\\\",\\\"pr_distributivity\\\",\\\"sup_le_sup\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"CompleteLattice.toLattice\\\",\\\"le_rfl\\\",\\\"inf_le_right\\\",\\\"Lattice.toSemilatticeInf\\\"],\\\"name\\\":\\\"pr_cand_01\\\",\\\"type\\\":\\\"\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), (A3 \u222a A4) \u2229 (A1 \u222a A5) \u2286 (A3 \u222a A4) \u2229 A1 \u222a A5\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"Set\\\",\\\"Nat\\\",\\\"sup_le_sup\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"CompleteLattice.toLattice\\\",\\\"CompleteBooleanAlgebra.toCompleteLattice\\\",\\\"CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra\\\",\\\"Set.instCompleteAtomicBooleanAlgebra\\\",\\\"Inter.inter\\\",\\\"Set.instInter\\\",\\\"Union.union\\\",\\\"Set.instUnion\\\",\\\"le_trans\\\",\\\"PartialOrder.toPreorder\\\",\\\"CompleteSemilatticeInf.toPartialOrder\\\",\\\"CompleteLattice.toCompleteSemilatticeInf\\\",\\\"pr_distributivity\\\",\\\"le_rfl\\\",\\\"inf_le_right\\\",\\\"Lattice.toSemilatticeInf\\\"],\\\"name\\\":\\\"pr_cand_02\\\",\\\"type\\\":\\\"\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u222a A3 \u2229 A4 \u2286 A0 \u2229 A1 \u222a A2 \u222a A3 \u2229 A4\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n{\"caption\":\"\",\"data\":\"PROOFRIPPLE_AUDIT {\\\"axioms\\\":[\\\"propext\\\",\\\"Classical.choice\\\",\\\"Quot.sound\\\"],\\\"constants\\\":[\\\"Set\\\",\\\"Nat\\\",\\\"sup_le_sup\\\",\\\"Lattice.toSemilatticeSup\\\",\\\"CompleteLattice.toLattice\\\",\\\"CompleteBooleanAlgebra.toCompleteLattice\\\",\\\"CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra\\\",\\\"Set.instCompleteAtomicBooleanAlgebra\\\",\\\"Inter.inter\\\",\\\"Set.instInter\\\",\\\"Union.union\\\",\\\"Set.instUnion\\\",\\\"pr_cand_00\\\",\\\"pr_cand_01\\\"],\\\"name\\\":\\\"pr_goal_0_augmented\\\",\\\"type\\\":\\\"\u2200 (A0 A1 A2 A3 A4 A5 : Set \u2115), A0 \u2229 (A1 \u222a A2) \u222a (A3 \u222a A4) \u2229 (A1 \u222a A5) \u2286 A0 \u2229 A1 \u222a A2 \u222a ((A3 \u222a A4) \u2229 A1 \u222a A5)\\\"}\",\"endPos\":{\"column\":7,\"line\":21},\"fileName\":\"/var/folders/ss/tml7487n205dg94kb7__tth80000gn/T/proofripple-lean-zvyrarmr/ProofRipple.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":0,\"line\":21},\"severity\":\"information\"}\n",
+    "elapsed_seconds": 19.6808,
+    "returncode": 0,
+    "library": {
+      "available": true,
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "tag": "v4.33.1",
+      "toolchain": "leanprover/lean4:v4.33.1",
+      "imports": [
+        "Mathlib.Order.Lattice",
+        "Mathlib.Data.Set.Lattice"
+      ],
+      "manifest_sha256": "1009a101f52a9d5d8ca57666f0256bae91abdb693e0f27b5a4622cffcc38cf03",
+      "dependencies": [
+        {
+          "name": "plausible",
+          "revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb"
+        },
+        {
+          "name": "LeanSearchClient",
+          "revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404"
+        },
+        {
+          "name": "importGraph",
+          "revision": "16f02aa7642864af59f1ff0e384a015994db9118"
+        },
+        {
+          "name": "proofwidgets",
+          "revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957"
+        },
+        {
+          "name": "aesop",
+          "revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e"
+        },
+        {
+          "name": "Qq",
+          "revision": "92c15be17b7caf78c2ad767ec40f89052d908d81"
+        },
+        {
+          "name": "batteries",
+          "revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d"
+        },
+        {
+          "name": "Cli",
+          "revision": "6130a47896ce867c6a4a55373441e59e565bad0f"
+        }
+      ],
+      "execution": "Direct installed pinned Lean with explicit library paths; verification does not resolve or download dependencies."
+    }
+  },
+  "metrics": {
+    "method": "greedy_coverage",
+    "goal_count": 1,
+    "candidate_count": 3,
+    "baseline_solved": 0,
+    "augmented_solved": 1,
+    "marginal_solved": 1,
+    "newly_solved": 1,
+    "regressed": 0
+  },
+  "timeline": [
+    {
+      "stage": "IMPORT",
+      "detail": "Loaded the pinned Mathlib set-lattice theorem and audited its exact type."
+    },
+    {
+      "stage": "UNDERSTAND",
+      "detail": "Registered binary union/intersection inference rules."
+    },
+    {
+      "stage": "EXPLORE",
+      "detail": "3 non-equivalent, seed-dependent inclusions."
+    },
+    {
+      "stage": "PROVE",
+      "status": "kernel_verified",
+      "detail": "15/15 fresh Lean declaration audits."
+    },
+    {
+      "stage": "EVALUATE",
+      "detail": "Compared bounded search under the displayed lemma and expansion budgets."
+    },
+    {
+      "stage": "EXPLAIN",
+      "detail": "Inspect the actual multi-premise proof tree and exported Lean term."
+    }
+  ],
+  "seed": {
+    "id": "distributivity",
+    "declaration": "inf_sup_left",
+    "status": "kernel_verified",
+    "proof": "theorem pr_distributivity (A B C : Set Nat) : A \u2229 (B \u222a C) \u2286 (A \u2229 B) \u222a (A \u2229 C) :=\n  (inf_sup_left A B C).le\n",
+    "statement": "\u2200 (A B C : Set \u2115), A \u2229 (B \u222a C) \u2286 A \u2229 B \u222a A \u2229 C",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "dependencies": [
+      "Set",
+      "Nat",
+      "Eq.le",
+      "PartialOrder.toPreorder",
+      "CompleteSemilatticeInf.toPartialOrder",
+      "CompleteLattice.toCompleteSemilatticeInf",
+      "CompleteBooleanAlgebra.toCompleteLattice",
+      "CompleteAtomicBooleanAlgebra.toCompleteBooleanAlgebra",
+      "Set.instCompleteAtomicBooleanAlgebra",
+      "Min.min",
+      "SemilatticeInf.toMin",
+      "Lattice.toSemilatticeInf",
+      "DistribLattice.toLattice",
+      "Set.instDistribLattice",
+      "Max.max",
+      "SemilatticeSup.toMax",
+      "Lattice.toSemilatticeSup",
+      "inf_sup_left"
+    ]
+  },
+  "lean_source": "import Mathlib.Order.Lattice\nimport Mathlib.Data.Set.Lattice\nimport Lean\nopen Lean Elab Command\n\ntheorem pr_distributivity (A B C : Set Nat) : A \u2229 (B \u222a C) \u2286 (A \u2229 B) \u222a (A \u2229 C) :=\n  (inf_sup_left A B C).le\n\ntheorem pr_cand_00 (A0 A1 A2 A3 A4 A5 : Set Nat) : (A0 \u2229 (A1 \u222a A2)) \u2286 ((A0 \u2229 A1) \u222a A2) :=\n  (le_trans (pr_distributivity A0 A1 A2) (sup_le_sup le_rfl inf_le_right))\n\ntheorem pr_cand_01 (A0 A1 A2 A3 A4 A5 : Set Nat) : ((A3 \u222a A4) \u2229 (A1 \u222a A5)) \u2286 (((A3 \u222a A4) \u2229 A1) \u222a A5) :=\n  (le_trans (pr_distributivity (A3 \u222a A4) A1 A5) (sup_le_sup le_rfl inf_le_right))\n\ntheorem pr_cand_02 (A0 A1 A2 A3 A4 A5 : Set Nat) : ((A0 \u2229 (A1 \u222a A2)) \u222a (A3 \u2229 A4)) \u2286 (((A0 \u2229 A1) \u222a A2) \u222a (A3 \u2229 A4)) :=\n  (sup_le_sup (le_trans (pr_distributivity A0 A1 A2) (sup_le_sup le_rfl inf_le_right)) le_rfl)\n\ntheorem pr_goal_0_augmented (A0 A1 A2 A3 A4 A5 : Set Nat) : ((A0 \u2229 (A1 \u222a A2)) \u222a ((A3 \u222a A4) \u2229 (A1 \u222a A5))) \u2286 (((A0 \u2229 A1) \u222a A2) \u222a (((A3 \u222a A4) \u2229 A1) \u222a A5)) :=\n  (sup_le_sup (pr_cand_00 A0 A1 A2 A3 A4 A5) (pr_cand_01 A0 A1 A2 A3 A4 A5))\n\nrun_cmd do\n  for n in #[`inf_sup_left, `sup_le, `le_inf, `sup_le_sup, `inf_le_inf, `le_trans, `inf_le_left, `inf_le_right, `le_sup_left, `le_sup_right, `pr_distributivity, `pr_cand_00, `pr_cand_01, `pr_cand_02, `pr_goal_0_augmented] do\n    let env \u2190 getEnv\n    let some ci := env.find? n | throwError \"missing declaration\"\n    let axs \u2190 collectAxioms n\n    let ty \u2190 liftTermElabM <| Meta.ppExpr ci.type\n    let some value := ci.value? (allowOpaque := true) | throwError \"declaration has no checked proof body\"\n    let deps := value.getUsedConstants.toList.map Name.toString\n    logInfo m!\"PROOFRIPPLE_AUDIT {Json.compress <| Json.mkObj [(\"name\", toJson n.toString), (\"type\", toJson ty.pretty), (\"axioms\", toJson (axs.toList.map Name.toString)), (\"constants\", toJson deps)]}\"\n",
+  "mathlib_domain": {
+    "domain": "mathlib-set-lattice",
+    "library_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "allowed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "goal_declarations": [
+      {
+        "goal_id": "goal_00",
+        "variant": "augmented",
+        "name": "pr_goal_0_augmented"
+      }
+    ],
+    "imported_seed": {
+      "name": "inf_sup_left",
+      "audit_name": "inf_sup_left",
+      "statement": "\u2200 {\u03b1 : Type u} [inst : DistribLattice \u03b1] (a b c : \u03b1), a \u2293 (b \u2294 c) = a \u2293 b \u2294 a \u2293 c",
+      "axioms": [
+        "propext"
+      ],
+      "dependencies": [
+        "DistribLattice",
+        "Trans.trans",
+        "Eq",
+        "instTransEq",
+        "Min.min",
+        "SemilatticeInf.toMin",
+        "Lattice.toSemilatticeInf",
+        "DistribLattice.toLattice",
+        "Max.max",
+        "SemilatticeSup.toMax",
+        "Lattice.toSemilatticeSup",
+        "Eq.mpr",
+        "id",
+        "congrArg",
+        "inf_sup_self",
+        "Eq.refl",
+        "of_eq_true",
+        "Eq.trans",
+        "True",
+        "congr",
+        "inf_assoc",
+        "sup_inf_right",
+        "eq_self",
+        "sup_inf_self",
+        "sup_comm",
+        "sup_inf_left"
+      ]
+    },
+    "interpretation": "Universally quantified inclusions between 6 arbitrary sets of natural numbers. Union/intersection rules may require two premises. DNF equivalence exclusions are not free search steps.",
+    "limitations": [
+      "Registered positive set algebra only; no arbitrary Mathlib theorem import.",
+      "Consequences are known mathematics with novelty only relative to the bounded search registry.",
+      "Distinct normalized endpoints do not imply strict inclusion for every set assignment."
+    ]
+  }
+}

@@ -229,6 +229,8 @@ table { border-collapse: collapse; width: 100%; }
 .automation-result strong { font: 17px var(--mono); color: var(--accent); }
 .automation-control .drawer-content { padding: 17px 18px; }
 .automation-control p { font-size: 11px; line-height: 1.8; color: var(--muted); max-width: 1100px; }
+#automation-provenance { margin-top: 10px; font-size: 10px; color: var(--faint); }
+#automation-provenance a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .timeline { margin: 0; padding: 18px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; list-style: none; }
 .timeline li { display: flex; gap: 9px; font-size: 10px; }
 .timeline li:before { content: ""; width: 4px; height: 4px; flex: none; border-radius: 50%; background: var(--muted); margin-top: 6px; }
@@ -377,6 +379,7 @@ footer .text-button { font-size: 9px; }
 .proof-step.proof-selected rect, .proof-step:hover rect, .proof-step:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
 .proof-rule { fill: var(--muted); font: 9px var(--mono); }
 .proof-relation { fill: var(--ink); font: 11px var(--mono); }
+.proof-inclusion { font: 14px "Times New Roman", serif; }
 .proof-placeholder { fill: var(--muted); font: 12px var(--sans); }
 .proof-step-detail { padding: 11px 15px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.8; color: var(--muted); }
 .proof-legend .legend-line.consequence { border-top-style: solid; }
