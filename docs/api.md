@@ -118,3 +118,17 @@ List proofs allow only standard `propext`. The separate direct `grind` control
 allows and records the three standard foundational axioms. The propositional
 backend remains axiom-free by default. There is no policy setting that permits
 `sorryAx`, custom axioms or native-computation axioms.
+
+## LAB file imports
+
+The workbench accepts supported contexts and exported run JSON. Before replacing
+the active run, it checks the presentation fields, witness containers and set/proof
+trees. Invalid ranking metadata, nonnumeric counters, malformed paths and excessive
+JSON nesting are rejected. Run files are limited to 15 MiB, 128 nesting levels and
+one million JSON values. These are display checks; file-reported proof badges still
+require a fresh local verification.
+
+Installed documentation includes its linked proof sources, compressed audits and
+reproduction drivers. The loopback server serves these as read-only assets and
+provides directory indexes for the proof collections. Python drivers are served as
+plain text and are never executed by the static route.

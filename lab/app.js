@@ -75,28 +75,141 @@ function validContext(value) {
   return value && Array.isArray(value.nodes) && value.nodes.length > 0 && Array.isArray(value.edges) && value.seed && typeof value.seed === 'object';
 }
 function validateRun(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('The JSON must contain a run object or a supported implication context.');
-  if (!validContext(value.context)) throw new Error('This run has no supported context. Expected nodes, edges and a seed theorem.');
-  if (!Array.isArray(value.candidates)) throw new Error('This run has no candidates array.');
-  if (!Array.isArray(value.goals)) throw new Error('This run has no downstream goals array.');
-  const objects=(items)=>Array.isArray(items)&&items.every(item=>item&&typeof item==='object'&&!Array.isArray(item));
-  if(!objects(value.candidates)||!objects(value.goals))throw new Error('Candidates and goals must contain objects.');
-  if(value.selected!==undefined&&!Array.isArray(value.selected))throw new Error('Selected consequences must be an array.');
-  if(value.selected?.some(item=>typeof item!=='string'&&(!item||typeof item!=='object'||typeof item.id!=='string')))throw new Error('Selected consequences must contain identifiers.');
-  if(value.timeline!==undefined&&(!Array.isArray(value.timeline)||value.timeline.some(item=>!item||!['string','object'].includes(typeof item))))throw new Error('The run timeline is malformed.');
-  if(isMathlib(value.context)&&!objects(value.context.candidates))throw new Error('The Mathlib context has a malformed candidate pool.');
-  if(!isMathlib(value.context)){
-    if(!objects(value.context.nodes)||!objects(value.context.edges))throw new Error('Graph nodes and edges must contain objects.');
-    const ids=new Set(value.context.nodes.map(item=>item.id));
-    if([...value.context.edges,value.context.seed,...value.candidates].some(item=>!ids.has(item.source)||!ids.has(item.target)))throw new Error('Graph relations must refer to existing nodes.');
+  // Validate presentation data before loadRun changes the active result or DOM.
+  // These shape checks do not certify a supplied proof or a file-reported status.
+  const record = item => item !== null && typeof item === 'object' && !Array.isArray(item);
+  const objects = items => Array.isArray(items) && items.every(record);
+  const fail = message => {throw new Error(message);};
+  const texts = (item, fields, label) => {
+    for (const field of fields) if (item?.[field] != null && typeof item[field] !== 'string') fail(`${label} ${field} must be text.`);
+  };
+  const array = (item, field, label) => {
+    if (item?.[field] != null && !Array.isArray(item[field])) fail(`${label} ${field} must be an array.`);
+  };
+  const numbers = (item, fields, label) => {
+    for (const field of fields) if (item?.[field] != null && (!['number', 'string'].includes(typeof item[field]) || !Number.isFinite(Number(item[field])))) fail(`${label} ${field} must be numeric.`);
+  };
+  const stringArray = (item, field, label) => {
+    array(item, field, label);
+    if (item?.[field]?.some(entry => typeof entry !== 'string')) fail(`${label} ${field} must contain text identifiers.`);
+  };
+  const identifiers = (items, label) => {
+    if (!objects(items) || items.some(item => typeof item.id !== 'string' || !item.id)) fail(`${label} must contain objects with text identifiers.`);
+    if (new Set(items.map(item => item.id)).size !== items.length) fail(`${label} identifiers must be unique.`);
+  };
+  if (!record(value)) fail('The JSON must contain a run object or a supported context.');
+  // JSON.parse can accept nesting that overflows later display serialization.
+  // Walk iteratively so rejection itself never depends on the call stack.
+  const entries = [[value, 0]], seen = new WeakSet();
+  let fields = 0;
+  while (entries.length) {
+    const [entry, depth] = entries.pop();
+    if (++fields > 1000000) fail('Run data exceeds the display size limit.');
+    if (depth > 128) fail('Run data exceeds the display nesting limit (128 levels).');
+    if (entry !== null && typeof entry === 'object') {
+      if (seen.has(entry)) fail('Run data must be an independent JSON tree.');
+      seen.add(entry);
+      for (const child of Object.values(entry)) entries.push([child, depth + 1]);
+    }
   }
-  for(const candidate of value.candidates)for(const field of ['axioms','dependencies','path'])if(candidate[field]!==undefined&&candidate[field]!==null&&!Array.isArray(candidate[field]))throw new Error(`Candidate ${field} must be an array.`);
-  const metadata=isMathlib(value.context)?value.mathlib_domain||value.metadata?.mathlib_domain:value.natural_domain;
-  if(metadata){
-    if(metadata.registered_templates!==undefined&&!objects(metadata.registered_templates))throw new Error('Registered templates must contain objects.');
-    for(const field of ['axioms','dependencies'])if(metadata.imported_seed?.[field]!==undefined&&!Array.isArray(metadata.imported_seed[field]))throw new Error(`Imported theorem ${field} must be an array.`);
+  if (!validContext(value.context) || !record(value.context.seed)) fail('This run has no supported context and seed theorem.');
+  const mathlib = isMathlib(value.context);
+  texts(value.context, ['id', 'title', 'domain'], 'Context');
+  texts(value.context.seed, ['id', 'declaration'], 'Seed');
+  identifiers(value.candidates, 'Candidates');
+  identifiers(value.goals, 'Downstream goals');
+  for (const field of ['metrics', 'verification', 'metadata']) if (value[field] != null && !record(value[field])) fail(`Run ${field} must be an object.`);
+  texts(value.metrics, ['method'], 'Ranking');
+  texts(value.verification, ['status', 'toolchain', 'source'], 'Verification');
+  texts(value, ['lean_source'], 'Run');
+  if (value.budget === null) fail('Run budget must be a number or an object.');
+  if (value.budget != null && !record(value.budget) && !['number', 'string'].includes(typeof value.budget)) fail('Run budget must be a number or an object.');
+  if (record(value.budget)) for (const [field, number] of Object.entries(value.budget)) {
+    if (number != null && !['number', 'string'].includes(typeof number)) fail(`Budget ${field} must be a number.`);
   }
-  if (value.candidates.length > 10000 || (value.context.nodes?.length || 0) > 500) throw new Error('This run is too large for the workbench. Use a context with at most 500 nodes and 10,000 candidates.');
+  if (value.selected !== undefined && (!Array.isArray(value.selected) || value.selected.some(item => typeof item !== 'string' && (!record(item) || typeof item.id !== 'string')))) fail('Selected consequences must contain identifiers.');
+  const pool = new Set(value.candidates.map(item => item.id));
+  if (value.selected?.some(item => !pool.has(typeof item === 'string' ? item : item.id))) fail('Selected consequences must refer to included candidates.');
+  const term = (item, depth = 0) => {
+    if (!record(item) || depth > 32) fail('Set expressions must be bounded term objects.');
+    if (item.op === 'var') {
+      if (!Number.isInteger(item.index) || item.index < 0 || item.index >= value.context.variables) fail('Set variables must refer to the context.');
+    } else if (['join', 'meet'].includes(item.op)) {term(item.left, depth + 1);term(item.right, depth + 1);}
+    else fail('Set expressions must use var, join or meet.');
+  };
+  const proof = (item, depth = 0) => {
+    if (!record(item) || depth > 32 || typeof item.rule !== 'string') fail('Proof trees must contain bounded rule objects.');
+    array(item, 'children', 'Proof');
+    texts(item, ['lemma_id'], 'Proof');
+    if (mathlib) {term(item.source);term(item.target);}
+    for (const child of item.children || []) proof(child, depth + 1);
+  };
+  let nodeIds;
+  if (mathlib) {
+    if (!Number.isInteger(value.context.variables) || value.context.variables < 1 || value.context.variables > 6) fail('Mathlib contexts support one to six set variables.');
+    identifiers(value.context.candidates, 'Mathlib candidate pool');
+    for (const candidate of value.context.candidates) {term(candidate.source);term(candidate.target);if (candidate.proof != null) proof(candidate.proof);}
+  } else {
+    identifiers(value.context.nodes, 'Graph nodes');
+    identifiers(value.context.edges, 'Graph edges');
+    nodeIds = new Set(value.context.nodes.map(item => item.id));
+    for (const item of value.context.nodes) {
+      texts(item, ['label'], 'Node');
+      if (item.expression != null && !record(item.expression)) fail('Node expressions must be objects.');
+      texts(item.expression, ['op'], 'Node expression');
+    }
+  }
+  for (const item of [...value.candidates, ...value.goals, ...(!mathlib ? [...value.context.edges, value.context.seed] : [])]) {
+    if (mathlib) {term(item.source);term(item.target);}
+    else if (!nodeIds.has(item.source) || !nodeIds.has(item.target)) fail('Graph relations must refer to existing nodes.');
+  }
+  for (const candidate of value.candidates) {
+    texts(candidate, ['status', 'statement'], 'Candidate');
+    array(candidate, 'dependencies', 'Candidate');
+    for (const field of ['axioms', 'path', 'score_portfolio']) stringArray(candidate, field, 'Candidate');
+    for (const dependency of candidate.dependencies || []) if (record(dependency)) texts(dependency, ['id', 'name'], 'Dependency');
+    numbers(candidate, ['score', 'uncertainty'], 'Candidate');
+    if (candidate.explanation != null) {
+      if (record(candidate.explanation)) texts(candidate.explanation, ['explanation', 'why_useful', 'summary'], 'Explanation');
+      else if (typeof candidate.explanation !== 'string') fail('Candidate explanations must be text or an object.');
+    }
+    if (candidate.proof_ast != null) proof(candidate.proof_ast);
+    if (candidate.proof != null && typeof candidate.proof !== 'string') {
+      if (!record(candidate.proof)) fail('Candidate proofs must be text or an object.');
+      if (candidate.proof.rule != null) proof(candidate.proof);
+      else texts(candidate.proof, ['source', 'lean'], 'Proof source');
+    }
+  }
+  for (const goal of value.goals) for (const variant of ['baseline', 'augmented']) {
+    const decision = goal[variant];
+    if (decision == null) continue;
+    if (!record(decision) || typeof decision.solved !== 'boolean') fail(`Goal ${variant} must contain a boolean solved flag.`);
+    numbers(decision, ['expansions', 'goal_visits'], 'Goal witness');
+    array(decision, 'path', 'Goal witness');
+    if (decision.path?.some(item => typeof item !== 'string')) fail('Goal witness paths must contain text identifiers.');
+    if (decision.proof != null) proof(decision.proof);
+  }
+  if (value.timeline != null) {
+    if (!Array.isArray(value.timeline)) fail('The run timeline must be an array.');
+    for (const event of value.timeline) {
+      if (typeof event === 'string') continue;
+      if (!record(event)) fail('Timeline events must be text or objects.');
+      for (const field of ['stage', 'event', 'label', 'action', 'detail', 'message', 'description', 'timestamp', 'time']) {
+        if (event[field] != null && !['string', 'number'].includes(typeof event[field])) fail(`Timeline ${field} must be text or a number.`);
+      }
+    }
+  }
+  const metadata = mathlib ? value.mathlib_domain || value.metadata?.mathlib_domain : value.natural_domain;
+  if (metadata != null) {
+    if (!record(metadata)) fail('Domain metadata must be an object.');
+    stringArray(metadata, 'allowed_axioms', 'Domain');
+    if (metadata.registered_templates != null && !objects(metadata.registered_templates)) fail('Registered templates must contain objects.');
+    for (const template of metadata.registered_templates || []) texts(template, ['name', 'explanation'], 'Template');
+    if (metadata.imported_seed != null && !record(metadata.imported_seed)) fail('The imported theorem audit must be an object.');
+    texts(metadata.imported_seed, ['name', 'statement'], 'Imported theorem');
+    for (const field of ['axioms', 'dependencies']) stringArray(metadata.imported_seed, field, 'Imported theorem');
+  }
+  if (value.candidates.length > 10000 || (value.context.nodes?.length || 0) > 500) fail('This run is too large for the workbench. Use at most 500 nodes and 10,000 candidates.');
   return value;
 }
 function loadRun(value, origin = 'recorded') {
@@ -117,9 +230,9 @@ function loadRun(value, origin = 'recorded') {
   $('selected-count').textContent = `${selected.size} selected`;
   $('toolchain-label').textContent = run.verification?.toolchain || 'No toolchain evidence';
   $('toolchain-label').title = run.verification?.toolchain || '';
-  const budgetValue = typeof run.budget === 'object' ? run.budget.search_expansions_per_goal ?? run.budget.search_expansions ?? run.budget.expansions ?? run.budget.search : run.budget;
-  if (Number.isFinite(Number(budgetValue))) $('budget').value = Number(budgetValue);
-  const loadedSelectionBudget = Number(run.budget?.selected_lemmas);
+  const budgetValue = run.budget && typeof run.budget === 'object' ? run.budget.search_expansions_per_goal ?? run.budget.search_expansions ?? run.budget.expansions ?? run.budget.search : run.budget;
+  if (budgetValue != null && Number.isFinite(Number(budgetValue))) $('budget').value = Number(budgetValue);
+  const loadedSelectionBudget = run.budget?.selected_lemmas == null ? NaN : Number(run.budget.selected_lemmas);
   if (Number.isInteger(loadedSelectionBudget) && loadedSelectionBudget >= 0 && loadedSelectionBudget <= 16) selectionBudget = loadedSelectionBudget;
   $('selection-budget').value = selectionBudget;
   rankingMethod = run.metrics?.method || (context.domain === 'list-capacity' ? 'graph' : 'learned');
@@ -129,7 +242,7 @@ function loadRun(value, origin = 'recorded') {
     const option=node('option','',`Recorded: ${rankingMethod.replaceAll('_',' ')}`);option.value=rankingMethod;option.dataset.recordedPolicy='true';$('policy-select').append(option);
   }
   $('policy-select').value = rankingMethod;
-  $('budget-caption').textContent = Number.isFinite(Number(budgetValue)) ? `${budgetValue} ${isMathlib()?'goal visits':'expansions'} per goal` : 'Equal search budgets';
+  $('budget-caption').textContent = budgetValue != null && Number.isFinite(Number(budgetValue)) ? `${budgetValue} ${isMathlib()?'goal visits':'expansions'} per goal` : 'Equal search budgets';
   $('search-budget-label').textContent=isMathlib()?'Goal visits':'Search budget';
   $('budget').setAttribute('aria-label',isMathlib()?'Goal visit budget':'Search expansion budget');
   $('search-interpretation').textContent=isMathlib()?'Bounded AND/OR search counts goal visits, including required premise branches. Failure is not mathematical impossibility. Kernel checks and general Lean automation use different resources.':'Restricted graph-search assistance. Bounded failure is not mathematical impossibility or evidence of an advantage over Lean automation.';
@@ -279,7 +392,7 @@ function renderGraph() {
 function renderMathlibProofGraph() {
   const graph=$('graph');graph.classList.add('proof-graph');graph.parentElement.classList.add('proof-tree-wrap');
   const original=context.candidates.find(item=>item.id===currentCandidate?.id);
-  const tree=currentCandidate?.proof_ast || original?.proof || (typeof currentCandidate?.proof==='object'?currentCandidate.proof:null);
+  const tree=currentCandidate?.proof_ast || original?.proof || (typeof currentCandidate?.proof?.rule==='string'?currentCandidate.proof:null);
   if(!tree || typeof tree!=='object'){
     graph.setAttribute('viewBox','0 0 920 360');graph.append(svg('text',{x:460,y:180,'text-anchor':'middle',class:'proof-placeholder'},'No proof AST was included for this consequence.'));
     $('graph-context').textContent='No dependency graph inferred from labels or proof source.';return;

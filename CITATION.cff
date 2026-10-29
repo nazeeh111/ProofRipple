@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use ProofRipple, cite this software and the relevant research foundations."
 title: "ProofRipple: Audited Lean consequence discovery and usefulness experiments"
 type: software
-version: 0.3.0
+version: 0.3.1
 date-released: 2026-10-29
 license: MIT
 authors:

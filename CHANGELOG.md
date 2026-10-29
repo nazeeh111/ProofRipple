@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.1 · 2026-10-29
+
+Reject malformed imported presentation data before changing the active run.
+Covers ranking metadata, witness paths, solved flags, set/proof trees, templates
+and audit containers, with regression checks for all three recorded domains.
+
+Include the frozen evidence, proof sources and linked reproduction drivers in
+the wheel. Serve compressed audits and read-only sources, provide browsable
+evidence directories, and restore the existing Scope anchor. CI now checks
+installed documentation/evidence completeness and the import contract.
+
+The eight frozen scientific modules, v0.3 study/model/data, original failed
+controls and separate repaired-control evidence remain byte-identical.
+
 ## 0.3.0 · 2026-10-29
 
 Adds pinned Mathlib set algebra with multi-premise lattice proofs, strict typed

@@ -1,0 +1,15 @@
+{
+  "scope": "Actual current-source browser regression, rejecting a10000-level JSON dependency while preserving the validMathlibrun",
+  "url": "http://127.0.0.1:8771/lab/",
+  "title_after_rejection": "Two-premise set-inclusion consequence",
+  "summary_after_rejection": "0 \u2192 1 / 1",
+  "export_remained_enabled": true,
+  "files": {
+    "import-retained.png": "78b3aaa9f178bbbc161da93570b2230c3974513ab521a65f0ed1a4326a343c68"
+  },
+  "sources": {
+    "lab/app.js": "682138eb17fdc312dd313883324dc689ddc9527e9ee85a305077449465bd8b9c",
+    "proofripple/server.py": "7df53737f630c1886c7e94334680c1fe477f96b044489aa619ccf3963fe08bef"
+  },
+  "scientific_outcomes_sha256": "181c9295653d4ee547ef46f1fe2d95cfc5f5fa1e55147a3c9eb38ece5f13542f"
+}
