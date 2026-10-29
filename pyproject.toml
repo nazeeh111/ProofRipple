@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "proofripple"
-version = "0.2.0"
-description = "Audited Lean consequence discovery and budgeted lemma-usefulness experiments"
+version = "0.3.0"
+description = "Mathlib consequence discovery, held-out usefulness experiments and a compact research lab"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"

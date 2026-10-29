@@ -1,3 +1,3 @@
-"""ProofRipple: audited consequence discovery in finite implication systems."""
+"""ProofRipple: audited consequence discovery and bounded usefulness studies."""
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"

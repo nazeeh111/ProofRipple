@@ -51,9 +51,12 @@ def serve(root, port=8765):
                     raise ValueError("Request must be a JSON object")
                 from .cli import run_context
                 if self.path == "/api/import-declaration":
-                    if payload.get("name") != "List.length_filter_le":
-                        raise ValueError("Supported declaration: List.length_filter_le")
-                    from .natural import make_example
+                    if payload.get("name") == "inf_sup_left":
+                        from .mathlib_benchmark import make_example
+                    elif payload.get("name") == "List.length_filter_le":
+                        from .natural import make_example
+                    else:
+                        raise ValueError("Supported declarations: inf_sup_left, List.length_filter_le")
                     payload["context"] = make_example()
                 run = run_context(payload["context"], payload.get("budget", 8), payload.get("select"), method=payload.get("method"))
                 self.send(200, run)

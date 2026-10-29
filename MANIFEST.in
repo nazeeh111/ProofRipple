@@ -14,3 +14,4 @@ include artifacts/natural/raw-contexts.json artifacts/natural/holdout-audit.json
 recursive-include artifacts/budgeted-automation *.json *.lean *.log *.txt
 include artifacts/demo.json artifacts/model.json artifacts/benchmark.json artifacts/contexts.json artifacts/Demo.lean
 include lean-toolchain LICENSE
+recursive-include artifacts/mathlib *.json *.lean *.gz *.txt *.py

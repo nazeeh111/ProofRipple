@@ -1,0 +1,165 @@
+{
+  "new_source_sha256": "7a459cdf04ea929c99e4ee1720bbcf72a1778cea19aa98ebfbff14e69cb7a63b",
+  "old_source_sha256": "caeabddae574484afff5624685b57c7c71ad9b693cdd92ab15278b31b49f00cc",
+  "policies_equal": [
+    "learned",
+    "learned_no_bonus",
+    "learned_singleton",
+    "structure_only",
+    "random",
+    "semantic",
+    "graph",
+    "proof_cost",
+    "greedy_coverage",
+    "branching_aware"
+  ],
+  "profiles": {
+    "after_cold": {
+      "elapsed_seconds": 0.23135624999999999,
+      "primitive_calls": 73270,
+      "selection_cost": {
+        "candidate_feature_calls": 0,
+        "conditional_feature_calls": 0,
+        "graph_cache_capacity": 32,
+        "graph_cache_hits": 0,
+        "graph_cache_misses": 1,
+        "graph_primitive_preprocess_pairs": 270,
+        "heuristic_estimate_calls": 13,
+        "heuristic_node_evaluations": 15103,
+        "model_prediction_calls": 0,
+        "obligation_build_visits": 333,
+        "obligation_cap_per_goal": 128,
+        "obligation_depth": 4,
+        "obligation_visits": 333,
+        "selection_elapsed_seconds": 0.23086070799035951,
+        "selection_trace": [
+          {
+            "chosen_id": "cand_01",
+            "portfolio_before": [],
+            "round": 0,
+            "score_tie_key": 1.5,
+            "selected_at_score": 1.5
+          },
+          {
+            "chosen_id": "cand_00",
+            "portfolio_before": [
+              "cand_01"
+            ],
+            "round": 1,
+            "score_tie_key": 0.5,
+            "selected_at_score": 0.5
+          },
+          {
+            "chosen_id": "cand_02",
+            "portfolio_before": [
+              "cand_01",
+              "cand_00"
+            ],
+            "round": 2,
+            "score_tie_key": 0.0,
+            "selected_at_score": 0.0
+          }
+        ]
+      },
+      "syntax_calls": 119,
+      "total_calls": 103998
+    },
+    "after_warm": {
+      "elapsed_seconds": 0.10643183199999999,
+      "primitive_calls": 33465,
+      "selection_cost": {
+        "candidate_feature_calls": 0,
+        "conditional_feature_calls": 0,
+        "graph_cache_capacity": 32,
+        "graph_cache_hits": 1,
+        "graph_cache_misses": 0,
+        "graph_primitive_preprocess_pairs": 0,
+        "heuristic_estimate_calls": 13,
+        "heuristic_node_evaluations": 15103,
+        "model_prediction_calls": 0,
+        "obligation_build_visits": 0,
+        "obligation_cap_per_goal": 128,
+        "obligation_depth": 4,
+        "obligation_visits": 333,
+        "selection_elapsed_seconds": 0.10582620798959397,
+        "selection_trace": [
+          {
+            "chosen_id": "cand_01",
+            "portfolio_before": [],
+            "round": 0,
+            "score_tie_key": 1.5,
+            "selected_at_score": 1.5
+          },
+          {
+            "chosen_id": "cand_00",
+            "portfolio_before": [
+              "cand_01"
+            ],
+            "round": 1,
+            "score_tie_key": 0.5,
+            "selected_at_score": 0.5
+          },
+          {
+            "chosen_id": "cand_02",
+            "portfolio_before": [
+              "cand_01",
+              "cand_00"
+            ],
+            "round": 2,
+            "score_tie_key": 0.0,
+            "selected_at_score": 0.0
+          }
+        ]
+      },
+      "syntax_calls": 44,
+      "total_calls": 61971
+    },
+    "before": {
+      "elapsed_seconds": 0.46671075000000006,
+      "primitive_calls": 112218,
+      "selection_cost": {
+        "candidate_feature_calls": 0,
+        "conditional_feature_calls": 0,
+        "heuristic_estimate_calls": 13,
+        "heuristic_node_evaluations": 15103,
+        "model_prediction_calls": 0,
+        "obligation_cap_per_goal": 128,
+        "obligation_depth": 4,
+        "obligation_visits": 333,
+        "selection_elapsed_seconds": 0.4593013750272803,
+        "selection_trace": [
+          {
+            "chosen_id": "cand_01",
+            "portfolio_before": [],
+            "round": 0,
+            "score_tie_key": 1.5,
+            "selected_at_score": 1.5
+          },
+          {
+            "chosen_id": "cand_00",
+            "portfolio_before": [
+              "cand_01"
+            ],
+            "round": 1,
+            "score_tie_key": 0.5,
+            "selected_at_score": 0.5
+          },
+          {
+            "chosen_id": "cand_02",
+            "portfolio_before": [
+              "cand_01",
+              "cand_00"
+            ],
+            "round": 2,
+            "score_tie_key": 0.0,
+            "selected_at_score": 0.0
+          }
+        ]
+      },
+      "syntax_calls": 6134,
+      "total_calls": 155758
+    }
+  },
+  "scope": "Only hand-declared make_example synthetic fixture, no study contexts or labels",
+  "search_cases_equal": 24
+}

@@ -1,7 +1,7 @@
 name: Tests and Lean verification
 on:
   push:
-    branches: [main]
+    branches: [main, codex/mathlib-discovery-dark-lab]
   pull_request:
 permissions:
   contents: read
@@ -55,7 +55,14 @@ jobs:
           assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
           natural_recorded=json.load(open('artifacts/natural/benchmark.json'))
           natural_fresh=json.load(open('outputs/natural/benchmark.json'))
-          if natural_recorded['outcomes_sha256'] != natural_fresh['outcomes_sha256']:
+          # v0.2 receipts retain their original source fingerprints. The additive
+          # Mathlib bridge changes source version, while the old domain's exact
+          # outcomes, models, proof sources and raw audits must still reproduce.
+          import copy
+          from proofripple.natural_benchmark import _freeze_digest
+          comparable=copy.deepcopy(natural_recorded)
+          comparable['source_sha256']=natural_fresh['source_sha256']
+          if _freeze_digest(comparable) != natural_fresh['outcomes_sha256']:
               def differences(left, right, path=''):
                   if isinstance(left, dict) and isinstance(right, dict):
                       for key in sorted(left.keys() | right.keys()):
@@ -69,6 +76,7 @@ jobs:
               raise AssertionError('Natural benchmark digest differs; see field diagnostics and uploaded evidence')
           assert natural_fresh['formal_verification']['status']=='kernel_verified'
           assert natural_fresh['automation_control']['status']=='kernel_verified'
+          print('Legacy scientific/proof outcomes reproduced under current source; v0.2 provenance preserved.')
           PY
       - run: python -m build
       - uses: actions/upload-artifact@v4
@@ -86,3 +94,53 @@ jobs:
             outputs/natural/automation-audit.json
             outputs/budgeted-automation/
             dist/
+  mathlib:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Lean toolchain
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/leanprover/elan/v4.2.3/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain leanprover/lean4:v4.33.1
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .runtime/mathlib-v4.33.1
+          key: mathlib-lattice-v4331-${{ runner.os }}-${{ runner.arch }}-0df444a360eaa60ab8c11dca51a86af692955474
+      - name: Prepare targeted pinned Mathlib dependency
+        run: python scripts/setup_mathlib.py
+      - run: python -m pip install .
+      - name: Mathlib adapter, search and model tests
+        run: python -m unittest discover -s tests -p 'test_mathlib*.py' -v
+      - run: python -m proofripple demo --domain mathlib --out outputs/mathlib-demo
+      - name: Reproduce full frozen Mathlib experiment
+        run: python -m proofripple benchmark --domain mathlib --out outputs/mathlib --certify --frozen-protocol artifacts/mathlib
+      - name: Compare Mathlib scientific outcomes
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          fresh=json.load(open('outputs/mathlib/benchmark.json'))
+          assert fresh['formal_verification']['status']=='kernel_verified'
+          assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
+          assert fresh['automation_control']['status']=='kernel_verified'
+          recorded=Path('artifacts/mathlib/benchmark.json')
+          if recorded.is_file():
+              expected=json.loads(recorded.read_text())
+              assert expected['outcomes_sha256']==fresh['outcomes_sha256'], (expected['outcomes_sha256'],fresh['outcomes_sha256'])
+          else:
+              assert os.environ['GITHUB_REF']=='refs/heads/codex/mathlib-discovery-dark-lab', 'A recorded result is required on the release branch'
+              print('First prospectively frozen study: no prior result digest; all proof and control gates passed.')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mathlib-experiment-evidence
+          path: |
+            outputs/mathlib-demo/
+            outputs/mathlib/

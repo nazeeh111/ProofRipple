@@ -76,6 +76,13 @@ def _declaration(context, item, known):
 
 def seed_source(context):
     """Canonical supported .lean import/export format with an inert JSON manifest."""
+    if isinstance(context, dict) and context.get("domain") == "mathlib-set-lattice":
+        from .mathlib import build_mathlib_source, validate_context
+        validate_context(context)
+        source, _, _ = build_mathlib_source({"context": context, "candidates": context["candidates"], "selected": [],
+            "goals": [{**goal, "baseline": {"solved": False}, "augmented": {"solved": False}} for goal in context["goals"]]})
+        manifest = json.dumps(context, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+        return "-- ProofRipple supported Mathlib set-lattice context.\n-- proofripple-context: " + manifest + "\n\n" + source
     _validate(context)
     manifest = json.dumps(context, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
     if context.get("domain") == "list-capacity":
@@ -138,7 +145,7 @@ def build_source(context, candidates=(), goals=()):
     return "import Lean\nopen Lean Elab Command\n\n" + body + "\n" + _audit_many(["pr_" + i for i in items])
 
 
-def verify_source(source, expected_names, timeout=60, lean_bin=None, allowed_axioms=()):
+def verify_source(source, expected_names, timeout=60, lean_bin=None, allowed_axioms=(), library_paths=None):
     """Internal verifier of generated source, not a public untrusted-code sandbox.
 
     Success requires process success, every expected audit exactly once, and only
@@ -160,6 +167,9 @@ def verify_source(source, expected_names, timeout=60, lean_bin=None, allowed_axi
     # Force the pinned installed toolchain without changing user's default or credentials.
     env = os.environ.copy()
     env["ELAN_TOOLCHAIN"] = TOOLCHAIN
+    if library_paths is not None:
+        env["LEAN_PATH"] = os.pathsep.join(str(path) for path in library_paths)
+        env.pop("LEAN_SRC_PATH", None)
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="proofripple-lean-") as tmp:
         file = Path(tmp) / "ProofRipple.lean"
@@ -203,6 +213,9 @@ def verify_source(source, expected_names, timeout=60, lean_bin=None, allowed_axi
 
 def certify_run(run, timeout=60):
     """Rebuild proofs from graph witnesses; incoming status/proof fields are ignored."""
+    if run.get("context", {}).get("domain") == "mathlib-set-lattice":
+        from .mathlib import certify_mathlib_run
+        return certify_mathlib_run(run, timeout)
     result = copy.deepcopy(run)
     from .engine import context_hash
     result["seed"] = copy.deepcopy(result["context"]["seed"])
