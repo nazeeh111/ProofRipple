@@ -11,6 +11,8 @@ the wheel. Serve compressed audits and read-only sources, provide browsable
 evidence directories, and restore the existing Scope anchor. CI now checks
 installed documentation/evidence completeness and the import contract.
 
+Requires setuptools 77.0.3+ to match the SPDX license-expression metadata.
+
 The eight frozen scientific modules, v0.3 study/model/data, original failed
 controls and separate repaired-control evidence remain byte-identical.
 

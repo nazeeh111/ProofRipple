@@ -39,3 +39,12 @@ served as plain text. Static requests never execute them.
 The existing README Scope anchor is restored. The v0.3.0 release, its media and
 scientific record remain preserved. Final release-specific CI and public-asset
 verification are linked in the v0.3.1 release notes.
+
+## Source build requirements
+
+The build backend now requires setuptools 77.0.3+, matching the SPDX license-expression
+syntax already used by the project. The previous 68+ minimum included backend
+versions that cannot read that metadata. This follows the official
+[setuptools migration guidance](https://setuptools.pypa.io/en/stable/userguide/license_migration.html).
+The release is built and checked with the minimum backend as well as the normal
+isolated build. Runtime Python dependencies remain empty.
