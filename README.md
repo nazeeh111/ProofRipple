@@ -14,7 +14,7 @@ ProofRipple is a small mathematical discovery engine with a practical research w
 
 <p align="center"><img src="docs/media/v0.3/lab-desktop.png" alt="Dark ProofRipple LAB showing actual Mathlib consequence proofs, candidate selection and held-out experiment evidence" width="1200"></p>
 
-[Watch the actual LAB](docs/media/v0.3/walkthrough.mp4) · [Research report](docs/mathlib-research-report.md) · [Download v0.3](https://github.com/nazeeh111/ProofRipple/releases/tag/v0.3.0)
+[Watch the actual LAB](docs/media/v0.3/walkthrough.mp4) · [Research report](docs/mathlib-research-report.md) · [Download v0.3.1](https://github.com/nazeeh111/ProofRipple/releases/tag/v0.3.1)
 
 ## Open the laboratory
 
@@ -39,6 +39,8 @@ python3 scripts/setup_mathlib.py
 proofripple doctor
 proofripple demo --domain mathlib --out outputs/mathlib-demo
 ```
+
+The wheel includes the recorded evidence and linked proof/driver source for inspection. The installed LAB serves driver source under `/scripts/`; run the setup and reproduction scripts from the source checkout. Fresh verification still requires Lean and Mathlib.
 
 The setup fetches the required lattice/set cache, not a full Mathlib build. [Pinned runtime and offline checks](docs/mathlib-setup.md).
 
@@ -102,6 +104,8 @@ proofripple demo --domain mathlib --method learned --select 3 --out outputs/lear
 ```
 
 The declaration registry currently supports `inf_sup_left` and `List.length_filter_le`. JSON describes validated typed expressions. The Lean importer accepts the canonical exported format and rejects appended executable commands. Arbitrary uploaded Lean modules are not executed. [Mathlib API](docs/mathlib-api.md) · [General CLI/Python API](docs/api.md).
+
+<a id="limitations"></a>
 
 ## Trust and scope
 

@@ -18,6 +18,14 @@ jobs:
           python-version: '${{ matrix.python }}'
       - run: python -m pip install .
       - run: python -m unittest discover -s tests -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Imported-run presentation contract
+        run: node --test tests/lab_contract.test.cjs
+      - name: Installed evidence and documentation links
+        working-directory: /tmp
+        run: python "$GITHUB_WORKSPACE/scripts/check_installed_assets.py"
       - name: Installed CLI and data smoke check
         working-directory: /tmp
         run: |
