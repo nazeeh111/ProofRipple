@@ -6,13 +6,15 @@
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-9ac9b2" alt="MIT license"></a>
 </p>
 
-**Discover consequences. Check their proofs. Measure what they enable.**
+**Trace theorem consequences, inspect their proofs and measure what they enable.**
 
 ProofRipple is a small mathematical discovery engine with a practical research workbench. It imports a supported Lean theorem, derives reusable consequences, checks them in Lean, and tests whether supplying those consequences helps a bounded search solve later goals.
 
-**v0.3 adds Mathlib set algebra and a substantially stronger ranking experiment.** The learned policy does not establish an advantage over dynamic greedy selection. All 1,997 expected declaration audits pass; separate general automation proves all 254 held-out goals after a documented preprocessing fix.
+The recorded v0.3 study evaluates Mathlib set algebra. Its learned policy does not establish an advantage over dynamic greedy selection. The retained evidence contains all 1,997 expected declaration audits; a separate general automation control checks all 254 held-out goals after a documented preprocessing fix.
 
-<p align="center"><img src="docs/media/v0.3/lab-desktop.png" alt="Dark ProofRipple LAB showing actual Mathlib consequence proofs, candidate selection and held-out experiment evidence" width="1200"></p>
+<p align="center"><img src="docs/media/current/lab-1280.png" alt="Actual ProofRipple LAB displaying recorded Mathlib consequences, an AND-premise proof graph and native proof source" width="1200"></p>
+
+[Current capture and verification scope](docs/media/current/README.md). This checkout is **0.3.2.dev0**, an unreleased workbench successor. The original v0.3.1 release and all recorded study artifacts remain unchanged.
 
 [Watch the actual LAB](docs/media/v0.3/walkthrough.mp4) · [Research report](docs/mathlib-research-report.md) · [Download v0.3.1](https://github.com/nazeeh111/ProofRipple/releases/tag/v0.3.1)
 
@@ -29,7 +31,9 @@ python -m pip install .
 proofripple lab
 ```
 
-Open **http://127.0.0.1:8765/lab/**. Choose Mathlib set algebra, trace a consequence, inspect the actual proof tree and assumptions, change ranking or budgets, and export the Lean source. The darker, compact interface puts the graph, proof and candidate choices first. Detailed evidence stays available in expandable panels.
+Open **http://127.0.0.1:8765/lab/**. The first screen displays the recorded Mathlib example. Select a proof step to inspect its full relation and required premises; Tab and Enter operate the graph controls, and ArrowRight scrolls the focused graph. Inspect assumptions, change ranking or budgets, and export the Lean source. Imported runs are explicitly file-reported. To run a fresh example with core Lean alone, choose **Implication calculus**, then **Run exploration**. Fresh Mathlib checks require the separately prepared pinned cache below.
+
+`proofripple lab --port 0` selects an available loopback port and prints its URL. No browser opens automatically. Ctrl-C stops the server. `proofripple --version` identifies the installed delivery.
 
 For fresh formal verification, [install elan](https://github.com/leanprover/elan), then:
 
@@ -89,6 +93,7 @@ python3 scripts/mathlib_automation_control.py \
   --out outputs/repaired-control
 
 python -m unittest discover -s tests -v
+node --test tests/*.test.cjs
 ```
 
 [Full results](docs/mathlib-research-report.md) · [Frozen protocol](artifacts/mathlib/frozen-protocol.json) · [Prospective review](docs/mathlib-protocol-review.md) · [Independent artifact review](docs/independent-review-v0.3.md)
@@ -129,3 +134,11 @@ proofripple demo --domain implications --out outputs/logic
 [Architecture](docs/architecture.md) · [Methodology](docs/methodology.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 MIT licensed. Lean and optional Mathlib are separately installed Apache-2.0 dependencies. [Media provenance](docs/media/README.md) records the launch capture.
+
+### Saved run generations
+
+`demo` and `discover` require a new `--out` directory. Each run writes `run.json`, an optional `ProofRipple.lean`, and `manifest.json` last. A failed or interrupted write can leave an incomplete directory; use a fresh destination to retry. Existing output is never overwritten. A run without Lean source contains no Lean file. `proofripple verify-run OUTPUT` checks the complete member set and byte hashes; these hashes are not a signature and do not prove the theorem. `proofripple verify-run OUTPUT --recheck` explicitly reconstructs the run with the existing Lean certification path; it can return unavailable or failed, and does not run the saved Lean file as a script.
+
+Implication batch certification writes its report, audits, captured inputs and Lean sources as a separate fresh `certification/` generation under the benchmark directory. The original benchmark inputs remain unchanged. The manifest marks a complete generation, not power-loss durability.
+
+Recipient verification reads each regular file once with a no-follow final component and checks at most 50 MB per member and 100 MB in total. Recheck uses the admitted run bytes. Keep the parent directory stable during verification; this is not protection against an attacker replacing parent directories or changing files during the read, and the manifest is not authenticated.

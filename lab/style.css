@@ -279,7 +279,7 @@ footer .text-button { font-size: 9px; }
   .candidates-panel { grid-row: 2; }
   .graph-wrap { overflow-x: auto; overscroll-behavior-x: contain; }
   .graph-wrap svg { min-width: 750px; }
-  .graph-footer:after { content: 'SCROLL TO EXPLORE →'; font: 7px var(--mono); color: var(--faint); white-space: nowrap; }
+  .graph-footer:after { content: none; }
   .summary-strip { gap: 20px; flex-wrap: wrap; padding-top: 6px; }
   .summary-strip .toolchain-summary { margin-left: 0; }
   .graph-legend { font-size: 9px; gap: 18px; }
@@ -390,3 +390,8 @@ footer .text-button { font-size: 9px; }
 .benchmark-profile-row select { min-height: 31px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 3px; background: var(--raised); color: var(--ink); font-size: 10px; }
 .benchmark-profile-row>span { color: var(--faint); font-size: 9px; margin-left: auto; }
 @media(max-width:480px){ .benchmark-profile-row { flex-wrap: wrap; } .benchmark-profile-row>span { width: 100%; margin-left: 0; } }
+
+/* Keep horizontally scrollable proof labels legible at their rendered size. */
+.graph-legend { flex-wrap:wrap; }
+.graph-scroll-tip { flex-basis:100%; color:var(--muted); font-size:11px; line-height:1.5; }
+.graph-footer { flex-wrap:wrap; }

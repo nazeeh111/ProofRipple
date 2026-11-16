@@ -21,8 +21,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Imported-run presentation contract
-        run: node --test tests/lab_contract.test.cjs
+      - name: Run presentation and graph accessibility contracts
+        run: node --test tests/*.test.cjs
       - name: Installed evidence and documentation links
         working-directory: /tmp
         run: python "$GITHUB_WORKSPACE/scripts/check_installed_assets.py"
@@ -57,7 +57,7 @@ jobs:
           python - <<'PY'
           import json
           recorded=json.load(open('artifacts/benchmark.json'))
-          fresh=json.load(open('outputs/benchmark/benchmark.json'))
+          fresh=json.load(open('outputs/benchmark/certification/benchmark.json'))
           assert recorded['outcomes_sha256']==fresh['outcomes_sha256']
           assert fresh['formal_verification']['status']=='kernel_verified'
           assert fresh['formal_verification']['audits_received']==fresh['formal_verification']['declarations']
@@ -96,6 +96,7 @@ jobs:
             outputs/benchmark/benchmark.json
             outputs/benchmark/benchmark-audits.json
             outputs/benchmark/proofs/
+            outputs/benchmark/certification/
             outputs/natural/benchmark.json
             outputs/natural/benchmark-audits.json.gz
             outputs/natural/proofs/
