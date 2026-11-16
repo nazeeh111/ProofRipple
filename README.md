@@ -129,3 +129,11 @@ proofripple demo --domain implications --out outputs/logic
 [Architecture](docs/architecture.md) · [Methodology](docs/methodology.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 MIT licensed. Lean and optional Mathlib are separately installed Apache-2.0 dependencies. [Media provenance](docs/media/README.md) records the launch capture.
+
+### Saved run generations
+
+`demo` and `discover` require a new `--out` directory. Each run writes `run.json`, an optional `ProofRipple.lean`, and `manifest.json` last. A failed or interrupted write can leave an incomplete directory; use a fresh destination to retry. Existing output is never overwritten. A run without Lean source contains no Lean file. `proofripple verify-run OUTPUT` checks the complete member set and byte hashes; these hashes are not a signature and do not prove the theorem. `proofripple verify-run OUTPUT --recheck` explicitly reconstructs the run with the existing Lean certification path; it can return unavailable or failed, and does not run the saved Lean file as a script.
+
+Implication batch certification writes its report, audits, captured inputs and Lean sources as a separate fresh `certification/` generation under the benchmark directory. The original benchmark inputs remain unchanged. The manifest marks a complete generation, not power-loss durability.
+
+Recipient verification reads each regular file once with a no-follow final component and checks at most 50 MB per member and 100 MB in total. Recheck uses the admitted run bytes. Keep the parent directory stable during verification; this is not protection against an attacker replacing parent directories or changing files during the read, and the manifest is not authenticated.

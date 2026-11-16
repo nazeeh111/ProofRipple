@@ -38,8 +38,8 @@
     <div class="research-grid">
       <section class="graph-panel panel" aria-labelledby="graph-heading">
         <div class="panel-heading"><div><span class="small-label">CONSEQUENCE GRAPH</span><h2 id="graph-heading">Implication paths</h2></div><button class="icon-button" id="reset-graph" title="Reset graph selection" aria-label="Reset graph selection">↺</button></div>
-        <div class="graph-legend"><span><i class="legend-line primitive"></i><span id="primitive-legend">Primitive theorem</span></span><span><i class="legend-line seed"></i><span id="seed-legend">Seed</span></span><span><i class="legend-line consequence"></i><span id="selection-legend">Selected / inspected</span></span></div>
-        <div class="graph-wrap" id="graph-wrap"><svg id="graph" role="img" aria-label="Implication graph. Select a node to inspect connected consequences." viewBox="0 0 920 440"></svg><div id="graph-empty" class="graph-empty" hidden>Import a context to explore its graph.</div></div>
+        <div class="graph-legend"><span><i class="legend-line primitive"></i><span id="primitive-legend">Primitive theorem</span></span><span><i class="legend-line seed"></i><span id="seed-legend">Seed</span></span><span><i class="legend-line consequence"></i><span id="selection-legend">Selected / inspected</span></span><span class="graph-scroll-tip">Scroll horizontally to inspect the graph.</span></div>
+        <div class="graph-wrap" id="graph-wrap" tabindex="0" role="region" aria-label="Proof graph. Scroll horizontally to inspect the full diagram."><svg id="graph" role="img" aria-label="Implication graph. Select a node to inspect connected consequences." viewBox="0 0 920 440"></svg><div id="graph-empty" class="graph-empty" hidden>Import a context to explore its graph.</div></div>
         <div id="proof-step-detail" class="proof-step-detail" role="status" hidden></div>
         <div class="graph-footer"><span id="graph-context">Awaiting context.</span><span class="graph-hint">SELECT A NODE TO FILTER</span></div>
       </section>

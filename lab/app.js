@@ -408,7 +408,7 @@ function renderMathlibProofGraph() {
   let root;
   try{root=visit(tree);}catch(error){graph.setAttribute('viewBox','0 0 920 360');graph.append(svg('text',{x:460,y:180,'text-anchor':'middle',class:'proof-placeholder'},error.message));return;}
   const width=Math.max(920,leaves*195+80),height=Math.max(390,maxDepth*125+140);
-  graph.setAttribute('viewBox',`0 0 ${width} ${height}`);graph.style.minWidth=(width<=1050?750:Math.min(width,1700))+'px';
+  graph.setAttribute('viewBox',`0 0 ${width} ${height}`);graph.style.minWidth=Math.max(1080,Math.ceil(width*1.1))+'px';
   graph.setAttribute('aria-label','Actual proof dependency tree. AND joints require all child premises. Select a proof step for its exact relation.');
   steps.forEach(step=>{step.x=leaves>1?95+step.slot*(width-190)/(leaves-1):width/2;step.y=height-70-step.depth*125;});
   const defs=svg('defs');const marker=svg('marker',{id:'proof-arrow',viewBox:'0 0 8 8',refX:7,refY:4,markerWidth:4,markerHeight:4,orient:'auto'});marker.append(svg('path',{d:'M0 0 L8 4 L0 8 Z',fill:'var(--edge)'}));defs.append(marker);graph.append(defs);

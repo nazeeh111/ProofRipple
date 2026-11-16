@@ -85,18 +85,20 @@ def run_context(context, budget=8, select=None, verify=True, method=None):
 
 
 def save_run(run, out):
-    out = Path(out)
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "run.json").write_text(json.dumps(run, indent=2) + "\n")
+    from .publication import _json, publish
+    files = {"run.json": _json(run)}
     if "lean_source" in run:
-        (out / "ProofRipple.lean").write_text(run["lean_source"])
-    return out
+        files["ProofRipple.lean"] = run["lean_source"].encode("utf-8")
+    return publish(out, files, "run")
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="ProofRipple · theorem consequences with auditable Lean evidence")
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
+    verify = commands.add_parser("verify-run", help="Check a completed run generation (digests are not authentication)")
+    verify.add_argument("directory")
+    verify.add_argument("--recheck", action="store_true", help="Rebuild and rerun the existing Lean certification")
     commands.add_parser("doctor", help="Inspect free local runtime requirements")
     demo = commands.add_parser("demo", help="Discover and Lean-check the bundled example")
     demo.add_argument("--domain", choices=("mathlib", "lists", "implications"), default="lists")
@@ -124,7 +126,19 @@ def main(argv=None):
     lab.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
     try:
-        if args.command == "doctor":
+        if args.command == "verify-run":
+            from .publication import admit
+            manifest, run = admit(args.directory)
+            if manifest["kind"] != "run":
+                raise ValueError("Not a run generation")
+            result = {"integrity": "verified", "authentication": "not provided", "lean_rechecked": False}
+            if args.recheck:
+                checked = certify_run(run)
+                result.update(lean_rechecked=True, verification=checked["verification"]["status"])
+            print(json.dumps(result, indent=2))
+            if args.recheck and result["verification"] != "kernel_verified":
+                return 2
+        elif args.command == "doctor":
             from .mathlib_runtime import runtime_info
             print(json.dumps({"version": __version__, "python": sys.version.split()[0], "lean": shutil.which("lean"), "required_toolchain": TOOLCHAIN, "assets": str(data_root()), "mathlib": runtime_info(), "paid_services": False}, indent=2))
         elif args.command in ("demo", "discover", "import-declaration"):
