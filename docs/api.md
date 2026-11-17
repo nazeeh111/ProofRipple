@@ -1,7 +1,8 @@
 # Inputs and Python integration
 
 For the Mathlib set-algebra workflow, use the [Mathlib CLI and Python guide](mathlib-api.md).
-`proofripple.cli.run_context` dispatches across all supported domains. The
+`proofripple.workflow.run_context` dispatches across all supported domains;
+`proofripple.cli.run_context` remains a compatible alias with the same arguments. The
 lower-level `proofripple.engine.discover` below is the original graph adapter;
 Mathlib uses `proofripple.mathlib_search.discover` and explicit proof trees.
 
