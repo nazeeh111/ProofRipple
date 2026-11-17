@@ -1,0 +1,106 @@
+{
+  "source": "selected/run.json",
+  "control": "negative/run.json",
+  "selected": "ripple_p4_p11",
+  "selected_path": [
+    "breakthrough",
+    "h6",
+    "h7",
+    "h8",
+    "h9",
+    "h10"
+  ],
+  "rows": [
+    {
+      "id": "goal0",
+      "source": "p0",
+      "target": "p11",
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 5,
+        "path": [
+          "h0",
+          "h1",
+          "h2",
+          "h3",
+          "ripple_p4_p11"
+        ]
+      }
+    },
+    {
+      "id": "goal1",
+      "source": "p1",
+      "target": "p11",
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 4,
+        "path": [
+          "h1",
+          "h2",
+          "h3",
+          "ripple_p4_p11"
+        ]
+      }
+    },
+    {
+      "id": "goal2",
+      "source": "p2",
+      "target": "p11",
+      "baseline": {
+        "solved": false,
+        "expansions": 8,
+        "path": []
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 3,
+        "path": [
+          "h2",
+          "h3",
+          "ripple_p4_p11"
+        ]
+      }
+    },
+    {
+      "id": "goal3",
+      "source": "p3",
+      "target": "p11",
+      "baseline": {
+        "solved": true,
+        "expansions": 8,
+        "path": [
+          "h3",
+          "breakthrough",
+          "h6",
+          "h7",
+          "h8",
+          "h9",
+          "h10"
+        ]
+      },
+      "augmented": {
+        "solved": true,
+        "expansions": 2,
+        "path": [
+          "h3",
+          "ripple_p4_p11"
+        ]
+      }
+    }
+  ],
+  "scale": "discrete proposition order; vertical layout is not a measured distance",
+  "files": {
+    "consequence.svg": "6f9da12935828646a12ba0bda569a72cd5dc6a3a752781e4a59460aac25e7927",
+    "consequence-phone.svg": "ce3f5168d5bad98a388665904322858bf1b652e135a981a19f67a50aceb335f8"
+  }
+}

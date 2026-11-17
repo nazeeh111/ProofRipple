@@ -6,17 +6,37 @@
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-9ac9b2" alt="MIT license"></a>
 </p>
 
-**Trace theorem consequences, inspect their proofs and measure what they enable.**
+**A checked theorem is only the beginning. Follow what it enables.**
 
-ProofRipple is a small mathematical discovery engine with a practical research workbench. It imports a supported Lean theorem, derives reusable consequences, checks them in Lean, and tests whether supplying those consequences helps a bounded search solve later goals.
+ProofRipple derives consequences of supported Lean theorems, checks their proof terms, then measures whether reusing them helps a bounded search. The LAB makes the exact statements, premises, dependencies and saved evidence inspectable.
 
-The recorded v0.3 study evaluates Mathlib set algebra. Its learned policy does not establish an advantage over dynamic greedy selection. The retained evidence contains all 1,997 expected declaration audits; a separate general automation control checks all 254 held-out goals after a documented preprocessing fix.
+<picture><source media="(max-width: 600px)" srcset="docs/presentation/consequence-phone.svg"><img src="docs/presentation/consequence.svg" alt="Explicit implication assumptions yield a checked p4 to p11 consequence. Adding it changes this saved eight-expansion example from one to four solved goals; a longer chain still solves none." width="1120"></picture>
 
-<p align="center"><img src="docs/media/current/lab-1280.png" alt="Actual ProofRipple LAB displaying recorded Mathlib consequences, an AND-premise proof graph and native proof source" width="1200"></p>
+This core-Lean illustration uses arbitrary propositions and explicit implication hypotheses. Its 1/4 → 4/4 result is a selected case, **not a new mathematical result or general performance claim**. A longer retained case remains 0/4. Bounded failure is not a counterexample. [Exact types, raw runs and portable case](docs/presentation/README.md).
 
-[Current capture and verification scope](docs/media/current/README.md). This checkout is **0.3.2.dev0**, an unreleased workbench successor. The original v0.3.1 release and all recorded study artifacts remain unchanged.
+## Try one small, fresh proof
 
-[Watch the actual LAB](docs/media/v0.3/walkthrough.mp4) · [Research report](docs/mathlib-research-report.md) · [Download v0.3.1](https://github.com/nazeeh111/ProofRipple/releases/tag/v0.3.1)
+Python 3.10+, no runtime Python packages or keys. Install this checkout with `python -m pip install .`. Recorded LAB evidence opens without Lean; fresh core checks need the pinned **Lean 4.33.1** on PATH, without Mathlib.
+
+```sh
+proofripple lab --port 0
+# Open the printed loopback URL. No browser opens automatically.
+```
+
+Choose **Implication calculus**, **Graph heuristic**, one selected consequence and eight search expansions. Run exploration, inspect a candidate's proof and assumptions, then change the budget to five and run again. Export run JSON or Lean. A fresh page can import the JSON, explicitly marked file-reported until rechecked. [Actual edited workspace](docs/presentation/lab-desktop.png) · [Phone capture](docs/presentation/lab-phone.png).
+
+```sh
+proofripple discover examples/invariants.json --method graph --select 1 --budget 8 --out outputs/logic-fresh
+proofripple verify-run outputs/logic-fresh --recheck
+```
+
+Use a new output directory each time. [Portable example and offline reader](docs/presentation/proofripple-case.zip) · [Reopen and trust boundaries](docs/presentation/README.md#reopen-the-portable-case).
+
+## Recorded Mathlib context
+
+This checkout is **0.3.2.dev0**, an unreleased workbench successor. The original v0.3.1 release and all recorded study artifacts remain unchanged. The recorded v0.3 study evaluates Mathlib set algebra. Its learned policy does not establish an advantage over dynamic greedy selection. The retained evidence contains all 1,997 expected declaration audits; a separate general automation control checks all 254 held-out goals after a documented preprocessing fix.
+
+[Recorded Mathlib workspace and verification scope](docs/media/current/README.md) · [Watch the actual LAB](docs/media/v0.3/walkthrough.mp4) · [Research report](docs/mathlib-research-report.md) · [Download v0.3.1](https://github.com/nazeeh111/ProofRipple/releases/tag/v0.3.1).
 
 ## Open the laboratory
 
