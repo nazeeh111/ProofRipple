@@ -17,7 +17,7 @@ class InputContractTests(unittest.TestCase):
             folder = base / "artifacts/natural"
             folder.mkdir(parents=True)
             (folder / "contexts.json").write_text(json.dumps(contexts))
-            with patch("proofripple.cli.data_root", return_value=base):
+            with patch("proofripple.workflow.data_root", return_value=base):
                 recovered = load_model("list-capacity")
         # Python 3.12 improved floating-point sum accuracy. Re-fitting on 3.10
         # can differ in the last few bits without changing the model's behavior.

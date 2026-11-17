@@ -83,7 +83,7 @@ def create_server(root, port=8765):
                 payload = json.loads(self.rfile.read(size))
                 if not isinstance(payload, dict):
                     raise ValueError("Request must be a JSON object")
-                from .cli import run_context
+                from .workflow import run_context
                 if self.path == "/api/import-declaration":
                     if payload.get("name") == "inf_sup_left":
                         from .mathlib_benchmark import make_example
