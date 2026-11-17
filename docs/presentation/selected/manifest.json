@@ -1,0 +1,14 @@
+{
+  "schema": "proofripple-generation-v1",
+  "kind": "run",
+  "files": {
+    "ProofRipple.lean": {
+      "sha256": "ee4c254bfcc61c042f46ab578e31faff04854caecfac00a4195696fb1d95f0f6",
+      "bytes": 14684
+    },
+    "run.json": {
+      "sha256": "66a7c6a433e889a79e822a4a81a1f65b9c7c4a59c42d2c7e6b1f0251abcb394e",
+      "bytes": 95089
+    }
+  }
+}

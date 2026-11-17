@@ -1,2 +1,5 @@
-# Recorded proof-environment bytes are immutable; this final empty line is hashed.
-artifacts/budgeted-automation/base.lean whitespace=-blank-at-eof
+* text=auto eol=lf
+*.png -text -eol
+*.zip -text -eol
+*.mp4 -text -eol
+*.gz -text -eol
